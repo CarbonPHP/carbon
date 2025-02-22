@@ -32,7 +32,7 @@ trait Timestamp
     ): static {
         $date = static::createFromTimestampUTC($timestamp);
 
-        return $timezone === null ? $date : $date->setTimezone($timezone);
+        return $timezone === null ? $date->setTimezone(date_default_timezone_get()) : $date->setTimezone($timezone);
     }
 
     /**

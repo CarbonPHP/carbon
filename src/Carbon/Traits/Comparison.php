@@ -491,6 +491,21 @@ trait Comparison
     }
 
     /**
+     * Determines if the instance is now.
+     *
+     * @example
+     * ```
+     * Carbon::now()->isNow(); // true
+     * Carbon::now()->subHours(1)->isNow(); // false
+     * Carbon::now()->addHours(1)->isNow(); // false
+     * ```
+     */
+    public function isNow(): bool
+    {
+        return $this->equalTo($this->nowWithSameTz());
+    }
+
+    /**
      * Determines if the instance is a leap year.
      *
      * @example

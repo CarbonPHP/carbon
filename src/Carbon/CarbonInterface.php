@@ -2890,6 +2890,18 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public static function isMutable(): bool;
 
     /**
+     * Determines if the instance is now.
+     *
+     * @example
+     * ```
+     * Carbon::now()->isNow(); // true
+     * Carbon::now()->subHours(1)->isNow(); // false
+     * Carbon::now()->addHours(1)->isNow(); // false
+     * ```
+     */
+    public function isNow(): bool;
+
+    /**
      * Determines if the instance is now or in the future, ie. greater (after) than or equal to now.
      *
      * @example

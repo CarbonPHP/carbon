@@ -87,7 +87,6 @@ trait Serialization
      * @throws InvalidFormatException
      *
      * @return static
-     *
      */
     public static function fromSerialized($value, array $options = []): static
     {

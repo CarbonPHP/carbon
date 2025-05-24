@@ -3156,7 +3156,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         }
 
         $microseconds = $interval->f;
-        $instance = new $className(static::getDateIntervalSpec($interval, false, $skip));
+        $instance = self::buildInstance($interval, $className, $skip);
 
         if ($instance instanceof self) {
             $instance->originalInput = $interval;
@@ -3173,6 +3173,83 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         self::copyNegativeUnits($interval, $instance);
 
         return self::withOriginal($instance, $interval);
+    }
+
+    /**
+     * @template T of DateInterval
+     *
+     * @param DateInterval $interval
+     *
+     * @psalm-param class-string<T> $className
+     *
+     * @return T
+     */
+    private static function buildInstance(
+        DateInterval $interval,
+        string $className,
+        array $skip = [],
+    ): object {
+        $serialization = self::buildSerializationString($interval, $className, $skip);
+
+        return match ($serialization) {
+            null => new $className(static::getDateIntervalSpec($interval, false, $skip)),
+            default => unserialize($serialization),
+        };
+    }
+
+    /**
+     * As demonstrated by rlanvin (https://github.com/rlanvin) in
+     * https://github.com/briannesbitt/Carbon/issues/3018#issuecomment-2888538438
+     *
+     * Modifying the output of serialize() to change the class name and unserializing
+     * the tweaked string allows creating new interval instances where the ->days
+     * property can be set. It's not possible neither with `new` nto with `__set_state`.
+     *
+     * It has a non-negligible performance cost, so we'll use this method only if
+     * $interval->days !== false.
+     */
+    private static function buildSerializationString(
+        DateInterval $interval,
+        string $className,
+        array $skip = [],
+    ): ?string {
+        if ($interval->days === false || $skip !== []) {
+            return null;
+        }
+
+        // De-enhance CarbonInterval objects to be serializable back to DateInterval
+        if ($interval instanceof self && !is_a($className, self::class, true)) {
+            $interval = clone $interval;
+            unset($interval->timezoneSetting);
+            unset($interval->originalInput);
+            unset($interval->startDate);
+            unset($interval->endDate);
+            unset($interval->rawInterval);
+            unset($interval->absolute);
+            unset($interval->initialValues);
+            unset($interval->clock);
+            unset($interval->step);
+            unset($interval->localMonthsOverflow);
+            unset($interval->localYearsOverflow);
+            unset($interval->localStrictModeEnabled);
+            unset($interval->localHumanDiffOptions);
+            unset($interval->localToStringFormat);
+            unset($interval->localSerializer);
+            unset($interval->localMacros);
+            unset($interval->localGenericMacros);
+            unset($interval->localFormatFunction);
+            unset($interval->localTranslator);
+        }
+
+        $serialization = serialize($interval);
+        $inputClass = $interval::class;
+        $expectedStart = 'O:' . \strlen($inputClass) . ':"' . $inputClass . '":';
+
+        if (!str_starts_with($serialization, $expectedStart)) {
+            return null;
+        }
+
+        return 'O:' . \strlen($className) . ':"' . $className . '":' . substr($serialization, \strlen($expectedStart));
     }
 
     private static function copyStep(self $from, self $to): void

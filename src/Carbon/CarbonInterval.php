@@ -3243,13 +3243,13 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
         $serialization = serialize($interval);
         $inputClass = $interval::class;
-        $expectedStart = 'O:' . \strlen($inputClass) . ':"' . $inputClass . '":';
+        $expectedStart = 'O:'.\strlen($inputClass).':"'.$inputClass.'":';
 
         if (!str_starts_with($serialization, $expectedStart)) {
             return null;
         }
 
-        return 'O:' . \strlen($className) . ':"' . $className . '":' . substr($serialization, \strlen($expectedStart));
+        return 'O:'.\strlen($className).':"'.$className.'":'.substr($serialization, \strlen($expectedStart));
     }
 
     private static function copyStep(self $from, self $to): void

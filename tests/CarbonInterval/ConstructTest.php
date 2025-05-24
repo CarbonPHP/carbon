@@ -310,8 +310,40 @@ class ConstructTest extends AbstractTestCase
 
     public function testInstanceWithDays()
     {
-        $ci = CarbonInterval::instance(Carbon::now()->diff(Carbon::now()->addWeeks(3)));
+        $diff = Carbon::now()->diffAsDateInterval(Carbon::now()->addWeeks(3));
+        $ci = CarbonInterval::instance($diff);
         $this->assertCarbonInterval($ci, 0, 0, 21, 0, 0, 0);
+        $this->assertSame(21, $ci->days);
+        $this->assertSame(21, $ci->toDateInterval()->days);
+        $ci2 = CarbonInterval::instance($ci->toDateInterval());
+        $this->assertCarbonInterval($ci2, 0, 0, 21, 0, 0, 0);
+        $this->assertSame(21, $ci2->days);
+        $this->assertSame(21, $ci2->toDateInterval()->days);
+        $ci3 = unserialize(serialize($ci2));
+        $this->assertCarbonInterval($ci3, 0, 0, 21, 0, 0, 0);
+        $this->assertSame(21, $ci3->days);
+        $this->assertSame(21, $ci3->toDateInterval()->days);
+
+        $ci = Carbon::now()->diffAsCarbonInterval(Carbon::now()->addWeeks(3));
+        $this->assertCarbonInterval($ci, 0, 0, 21, 0, 0, 0);
+        $this->assertSame(21, $ci->days);
+        $this->assertSame(21, $ci->toDateInterval()->days);
+    }
+
+    public function testInstanceWithoutDays()
+    {
+        $ci = CarbonInterval::fromString('1 day 3 hours');
+        $this->assertCarbonInterval($ci, 0, 0, 1, 3, 0, 0);
+        $this->assertFalse($ci->days);
+        $this->assertFalse($ci->toDateInterval()->days);
+        $ci2 = CarbonInterval::instance($ci->toDateInterval());
+        $this->assertCarbonInterval($ci2, 0, 0, 1, 3, 0, 0);
+        $this->assertFalse($ci2->days);
+        $this->assertFalse($ci2->toDateInterval()->days);
+        $ci3 = unserialize(serialize($ci2));
+        $this->assertCarbonInterval($ci3, 0, 0, 1, 3, 0, 0);
+        $this->assertFalse($ci3->days);
+        $this->assertFalse($ci3->toDateInterval()->days);
     }
 
     public function testCopy()

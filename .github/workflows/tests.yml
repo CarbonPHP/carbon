@@ -104,14 +104,11 @@ jobs:
           PHP_VERSION: ${{ matrix.php }}
 
       - name: Code Climate Test Reporter
+        uses: qltysh/qlty-action/coverage@v1
         if: matrix.coverage
-        uses: aktions/codeclimate-test-reporter@v1
         with:
-          codeclimate-test-reporter-id: ${{ secrets.CC_TEST_REPORTER_ID }}
-          command: after-build -t clover
-        env:
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-        continue-on-error: true
+          token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+          files: clover.xml
 
       - name: Coverage
         if: matrix.coverage

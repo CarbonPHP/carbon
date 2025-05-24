@@ -214,21 +214,21 @@ class SettersTest extends AbstractTestCase
     public function testInvalidFluentSetter()
     {
         $this->expectExceptionObject(new BadMethodCallException(
-            'Unknown fluent setter \'doesNotExit\'',
+            'Unknown fluent setter \'doesNotExist\'',
         ));
 
         /** @var mixed $ci */
         $ci = new CarbonInterval();
-        $ci->doesNotExit(123);
+        $ci->doesNotExist(123);
     }
 
     public function testInvalidStaticFluentSetter()
     {
         $this->expectExceptionObject(new BadMethodCallException(
-            'Unknown fluent constructor \'doesNotExit\'',
+            'Unknown fluent constructor \'doesNotExist\'',
         ));
 
-        CarbonInterval::doesNotExit(123);
+        CarbonInterval::doesNotExist(123);
     }
 
     public function testLocale()

@@ -414,10 +414,8 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
 
         $instance = static::createFromArray($params);
 
-        if ($options !== null) {
-            $instance->options = $options;
-            $instance->handleChangedParameters();
-        }
+        $instance->options = ($instance instanceof CarbonPeriodImmutable ? static::IMMUTABLE : 0) | $options;
+        $instance->handleChangedParameters();
 
         return $instance;
     }

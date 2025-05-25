@@ -3106,13 +3106,20 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         $this->i = (int) ($properties['i'] ?? 0);
         $this->s = (int) ($properties['s'] ?? 0);
         $this->f = (float) ($properties['f'] ?? 0.0);
+        // @phpstan-ignore-next-line
         $this->weekday = (int) ($properties['weekday'] ?? 0);
+        // @phpstan-ignore-next-line
         $this->weekday_behavior = (int) ($properties['weekday_behavior'] ?? 0);
+        // @phpstan-ignore-next-line
         $this->first_last_day_of = (int) ($properties['first_last_day_of'] ?? 0);
         $this->invert = (int) ($properties['invert'] ?? 0);
+        // @phpstan-ignore-next-line
         $this->special_type = (int) ($properties['special_type'] ?? 0);
+        // @phpstan-ignore-next-line
         $this->special_amount = (int) ($properties['special_amount'] ?? 0);
+        // @phpstan-ignore-next-line
         $this->have_weekday_relative = (int) ($properties['have_weekday_relative'] ?? 0);
+        // @phpstan-ignore-next-line
         $this->have_special_relative = (int) ($properties['have_special_relative'] ?? 0);
         $this->localStrictModeEnabled = $properties['localStrictModeEnabled'] ?? $localStrictMode;
         parent::__construct(self::getDateIntervalSpec($this));

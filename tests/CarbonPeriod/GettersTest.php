@@ -17,7 +17,6 @@ use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
-use Carbon\CarbonPeriodImmutable;
 use Carbon\Exceptions\UnknownGetterException;
 use Carbon\Exceptions\UnreachableException;
 use DateTime;

@@ -93,13 +93,13 @@ jobs:
 
       - name: Run test suite
         if: matrix.coverage != true
-        run: php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit --exclude-testsuite=localization --default-time-limit=1 --display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warnings
+        run: php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit --exclude-testsuite=localization --default-time-limit=2 --enforce-time-limit --display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warnings
         env:
           PHP_VERSION: ${{ matrix.php }}
 
       - name: Run test suite with coverage
         if: matrix.coverage
-        run: php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit --default-time-limit=3 --coverage-clover=clover.xml --coverage-text
+        run: php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit --default-time-limit=3 --enforce-time-limit --coverage-clover=clover.xml --coverage-text
         env:
           PHP_VERSION: ${{ matrix.php }}
 

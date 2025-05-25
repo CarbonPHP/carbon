@@ -18,7 +18,6 @@ use Carbon\CarbonPeriod;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\AbstractTestCase;
 
-/** @group s */
 class SerializationTest extends AbstractTestCase
 {
     public function testSerializationFromV2(): void

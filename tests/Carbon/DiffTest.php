@@ -32,9 +32,11 @@ class DiffTest extends AbstractTestCase
         parent::wrapWithTestNow($func, $dt ?: Carbon::createMidnightDate(2012, 1, 1));
     }
 
+    /** @group i */
     public function testDiffAsCarbonInterval()
     {
         $dt = Carbon::createFromDate(2000, 1, 1);
+        $ci = $dt->diff($dt->copy()->addYear());
         $this->assertCarbonInterval($dt->diff($dt->copy()->addYear()), 1, 0, 0, 0, 0, 0);
         $this->assertTrue($dt->diff($dt)->isEmpty());
     }

@@ -93,7 +93,7 @@ jobs:
 
       - name: Run test suite
         if: matrix.coverage != true
-        run: php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit --exclude-testsuite=localization --default-time-limit=2 ${{ matrix.os == 'ubuntu' && '--enforce-time-limit' || '' }} --display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warnings
+        run: php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit --exclude-testsuite=localization --default-time-limit=${{ matrix.php >= 8.2 && '2' || '4' }} ${{ matrix.os == 'ubuntu' && '--enforce-time-limit' || '' }} --display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warnings
         env:
           PHP_VERSION: ${{ matrix.php }}
 

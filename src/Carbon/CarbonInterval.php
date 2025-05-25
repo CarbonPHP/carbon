@@ -3247,7 +3247,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         string $className,
         array $skip = [],
     ): ?string {
-        if ($interval->days === false || $skip !== []) {
+        if ($interval->days === false || PHP_VERSION_ID < 8_02_00 || $skip !== []) {
             return null;
         }
 

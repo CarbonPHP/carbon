@@ -27,6 +27,9 @@
     <testsuite name="timezone">
       <directory>tests/CarbonTimeZone</directory>
     </testsuite>
+    <testsuite name="localization">
+      <directory>tests/Localization</directory>
+    </testsuite>
     <testsuite name="laravel">
       <directory>tests/Laravel</directory>
     </testsuite>
@@ -53,7 +56,7 @@
     </testsuite>
   </testsuites>
   <php>
-    <ini name="max_execution_time" value="1800" />
+    <ini name="max_execution_time" value="900" />
   </php>
   <source>
     <include>

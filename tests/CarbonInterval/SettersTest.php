@@ -78,6 +78,22 @@ class SettersTest extends AbstractTestCase
 
         $this->assertSame('4 weeks 23 hours 15 minutes', $diff->forHumans());
         $this->assertSame(PHP_VERSION_ID < 8_02_00 ? false : 28, $diff->days);
+        $this->assertSame(28, $diff->dayz);
+        $this->assertSame(28, $diff->d);
+
+        // Setting days to false has no effect
+        $diff->days(false);
+
+        $this->assertSame(PHP_VERSION_ID < 8_02_00 ? false : 28, $diff->days);
+        $this->assertSame(28, $diff->dayz);
+        $this->assertSame(28, $diff->d);
+
+        // Setting days to integer affects days and d, but not "days" (bolt-on by parent DateInterval class)
+        $diff->days(14);
+
+        $this->assertSame(PHP_VERSION_ID < 8_02_00 ? false : 28, $diff->days);
+        $this->assertSame(14, $diff->dayz);
+        $this->assertSame(14, $diff->d);
     }
 
     public function testHoursSetter()

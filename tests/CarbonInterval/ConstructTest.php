@@ -570,24 +570,40 @@ class ConstructTest extends AbstractTestCase
             return;
         }
 
-        $expectedProperties = (array) $expected;
-        unset($expectedProperties['days']);
-        $actualProperties = (array) $actual;
-        unset($actualProperties['days']);
+        $expectedProperties = $this->fetchProperties($expected);
+        $actualProperties = $this->fetchProperties($actual);
+
+        if (PHP_VERSION < 8.2) {
+            unset($expectedProperties['days']);
+            unset($actualProperties['days']);
+        }
 
         if (
-            isset($expectedProperties["\0*\0rawInterval"], $actualProperties["\0*\0rawInterval"])
-            && $expectedProperties["\0*\0rawInterval"]->f !== $actualProperties["\0*\0rawInterval"]->f
+            isset($expectedProperties['rawInterval'], $actualProperties['rawInterval'])
+            && $expectedProperties['rawInterval']->f !== $actualProperties['rawInterval']->f
             && $microsecondApproximation > 0
-            && $actualProperties["\0*\0rawInterval"]->f >= $expectedProperties["\0*\0rawInterval"]->f - $microsecondApproximation
-            && $actualProperties["\0*\0rawInterval"]->f <= $expectedProperties["\0*\0rawInterval"]->f + $microsecondApproximation
+            && $actualProperties['rawInterval']->f >= $expectedProperties['rawInterval']->f - $microsecondApproximation
+            && $actualProperties['rawInterval']->f <= $expectedProperties['rawInterval']->f + $microsecondApproximation
         ) {
-            unset($expectedProperties["\0*\0rawInterval"]);
-            unset($expectedProperties["\0*\0originalInput"]);
-            unset($actualProperties["\0*\0rawInterval"]);
-            unset($actualProperties["\0*\0originalInput"]);
+            unset($expectedProperties['rawInterval']);
+            unset($expectedProperties['originalInput']);
+            unset($actualProperties['rawInterval']);
+            unset($actualProperties['originalInput']);
         }
 
         $this->assertEquals($expectedProperties, $actualProperties);
+    }
+
+    private function fetchProperties(object $object): array
+    {
+        $properties = (array) $object;
+
+        return array_combine(
+            array_map(
+                static fn (string $property): string => preg_replace('/^\0\*\0/', '', $property),
+                array_keys($properties),
+            ),
+            $properties,
+        );
     }
 }

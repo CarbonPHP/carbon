@@ -3121,8 +3121,17 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         $this->have_weekday_relative = (int) ($properties['have_weekday_relative'] ?? 0);
         // @phpstan-ignore-next-line
         $this->have_special_relative = (int) ($properties['have_special_relative'] ?? 0);
-        $this->localStrictModeEnabled = $properties['localStrictModeEnabled'] ?? $localStrictMode;
         parent::__construct(self::getDateIntervalSpec($this));
+
+        foreach ($properties as $property => $value) {
+            if ($property === 'localStrictModeEnabled') {
+                continue;
+            }
+
+            $this->$property = $value;
+        }
+
+        $this->localStrictModeEnabled = $properties['localStrictModeEnabled'] ?? $localStrictMode;
         // @codeCoverageIgnoreEnd
     }
 
@@ -3271,7 +3280,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         $expectedStart = 'O:'.\strlen($inputClass).':"'.$inputClass.'":';
 
         if (!str_starts_with($serialization, $expectedStart)) {
-            return null;
+            return null; // @codeCoverageIgnore
         }
 
         return 'O:'.\strlen($className).':"'.$className.'":'.substr($serialization, \strlen($expectedStart));
@@ -3510,7 +3519,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
             return;
         }
 
-        /* @codeCoverageIgnoreStart */
+        // @codeCoverageIgnoreStart
         if (PHP_VERSION_ID !== 8_03_20) {
             $instance->$unit += $value;
 
@@ -3519,7 +3528,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
         // Cannot use +=, nor set to a negative value directly as it segfaults in PHP 8.3.20
         self::setIntervalUnit($instance, $unit, ($instance->$unit ?? 0) + $value);
-        /* @codeCoverageIgnoreEnd */
+        // @codeCoverageIgnoreEnd
     }
 
     /** @codeCoverageIgnore */

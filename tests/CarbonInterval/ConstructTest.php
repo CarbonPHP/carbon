@@ -310,24 +310,25 @@ class ConstructTest extends AbstractTestCase
 
     public function testInstanceWithDays()
     {
+        $expectedDiff = PHP_VERSION_ID < 8_02_00 ? false : 21;
         $diff = Carbon::now()->diffAsDateInterval(Carbon::now()->addWeeks(3));
         $ci = CarbonInterval::instance($diff);
         $this->assertCarbonInterval($ci, 0, 0, 21, 0, 0, 0);
-        $this->assertSame(21, $ci->days);
-        $this->assertSame(21, $ci->toDateInterval()->days);
+        $this->assertSame($expectedDiff, $ci->days);
+        $this->assertSame($expectedDiff, $ci->toDateInterval()->days);
         $ci2 = CarbonInterval::instance($ci->toDateInterval());
         $this->assertCarbonInterval($ci2, 0, 0, 21, 0, 0, 0);
-        $this->assertSame(21, $ci2->days);
-        $this->assertSame(21, $ci2->toDateInterval()->days);
+        $this->assertSame($expectedDiff, $ci2->days);
+        $this->assertSame($expectedDiff, $ci2->toDateInterval()->days);
         $ci3 = unserialize(serialize($ci2));
         $this->assertCarbonInterval($ci3, 0, 0, 21, 0, 0, 0);
-        $this->assertSame(21, $ci3->days);
-        $this->assertSame(21, $ci3->toDateInterval()->days);
+        $this->assertSame($expectedDiff, $ci3->days);
+        $this->assertSame($expectedDiff, $ci3->toDateInterval()->days);
 
         $ci = Carbon::now()->diffAsCarbonInterval(Carbon::now()->addWeeks(3));
         $this->assertCarbonInterval($ci, 0, 0, 21, 0, 0, 0);
-        $this->assertSame(21, $ci->days);
-        $this->assertSame(21, $ci->toDateInterval()->days);
+        $this->assertSame($expectedDiff, $ci->days);
+        $this->assertSame($expectedDiff, $ci->toDateInterval()->days);
     }
 
     public function testInstanceWithoutDays()

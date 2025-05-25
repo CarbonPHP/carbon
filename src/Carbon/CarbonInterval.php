@@ -3088,16 +3088,34 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
 
         // PHP <= 8.1
         // @codeCoverageIgnoreStart
-        foreach ($properties as $property => $value) {
-            $name = preg_replace('/^\0.+\0/', '', $property);
-            $localStrictMode = $this->localStrictModeEnabled;
-            $this->localStrictModeEnabled = false;
-            $this->$name = $value;
-
-            if ($name !== 'localStrictModeEnabled') {
-                $this->localStrictModeEnabled = $localStrictMode;
-            }
-        }
+        $properties = array_combine(
+            array_map(
+                static fn (string $property) => preg_replace('/^\0.+\0/', '', $property),
+                array_keys($data),
+            ),
+            $data,
+        );
+        $localStrictMode = $this->localStrictModeEnabled;
+        $this->localStrictModeEnabled = false;
+        $days = $properties['days'] ?? false;
+        $this->days = $days === false ? false : (int) $days;
+        $this->y = (int) ($properties['y'] ?? 0);
+        $this->m = (int) ($properties['m'] ?? 0);
+        $this->d = (int) ($properties['d'] ?? 0);
+        $this->h = (int) ($properties['h'] ?? 0);
+        $this->i = (int) ($properties['i'] ?? 0);
+        $this->s = (int) ($properties['s'] ?? 0);
+        $this->f = (float) ($properties['f'] ?? 0.0);
+        $this->weekday = (int) ($properties['weekday'] ?? 0);
+        $this->weekday_behavior = (int) ($properties['weekday_behavior'] ?? 0);
+        $this->first_last_day_of = (int) ($properties['first_last_day_of'] ?? 0);
+        $this->invert = (int) ($properties['invert'] ?? 0);
+        $this->special_type = (int) ($properties['special_type'] ?? 0);
+        $this->special_amount = (int) ($properties['special_amount'] ?? 0);
+        $this->have_weekday_relative = (int) ($properties['have_weekday_relative'] ?? 0);
+        $this->have_special_relative = (int) ($properties['have_special_relative'] ?? 0);
+        $this->localStrictModeEnabled = $properties['localStrictModeEnabled'] ?? $localStrictMode;
+        parent::__construct(self::getDateIntervalSpec($this));
         // @codeCoverageIgnoreEnd
     }
 
@@ -3213,7 +3231,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         string $className,
         array $skip = [],
     ): ?string {
-        if ($interval->days === false || PHP_VERSION_ID < 8_02_00 || $skip !== []) {
+        if ($interval->days === false || $skip !== []) {
             return null;
         }
 

@@ -77,7 +77,7 @@ class SettersTest extends AbstractTestCase
         $diff = (new Carbon('2024-07-15 00:00'))->diff('2024-08-12 23:15');
 
         $this->assertSame('4 weeks 23 hours 15 minutes', $diff->forHumans());
-        $this->assertSame(28, $diff->days);
+        $this->assertSame(PHP_VERSION_ID < 8_02_00 ? false : 28, $diff->days);
     }
 
     public function testHoursSetter()

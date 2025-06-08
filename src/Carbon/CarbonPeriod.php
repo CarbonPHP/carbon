@@ -694,20 +694,6 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             }
         }
 
-        if ($raw === null && isset($sortedArguments['start'])) {
-            $end = $sortedArguments['end'] ?? max(1, $sortedArguments['recurrences'] ?? 1);
-
-            if (\is_float($end)) {
-                $end = $end === INF ? PHP_INT_MAX : (int) round($end);
-            }
-
-            $raw = [
-                $sortedArguments['start'],
-                $sortedArguments['interval'] ?? CarbonInterval::day(),
-                $end,
-            ];
-        }
-
         $this->setFromAssociativeArray($sortedArguments);
 
         if ($this->startDate === null) {
@@ -2408,7 +2394,7 @@ class CarbonPeriod extends DatePeriodBase implements Countable, JsonSerializable
             return true;
         }
 
-        if ($this->dateInterval->invert ? $current > $this->endDate : $current < $this->endDate) {
+        if ($this->dateInterval->invert ? ($current > $this->endDate) : ($current < $this->endDate)) {
             return true;
         }
 

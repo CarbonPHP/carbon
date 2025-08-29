@@ -19,7 +19,7 @@ use ReflectionException;
 use ReflectionFunction;
 use Symfony\Component\Translation;
 use Symfony\Component\Translation\Formatter\MessageFormatterInterface;
-use Symfony\Component\Translation\Loader\ArrayLoader;
+use Symfony\Component\Translation\Loader\PhpFileLoader;
 
 abstract class AbstractTranslator extends Translation\Translator
 {
@@ -33,7 +33,7 @@ abstract class AbstractTranslator extends Translation\Translator
     protected static array $singletons = [];
 
     /**
-     * List of custom localized messages.
+     * List of localized messages (both from the base file and the added custom translations).
      *
      * @var array
      */
@@ -60,6 +60,13 @@ abstract class AbstractTranslator extends Translation\Translator
         'me' => 'sr_Latn_ME',
         'scr' => 'sh',
     ];
+
+    /**
+     * List of files already loaded.
+     *
+     * @var string[]
+     */
+    private array $loadedFiles = [];
 
     /**
      * Return a singleton instance of Translator.
@@ -160,11 +167,25 @@ abstract class AbstractTranslator extends Translation\Translator
         $this->assertValidLocale($locale);
 
         foreach ($this->getDirectories() as $directory) {
-            $data = @include \sprintf('%s/%s.php', rtrim($directory, '\\/'), $locale);
+            $baseDirectory = rtrim($directory, '\\/');
+            $file = realpath("$baseDirectory/$locale.php");
 
-            if ($data !== false) {
-                $this->messages[$locale] = $data;
-                $this->addResource('array', $this->messages[$locale], $locale);
+            if (\in_array($file, $this->loadedFiles, true)) {
+                $this->loadCatalogue($locale);
+
+                return true;
+            }
+
+            if (!$file) {
+                continue;
+            }
+
+            $this->loadedFiles[] = $file;
+            $this->addResource('phpFile', $file, $locale);
+            $messages = $this->getCatalogue($locale)->all();
+
+            if ($messages !== []) {
+                $this->messages[$locale] = $messages;
 
                 return true;
             }
@@ -265,10 +286,10 @@ abstract class AbstractTranslator extends Translation\Translator
     public function setMessages(string $locale, array $messages): static
     {
         $this->loadMessagesFromFile($locale);
-        $this->addResource('array', $messages, $locale);
+        $this->getCatalogue($locale)->add($messages);
         $this->messages[$locale] = array_merge(
             $this->messages[$locale] ?? [],
-            $messages
+            $messages,
         );
 
         return $this;
@@ -385,7 +406,7 @@ abstract class AbstractTranslator extends Translation\Translator
         parent::setLocale($locale);
         $this->initializing = true;
         $this->directories = [__DIR__.'/Lang'];
-        $this->addLoader('array', new ArrayLoader());
+        $this->addLoader('phpFile', new PhpFileLoader());
         parent::__construct($locale, new MessageFormatterMapper($formatter), $cacheDir, $debug);
         $this->initializing = false;
     }

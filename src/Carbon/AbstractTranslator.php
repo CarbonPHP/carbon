@@ -14,12 +14,12 @@ declare(strict_types=1);
 namespace Carbon;
 
 use Carbon\MessageFormatter\MessageFormatterMapper;
+use Carbon\TranslationLoader\PhpFileLoader;
 use Closure;
 use ReflectionException;
 use ReflectionFunction;
 use Symfony\Component\Translation;
 use Symfony\Component\Translation\Formatter\MessageFormatterInterface;
-use Symfony\Component\Translation\Loader\PhpFileLoader;
 
 abstract class AbstractTranslator extends Translation\Translator
 {
@@ -31,6 +31,8 @@ abstract class AbstractTranslator extends Translation\Translator
      * @var array
      */
     protected static array $singletons = [];
+
+    private static ?PhpFileLoader $fileLoader = null;
 
     /**
      * List of localized messages (both from the base file and the added custom translations).
@@ -170,19 +172,11 @@ abstract class AbstractTranslator extends Translation\Translator
             $baseDirectory = rtrim($directory, '\\/');
             $file = realpath("$baseDirectory/$locale.php");
 
-            if (\in_array($file, $this->loadedFiles, true)) {
-                $this->loadCatalogue($locale);
-
-                return true;
-            }
-
             if (!$file) {
                 continue;
             }
 
-            $this->loadedFiles[] = $file;
-            $this->addResource('phpFile', $file, $locale);
-            $messages = $this->getCatalogue($locale)->all();
+            $messages = $this->loadMessage($file, $locale);
 
             if ($messages !== []) {
                 $this->messages[$locale] = $messages;
@@ -406,12 +400,12 @@ abstract class AbstractTranslator extends Translation\Translator
         parent::setLocale($locale);
         $this->initializing = true;
         $this->directories = [__DIR__.'/Lang'];
-        $this->addLoader('phpFile', new PhpFileLoader());
+        $this->addLoader('phpFile', $this->getFileLoader());
         parent::__construct($locale, new MessageFormatterMapper($formatter), $cacheDir, $debug);
         $this->initializing = false;
     }
 
-    private static function compareChunkLists($referenceChunks, $chunks)
+    private static function compareChunkLists($referenceChunks, $chunks): int
     {
         $score = 0;
 
@@ -428,5 +422,24 @@ abstract class AbstractTranslator extends Translation\Translator
         }
 
         return $score;
+    }
+
+    private function getFileLoader(): PhpFileLoader
+    {
+        return self::$fileLoader ??= new PhpFileLoader();
+    }
+
+    private function loadMessage(string $file, string $locale): array
+    {
+        if (\in_array($file, $this->loadedFiles, true)) {
+            $this->loadCatalogue($locale);
+
+            return $this->getFileLoader()->loadResource($file);
+        }
+
+        $this->loadedFiles[] = $file;
+        $this->addResource('phpFile', $file, $locale);
+
+        return $this->getFileLoader()->loadResource($file);
     }
 }

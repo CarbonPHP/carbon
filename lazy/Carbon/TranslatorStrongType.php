@@ -12,6 +12,7 @@
 namespace Carbon;
 
 use Symfony\Component\Translation\MessageCatalogueInterface;
+use Throwable;
 
 if (!class_exists(LazyTranslator::class, false)) {
     class LazyTranslator extends AbstractTranslator implements TranslatorStrongTypeInterface
@@ -39,7 +40,11 @@ if (!class_exists(LazyTranslator::class, false)) {
                 return $this->getFromCatalogue($fallbackCatalogue, $id, $domain);
             }
 
-            return $id;
+            try {
+                return $catalogue->get($id);
+            } catch (Throwable) {
+                return $id;
+            }
         }
 
         private function getPrivateProperty($instance, string $field)

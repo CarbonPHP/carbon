@@ -281,7 +281,7 @@ abstract class AbstractTranslator extends Translation\Translator
     public function setMessages(string $locale, array $messages): static
     {
         $this->loadMessagesFromFile($locale);
-        $this->getCatalogue($locale)->add($messages);
+        $this->getCatalogue($locale)->replace($messages);
         $this->messages[$locale] = array_merge(
             $this->messages[$locale] ?? [],
             $messages,

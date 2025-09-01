@@ -1675,13 +1675,15 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
     protected function getForHumansParameters($syntax = null, $short = false, $parts = self::NO_LIMIT, $options = null): array
     {
         $optionalSpace = ' ';
-        $default = $this->getTranslationMessage('list.0') ?? $this->getTranslationMessage('list') ?? ' ';
+        $listTranslation = $this->getTranslationMessage('list');
+        $default = $listTranslation[0] ?? $listTranslation ?? ' ';
         /** @var bool|string $join */
         $join = $default === '' ? '' : ' ';
         /** @var bool|array|string $altNumbers */
         $altNumbers = false;
         $aUnit = false;
         $minimumUnit = 's';
+        /** @var list<string>|string $skip */
         $skip = [];
         extract($this->getForHumansInitialVariables($syntax, $short));
         $skip = array_map(
@@ -1706,7 +1708,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         } elseif ($join === true) {
             $join = [
                 $default,
-                $this->getTranslationMessage('list.1') ?? $default,
+                $listTranslation[1] ?? $default,
             ];
         }
 

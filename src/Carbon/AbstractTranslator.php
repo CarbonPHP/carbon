@@ -20,6 +20,7 @@ use ReflectionException;
 use ReflectionFunction;
 use Symfony\Component\Translation;
 use Symfony\Component\Translation\Formatter\MessageFormatterInterface;
+use Symfony\Component\Translation\Loader\ArrayLoader;
 
 abstract class AbstractTranslator extends Translation\Translator
 {
@@ -400,6 +401,7 @@ abstract class AbstractTranslator extends Translation\Translator
         parent::setLocale($locale);
         $this->initializing = true;
         $this->directories = [__DIR__.'/Lang'];
+        $this->addLoader('array', new ArrayLoader());
         $this->addLoader('phpFile', $this->getFileLoader());
         parent::__construct($locale, new MessageFormatterMapper($formatter), $cacheDir, $debug);
         $this->initializing = false;

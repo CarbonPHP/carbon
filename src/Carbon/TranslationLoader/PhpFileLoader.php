@@ -17,8 +17,8 @@ use Symfony\Component\Translation\Loader\PhpFileLoader as SymfonyPhpFileLoader;
 
 final class PhpFileLoader extends SymfonyPhpFileLoader
 {
-    public function loadResource(string $resource): array
+    public function loadResource(mixed $resource): array
     {
-        return parent::loadResource($resource);
+        return parent::loadResource((string) $resource);
     }
 }

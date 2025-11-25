@@ -35,13 +35,6 @@ class CreateFromFormatTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->noErrors = [
-            'warning_count' => 0,
-            'warnings' => [],
-            'error_count' => 0,
-            'errors' => [],
-        ];
-
         $this->lastErrors = [
             'warning_count' => 1,
             'warnings' => ['10' => 'The parsed date was invalid'],
@@ -143,12 +136,7 @@ class CreateFromFormatTest extends AbstractTestCase
 
     public function testCreateLastErrorsCanBeAccessedByExtendingClass()
     {
-        $this->assertSame([
-            'warning_count' => 0,
-            'warnings' => [],
-            'error_count' => 0,
-            'errors' => [],
-        ], MyCarbon::getLastErrors());
+        $this->assertFalse(MyCarbon::getLastErrors());
     }
 
     public function testCreateFromFormatHandlesLastErrors()
@@ -166,6 +154,6 @@ class CreateFromFormatTest extends AbstractTestCase
         $this->assertSame($this->lastErrors, $carbon->getLastErrors());
 
         $carbon = Carbon::createFromFormat('d/m/Y', '11/03/2016');
-        $this->assertSame($this->noErrors, $carbon->getLastErrors());
+        $this->assertFalse($carbon->getLastErrors());
     }
 }

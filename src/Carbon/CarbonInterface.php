@@ -361,7 +361,7 @@ use Throwable;
  * @method        CarbonInterface  microseconds(int $value)                                                           Set current instance microsecond to the given value.
  * @method        CarbonInterface  microsecond(int $value)                                                            Set current instance microsecond to the given value.
  * @method        CarbonInterface  setMicroseconds(int $value)                                                        Set current instance microsecond to the given value.
- * @method        CarbonInterface  setMicrosecond(int $value)                                                         Set current instance microsecond to the given value.
+ * @method        self             setMicrosecond(int $value)                                                         Set current instance microsecond to the given value.
  * @method        CarbonInterface  addYears(int|float $value = 1)                                                     Add years (the $value count passed in) to the instance (using date interval).
  * @method        CarbonInterface  addYear()                                                                          Add one year to the instance (using date interval).
  * @method        CarbonInterface  subYears(int|float $value = 1)                                                     Sub years (the $value count passed in) to the instance (using date interval).
@@ -1055,15 +1055,6 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public static function __set_state($dump): static;
 
     /**
-     * Returns the list of properties to dump on serialize() called on.
-     *
-     * Only used by PHP < 7.4.
-     *
-     * @return array
-     */
-    public function __sleep();
-
-    /**
      * Format the instance as a string using the set format
      *
      * @example
@@ -1358,7 +1349,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return static|null
      */
-    public static function create($year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $timezone = null);
+    public static function create($year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $timezone = null): ?static;
 
     /**
      * Create a Carbon instance from just a date. The time portion is set to now.
@@ -1386,7 +1377,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @return static|null
      */
     #[ReturnTypeWillChange]
-    public static function createFromFormat($format, $time, $timezone = null);
+    public static function createFromFormat($format, $time, $timezone = null): ?static;
 
     /**
      * Create a Carbon instance from a specific ISO format (same replacements as ->isoFormat()).
@@ -1401,7 +1392,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return static|null
      */
-    public static function createFromIsoFormat(string $format, string $time, $timezone = null, ?string $locale = 'en', ?TranslatorInterface $translator = null);
+    public static function createFromIsoFormat(string $format, string $time, $timezone = null, ?string $locale = 'en', ?TranslatorInterface $translator = null): ?static;
 
     /**
      * Create a Carbon instance from a specific format and a string in a given language.
@@ -1415,7 +1406,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return static|null
      */
-    public static function createFromLocaleFormat(string $format, string $locale, string $time, $timezone = null);
+    public static function createFromLocaleFormat(string $format, string $locale, string $time, $timezone = null): ?static;
 
     /**
      * Create a Carbon instance from a specific ISO format and a string in a given language.
@@ -1429,7 +1420,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return static|null
      */
-    public static function createFromLocaleIsoFormat(string $format, string $locale, string $time, $timezone = null);
+    public static function createFromLocaleIsoFormat(string $format, string $locale, string $time, $timezone = null): ?static;
 
     /**
      * Create a Carbon instance from just a time. The date portion is set to today.
@@ -1457,6 +1448,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * Timestamp input can be given as int, float or a string containing one or more numbers.
      */
+    #[ReturnTypeWillChange]
     public static function createFromTimestamp(string|int|float $timestamp, DateTimeZone|string|int|null $timezone = null): static;
 
     /**
@@ -1525,7 +1517,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return static|null
      */
-    public static function createSafe($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $timezone = null);
+    public static function createSafe($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $timezone = null): ?static;
 
     /**
      * Create a new Carbon instance from a specific date and time using strict validation.
@@ -2147,13 +2139,22 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Create an instance from a serialized string.
      *
-     * @param string $value
+     * If $value is not from a trusted source, consider using the allowed_classes option to limit
+     * the types of objects that can be built, for instance:
+     *
+     * @example
+     * ```php
+     * $object = Carbon::fromSerialized($value, ['allowed_classes' => [Carbon::class, CarbonImmutable::class]]);
+     * ```
+     *
+     * @param \Stringable|string $value
+     * @param array              $options example: ['allowed_classes' => [CarbonImmutable::class]]
      *
      * @throws InvalidFormatException
      *
      * @return static
      */
-    public static function fromSerialized($value): static;
+    public static function fromSerialized($value, array $options = []): static;
 
     /**
      * Register a custom macro.
@@ -3376,7 +3377,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * echo Carbon::yesterday()->hours(11)->userFormat();
      * ```
      *
-     * @param-closure-this  static  $macro
+     * @param-closure-this static $macro
      */
     public static function macro(string $name, ?callable $macro): void;
 
@@ -3392,7 +3393,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return static|null
      */
-    public static function make($var, DateTimeZone|string|null $timezone = null);
+    public static function make($var, DateTimeZone|string|null $timezone = null): ?static;
 
     /**
      * Get the maximum instance between a given instance (default now) and the current instance.
@@ -3678,7 +3679,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return static|null
      */
-    public static function rawCreateFromFormat(string $format, string $time, $timezone = null);
+    public static function rawCreateFromFormat(string $format, string $time, $timezone = null): ?static;
 
     /**
      * @see https://php.net/manual/en/datetime.format.php
@@ -4755,7 +4756,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public static function translateTimeString(string $timeString, ?string $from = null, ?string $to = null, int $mode = self::TRANSLATE_ALL): string;
 
     /**
-     * Translate a time string from the current locale (`$date->locale()`) to an other.
+     * Translate a time string from the current locale (`$date->locale()`) to another one.
      *
      * @param string      $timeString time string to translate
      * @param string|null $to         output locale of the result returned ("en" by default)
@@ -4784,6 +4785,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     /**
      * Set the timezone or returns the timezone name if no arguments passed.
+     *
+     * @return ($value is null ? string : static)
      */
     public function tz(DateTimeZone|string|int|null $value = null): static|string;
 

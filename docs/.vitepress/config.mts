@@ -1,9 +1,49 @@
 import { defineConfig } from 'vitepress';
+import type { UserConfig, MarkdownItAsync } from 'vitepress';
 import { withSidebar } from 'vitepress-sidebar';
 import type { VitePressSidebarOptions } from 'vitepress-sidebar/types';
+import { execSync } from 'node:child_process';
+import { writeFileSync } from 'node:fs';
+
+const extractLang = function(info: string): string {
+	return (
+		/^[\w-]+/
+			.exec(info)?.[0]
+			.replace(/-vue$/, '') // remove -vue suffix
+			.replace(/^vue-html$/, 'template')
+			.replace(/^ansi$/, '') || ''
+	);
+};
+
+const executePhp = async (md: MarkdownItAsync) => {
+	const fence = md.renderer.rules.fence!;
+	md.renderer.rules.fence = (...arguments_) => {
+		const [tokens, index] = arguments_;
+		const token = tokens[index];
+
+		const lang = extractLang(token.info);
+		if (lang !== 'php') {
+			return fence(...arguments_);
+		}
+
+		// execute php code and get output
+		const { content } = token;
+
+		// write to a temporary file and execute it
+		writeFileSync(`${__dirname}/temp.php`, content, { encoding: 'utf8' });
+		const process = execSync(`php ${__dirname}/compile.php`, {
+			encoding: 'utf8',
+		});
+		const output = process.toString();
+		console.log('PHP Execution Output:', output);
+		token.content = output;
+
+		return fence(...arguments_);
+	};
+};
 
 // https://vitepress.dev/reference/site-config
-const vitePressOptions = {
+const vitePressOptions: UserConfig = {
 	title: 'Carbon',
 	description: 'A simple PHP API extension for DateTime.',
 	themeConfig: {
@@ -26,6 +66,11 @@ const vitePressOptions = {
 			},
 		],
 	},
+	markdown: {
+		config(md) {
+			md.use(executePhp);
+		},
+	},
 };
 
 const vitePressSidebarOptions: VitePressSidebarOptions = {
@@ -46,7 +91,7 @@ const sidebars: VitePressSidebarOptions[] = [
 		scanStartPath: 'guide',
 		basePath: '/guide/',
 		resolvePath: '/guide',
-		manualSortFileNameByPriority: ['getting-started', 'core-api'],
+		manualSortFileNameByPriority: ['getting-started', 'core-api', 'date-time-manipulation', 'advanced-features'],
 	},
 	{
 		...vitePressSidebarOptions,

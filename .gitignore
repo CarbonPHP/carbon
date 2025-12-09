@@ -8,3 +8,4 @@ composer.lock
 node_modules
 docs/.vitepress/dist
 docs/.vitepress/cache
+docs/.vitepress/temp.php

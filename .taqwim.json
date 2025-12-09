@@ -1,0 +1,15 @@
+{
+	"rules": {
+		"taqwim/usegroup.scope": {
+			"severity": "warning",
+			"state": "expand"
+		},
+		"docblock/required": {
+			"severity": "off"
+		},
+		"psr/line-limit": {
+			"severity": "warning",
+			"code": 120
+		}
+	}
+}

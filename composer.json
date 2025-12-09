@@ -1,28 +1,29 @@
 {
-    "require": {
-        "php": "^8.2",
-        "ext-curl": "*",
-        "ext-json": "*",
-        "cmixin/business-time": "dev-master",
-        "cmixin/season": "dev-main",
-        "kylekatarnls/carbonite": "dev-master",
-        "nesbot/carbon": "dev-master as 3.11.0"
-    },
-    "scripts": {
-        "check": "@php tools/check.php",
-        "generate": "@php tools/generate.php",
-        "history": "@php tools/api-history.php",
-        "releases": "@php tools/cache-releases.php",
-        "release": [
-            "@releases",
-            "@php tools/release.php",
-            "composer update",
-            "@history",
-            "@generate",
-            "@check"
-        ]
-    },
-    "config": {
-        "process-timeout": 0
-    }
+	"require": {
+		"php": "^8.2",
+		"ext-curl": "*",
+		"ext-json": "*",
+		"cmixin/business-time": "dev-master",
+		"cmixin/season": "dev-main",
+		"kylekatarnls/carbonite": "dev-master",
+		"nesbot/carbon": "dev-master as 3.11.0",
+		"nikic/php-parser": "^5.7"
+	},
+	"scripts": {
+		"check": "@php tools/check.php",
+		"generate": "@php tools/generate.php",
+		"history": "@php tools/api-history.php",
+		"releases": "@php tools/cache-releases.php",
+		"release": [
+			"@releases",
+			"@php tools/release.php",
+			"composer update",
+			"@history",
+			"@generate",
+			"@check"
+		]
+	},
+	"config": {
+		"process-timeout": 0
+	}
 }

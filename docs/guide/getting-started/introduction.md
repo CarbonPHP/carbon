@@ -1,0 +1,92 @@
+---
+order: 1
+---
+
+# Introduction
+
+The Carbon class is [inherited](https://www.php.net/manual/en/language.oop5.inheritance.php)
+from the PHP [DateTime](https://www.php.net/manual/en/class.datetime.php) class.
+
+```php
+namespace Carbon;
+
+class Carbon extends \DateTime
+{
+    // code here
+}
+```
+
+You can see from the code snippet above that the Carbon class is declared in the Carbon namespace. You need to
+import the namespace to use Carbon without having to provide its fully qualified name each time.
+
+```php
+use Carbon\Carbon;
+```
+
+Examples in this documentation will assume you imported classes of the Carbon namespace this way.
+
+If you're using Laravel, you may check [our Laravel configuration and best-practices recommendations](/laravel).
+
+If you're using Symfony, you may check [our Symfony configuration and best-practices recommendations](/symfony).
+
+We also provide CarbonImmutable class extending [DateTimeImmutable](https://www.php.net/manual/en/class.datetimeimmutable.php).
+The same methods are available on both classes but when you use a modifier on a Carbon
+instance, it modifies and returns the same instance, when you use it on CarbonImmutable,
+it returns a new instance with the new value.
+
+```php
+{{::lint($mutable = Carbon::now();)}}
+{{::lint($immutable = CarbonImmutable::now();)}}
+{{::lint($modifiedMutable = $mutable->add(1, 'day');)}}
+{{::lint($modifiedImmutable = CarbonImmutable::now()->add(1, 'day');)}}
+
+{{::exec(var_dump($modifiedMutable === $mutable);/*pad(52)*/)}} // {{eval}}
+{{::exec(var_dump($mutable->isoFormat('dddd D'));/*pad(52)*/)}} // {{eval}}
+{{::exec(var_dump($modifiedMutable->isoFormat('dddd D'));/*pad(52)*/)}} // {{eval}}
+// So it means $mutable and $modifiedMutable are the same object
+// both set to now + 1 day.
+{{::exec(var_dump($modifiedImmutable === $immutable);/*pad(52)*/)}} // {{eval}}
+{{::exec(var_dump($immutable->isoFormat('dddd D'));/*pad(52)*/)}} // {{eval}}
+{{::exec(var_dump($modifiedImmutable->isoFormat('dddd D'));/*pad(52)*/)}} // {{eval}}
+// While $immutable is still set to now and cannot be changed and
+// $modifiedImmutable is a new instance created from $immutable
+// set to now + 1 day.
+
+{{::lint($mutable = CarbonImmutable::now()->toMutable();)}}
+{{::exec(var_dump($mutable->isMutable());/*pad(52)*/)}} // {{eval}}
+{{::exec(var_dump($mutable->isImmutable());/*pad(52)*/)}} // {{eval}}
+{{::lint($immutable = Carbon::now()->toImmutable();)}}
+{{::exec(var_dump($immutable->isMutable());/*pad(52)*/)}} // {{eval}}
+{{::exec(var_dump($immutable->isImmutable());/*pad(52)*/)}} // {{eval}}
+```
+
+The library also provides CarbonInterface interface extends [DateTimeInterface](https://www.php.net/manual/en/class.datetimeinterface.php) and [JsonSerializable](https://www.php.net/manual/en/class.jsonserializable.php),
+[CarbonInterval](#api-interval) class extends [DateInterval](https://www.php.net/manual/en/class.dateinterval.php),
+[CarbonTimeZone](#api-timezone) class extends [DateTimeZone](https://www.php.net/manual/en/class.datetimezone.php)
+and [CarbonPeriod](#api-period) class polyfills [DatePeriod](https://www.php.net/manual/en/class.dateperiod.php).
+
+Carbon has all the functions inherited from the base DateTime class. This approach allows you to access the
+base functionality such as
+[modify](https://www.php.net/manual/en/datetime.modify.php),
+[format](https://www.php.net/manual/en/datetime.format.php) or
+[getTimestamp](https://www.php.net/manual/en/datetime.gettimestamp.php).
+
+Now, let's see how cool this documentation page is. Click on the code below:
+
+```php
+{{::lint($dtToronto = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Toronto');)}}
+{{::lint($dtVancouver = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Vancouver');)}}
+// Try to replace the 4th number (hours) or the last argument (timezone) with
+// Europe/Paris for example and see the actual result on the right hand.
+// It's alive!
+
+{{::exec(echo $dtVancouver->diffInHours($dtToronto);)}} // {{eval}}
+// Now, try to double-click on "diffInHours" or "create" to open
+// the References panel.
+// Once the references panel is open, you can use the search field to
+// filter the list or click the (<) button to close it.
+```
+
+Some examples are static snippets, some other are editable (when there is a top right hand corner expand button).
+You can also click on this button to open the snippet in a
+new tab. You can double-click on method names in both static and dynamic examples.

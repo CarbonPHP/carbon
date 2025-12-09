@@ -5,3 +5,6 @@ vendor
 sandbox
 composer.phar
 composer.lock
+node_modules
+docs/.vitepress/dist
+docs/.vitepress/cache

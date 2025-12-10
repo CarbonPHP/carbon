@@ -41,24 +41,24 @@ PS: `$other` and `$parts` arguments can be swapped as need.
 ```php
 // The most typical usage is for comments
 // The instance is the date the comment was created and its being compared to default now()
-{{::exec(echo Carbon::now()->subDays(5)->diffForHumans();/*pad(62)*/)}} // {{eval}}
+echo Carbon::now()->subDays(5)->diffForHumans();
 
-{{::exec(echo Carbon::now()->diffForHumans(Carbon::now()->subYear());/*pad(62)*/)}} // {{eval}}
+echo Carbon::now()->diffForHumans(Carbon::now()->subYear());
 
-{{::lint($dt = Carbon::createFromDate(2011, 8, 1);)}}
+$dt = Carbon::createFromDate(2011, 8, 1);
 
-{{::exec(echo $dt->diffForHumans($dt->copy()->addMonth());/*pad(72)*/)}} // {{eval}}
-{{::exec(echo $dt->diffForHumans($dt->copy()->subMonth());/*pad(72)*/)}} // {{eval}}
+echo $dt->diffForHumans($dt->copy()->addMonth());
+echo $dt->diffForHumans($dt->copy()->subMonth());
 
-{{::exec(echo Carbon::now()->addSeconds(5)->diffForHumans();/*pad(72)*/)}} // {{eval}}
+echo Carbon::now()->addSeconds(5)->diffForHumans();
 
-{{::exec(echo Carbon::now()->subDays(24)->diffForHumans();/*pad(72)*/)}} // {{eval}}
-{{::exec(echo Carbon::now()->subDays(24)->longAbsoluteDiffForHumans();/*pad(72)*/)}} // {{eval}}
+echo Carbon::now()->subDays(24)->diffForHumans();
+echo Carbon::now()->subDays(24)->longAbsoluteDiffForHumans();
 
-{{::exec(echo Carbon::parse('2019-08-03')->diffForHumans('2019-08-13');/*pad(72)*/)}} // {{eval}}
-{{::exec(echo Carbon::parse('2000-01-01 00:50:32')->diffForHumans('@946684800');/*pad(72)*/)}} // {{eval}}
+echo Carbon::parse('2019-08-03')->diffForHumans('2019-08-13');
+echo Carbon::parse('2000-01-01 00:50:32')->diffForHumans('@946684800');
 
-{{::exec(echo Carbon::create(2018, 2, 26, 4, 29, 43)->longRelativeDiffForHumans(Carbon::create(2016, 6, 21, 0, 0, 0), 6);)}} // {{eval}}
+echo Carbon::create(2018, 2, 26, 4, 29, 43)->longRelativeDiffForHumans(Carbon::create(2016, 6, 21, 0, 0, 0), 6);
 
 ```
 
@@ -67,83 +67,83 @@ You can also change the locale of the string using `$date->locale('fr')` before 
 Since 2.9.0 diffForHumans() parameters can be passed as an array:
 
 ```php
-{{::exec(
-echo Carbon::now()->diffForHumans(['options' => 0]);)}} // {{eval}}
+
+echo Carbon::now()->diffForHumans(['options' => 0]);
 echo "\n";
 // default options:
-{{::exec(echo Carbon::now()->diffForHumans(['options' => Carbon::NO_ZERO_DIFF]);)}} // {{eval}}
+echo Carbon::now()->diffForHumans(['options' => Carbon::NO_ZERO_DIFF]);
 echo "\n";
-{{::exec(echo Carbon::now()->diffForHumans(['options' => Carbon::JUST_NOW]);)}} // {{eval}}
+echo Carbon::now()->diffForHumans(['options' => Carbon::JUST_NOW]);
 echo "\n";
-{{::exec(echo Carbon::now()->subDay()->diffForHumans(['options' => 0]);)}} // {{eval}}
+echo Carbon::now()->subDay()->diffForHumans(['options' => 0]);
 echo "\n";
-{{::exec(echo Carbon::now()->subDay()->diffForHumans(['options' => Carbon::ONE_DAY_WORDS]);)}} // {{eval}}
+echo Carbon::now()->subDay()->diffForHumans(['options' => Carbon::ONE_DAY_WORDS]);
 echo "\n";
-{{::exec(echo Carbon::now()->subDays(2)->diffForHumans(['options' => 0]);)}} // {{eval}}
+echo Carbon::now()->subDays(2)->diffForHumans(['options' => 0]);
 echo "\n";
-{{::exec(echo Carbon::now()->subDays(2)->diffForHumans(['options' => Carbon::TWO_DAY_WORDS]);)}} // {{eval}}
+echo Carbon::now()->subDays(2)->diffForHumans(['options' => Carbon::TWO_DAY_WORDS]);
 echo "\n";
 
-{{::lint(// Options can be combined with pipes
+// Options can be combined with pipes
 $now = Carbon::now();
-)}}
 
-{{::exec(echo $now->diffForHumans(['options' => Carbon::JUST_NOW | Carbon::ONE_DAY_WORDS | Carbon::TWO_DAY_WORDS]);)}} // {{eval}}
+
+echo $now->diffForHumans(['options' => Carbon::JUST_NOW | Carbon::ONE_DAY_WORDS | Carbon::TWO_DAY_WORDS]);
 echo "\n";
 
 // Reference date for differences is `now` but you can use any other date (string, DateTime or Carbon instance):
-{{::lint($yesterday = $now->copy()->subDay();)}}
-{{::exec(echo $now->diffForHumans($yesterday);)}} // {{eval}}
+$yesterday = $now->copy()->subDay();
+echo $now->diffForHumans($yesterday);
 echo "\n";
 // By default differences methods produce "ago"/"from now" syntax using default reference (now),
 // and "after"/"before" with other references
 // But you can customize the syntax:
-{{::exec(echo $now->diffForHumans($yesterday, ['syntax' => CarbonInterface::DIFF_RELATIVE_TO_NOW]);)}} // {{eval}}
+echo $now->diffForHumans($yesterday, ['syntax' => CarbonInterface::DIFF_RELATIVE_TO_NOW]);
 echo "\n";
-{{::exec(echo $now->diffForHumans($yesterday, ['syntax' => 0]);)}} // {{eval}}
+echo $now->diffForHumans($yesterday, ['syntax' => 0]);
 echo "\n";
-{{::exec(echo $yesterday->diffForHumans(['syntax' => CarbonInterface::DIFF_ABSOLUTE]);)}} // {{eval}}
+echo $yesterday->diffForHumans(['syntax' => CarbonInterface::DIFF_ABSOLUTE]);
 echo "\n";
 // Combined with options:
-{{::exec(echo $now->diffForHumans($yesterday, [
+echo $now->diffForHumans($yesterday, [
 	'syntax' => CarbonInterface::DIFF_RELATIVE_TO_NOW,
 	'options' => Carbon::JUST_NOW | Carbon::ONE_DAY_WORDS | Carbon::TWO_DAY_WORDS,
-]);)}} // {{eval}}
+]);
 echo "\n";
 
 // Other parameters:
-{{::exec(echo $now->copy()->subHours(5)->subMinutes(30)->subSeconds(10)->diffForHumans([
+echo $now->copy()->subHours(5)->subMinutes(30)->subSeconds(10)->diffForHumans([
 	'parts' => 2,
-]);)}} // {{eval}}
+]);
 echo "\n";
-{{::exec(echo $now->copy()->subHours(5)->subMinutes(30)->subSeconds(10)->diffForHumans([
+echo $now->copy()->subHours(5)->subMinutes(30)->subSeconds(10)->diffForHumans([
 	'parts' => 3, // Use -1 or INF for no limit
-]);)}} // {{eval}}
+]);
 echo "\n";
-{{::exec(echo $now->copy()->subHours(5)->subMinutes(30)->subSeconds(10)->diffForHumans([
+echo $now->copy()->subHours(5)->subMinutes(30)->subSeconds(10)->diffForHumans([
 	'parts' => 3,
 	'join' => ', ', // join with commas
-]);)}} // {{eval}}
+]);
 echo "\n";
-{{::exec(echo $now->copy()->subHours(5)->subMinutes(30)->subSeconds(10)->diffForHumans([
+echo $now->copy()->subHours(5)->subMinutes(30)->subSeconds(10)->diffForHumans([
 	'parts' => 3,
 	'join' => true, // join with natural syntax as per current locale
-]);)}} // {{eval}}
+]);
 echo "\n";
-{{::exec(echo $now->copy()->subHours(5)->subMinutes(30)->subSeconds(10)->locale('fr')->diffForHumans([
+echo $now->copy()->subHours(5)->subMinutes(30)->subSeconds(10)->locale('fr')->diffForHumans([
 	'parts' => 3,
 	'join' => true, // join with natural syntax as per current locale
-]);)}} // {{eval}}
+]);
 echo "\n";
-{{::exec(echo $now->copy()->subHours(5)->subMinutes(30)->subSeconds(10)->diffForHumans([
+echo $now->copy()->subHours(5)->subMinutes(30)->subSeconds(10)->diffForHumans([
 	'parts' => 3,
 	'short' => true, // short syntax as per current locale
-]);)}} // {{eval}}
+]);
 // 'aUnit' option added in 2.13.0 allows you to prefer "a day", "an hour", etc. over "1 day", "1 hour"
 // for singular values when it's available in the current locale
-{{::exec(echo $now->copy()->subHour()->diffForHumans([
+echo $now->copy()->subHour()->diffForHumans([
 	'aUnit' => true,
-]);)}} // {{eval}}
+]);
 
 // Before 2.9.0, you need to pass parameters as ordered parameters:
 // ->diffForHumans($other, $syntax, $short, $parts, $options)

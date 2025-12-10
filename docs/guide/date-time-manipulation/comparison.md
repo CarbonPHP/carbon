@@ -3,65 +3,65 @@
 Simple comparison is offered up via the following functions. Remember that the comparison is done in the UTC timezone so things aren't always as they seem.
 
 ```php
-{{::exec(echo Carbon::now()->tzName;/*pad(50)*/)}} // {{eval}}
-{{::lint($first = Carbon::create(2012, 9, 5, 23, 26, 11);)}}
-{{::lint($second = Carbon::create(2012, 9, 5, 20, 26, 11, 'America/Vancouver');)}}
+echo Carbon::now()->tzName;
+$first = Carbon::create(2012, 9, 5, 23, 26, 11);
+$second = Carbon::create(2012, 9, 5, 20, 26, 11, 'America/Vancouver');
 
-{{::exec(echo $first->toDateTimeString();/*pad(50)*/)}} // {{eval}}
-{{::exec(echo $first->tzName;/*pad(50)*/)}} // {{eval}}
-{{::exec(echo $second->toDateTimeString();/*pad(50)*/)}} // {{eval}}
-{{::exec(echo $second->tzName;/*pad(50)*/)}} // {{eval}}
+echo $first->toDateTimeString();
+echo $first->tzName;
+echo $second->toDateTimeString();
+echo $second->tzName;
 
-{{::exec(var_dump($first->equalTo($second));/*pad(50)*/)}} // {{eval}}
+var_dump($first->equalTo($second));
 // equalTo is also available on CarbonInterval and CarbonPeriod
-{{::exec(var_dump($first->notEqualTo($second));/*pad(50)*/)}} // {{eval}}
+var_dump($first->notEqualTo($second));
 // notEqualTo is also available on CarbonInterval and CarbonPeriod
-{{::exec(var_dump($first->greaterThan($second));/*pad(50)*/)}} // {{eval}}
+var_dump($first->greaterThan($second));
 // greaterThan is also available on CarbonInterval
-{{::exec(var_dump($first->greaterThanOrEqualTo($second));/*pad(50)*/)}} // {{eval}}
+var_dump($first->greaterThanOrEqualTo($second));
 // greaterThanOrEqualTo is also available on CarbonInterval
-{{::exec(var_dump($first->lessThan($second));/*pad(50)*/)}} // {{eval}}
+var_dump($first->lessThan($second));
 // lessThan is also available on CarbonInterval
-{{::exec(var_dump($first->lessThanOrEqualTo($second));/*pad(50)*/)}} // {{eval}}
+var_dump($first->lessThanOrEqualTo($second));
 // lessThanOrEqualTo is also available on CarbonInterval
 
-{{::lint($first->setDateTime(2012, 1, 1, 0, 0, 0);)}}
-{{::lint($second->setDateTime(2012, 1, 1, 0, 0, 0);/*pad(50)*/)}} // Remember tz is 'America/Vancouver'
+$first->setDateTime(2012, 1, 1, 0, 0, 0);
+$second->setDateTime(2012, 1, 1, 0, 0, 0);/*pad(50)*/ // Remember tz is 'America/Vancouver'
 
-{{::exec(var_dump($first->equalTo($second));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($first->notEqualTo($second));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($first->greaterThan($second));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($first->greaterThanOrEqualTo($second));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($first->lessThan($second));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($first->lessThanOrEqualTo($second));/*pad(50)*/)}} // {{eval}}
+var_dump($first->equalTo($second));
+var_dump($first->notEqualTo($second));
+var_dump($first->greaterThan($second));
+var_dump($first->greaterThanOrEqualTo($second));
+var_dump($first->lessThan($second));
+var_dump($first->lessThanOrEqualTo($second));
 
 // All have short hand aliases and PHP equivalent code:
 
-{{::exec(var_dump($first->eq($second));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($first->equalTo($second));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($first == $second);/*pad(50)*/)}} // {{eval}}
+var_dump($first->eq($second));
+var_dump($first->equalTo($second));
+var_dump($first == $second);
 
-{{::exec(var_dump($first->ne($second));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($first->notEqualTo($second));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($first != $second);/*pad(50)*/)}} // {{eval}}
+var_dump($first->ne($second));
+var_dump($first->notEqualTo($second));
+var_dump($first != $second);
 
-{{::exec(var_dump($first->gt($second));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($first->greaterThan($second));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($first->isAfter($second));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($first > $second);/*pad(50)*/)}} // {{eval}}
+var_dump($first->gt($second));
+var_dump($first->greaterThan($second));
+var_dump($first->isAfter($second));
+var_dump($first > $second);
 
-{{::exec(var_dump($first->gte($second));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($first->greaterThanOrEqualTo($second));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($first >= $second);/*pad(50)*/)}} // {{eval}}
+var_dump($first->gte($second));
+var_dump($first->greaterThanOrEqualTo($second));
+var_dump($first >= $second);
 
-{{::exec(var_dump($first->lt($second));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($first->lessThan($second));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($first->isBefore($second));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($first < $second);/*pad(50)*/)}} // {{eval}}
+var_dump($first->lt($second));
+var_dump($first->lessThan($second));
+var_dump($first->isBefore($second));
+var_dump($first < $second);
 
-{{::exec(var_dump($first->lte($second));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($first->lessThanOrEqualTo($second));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($first <= $second);/*pad(50)*/)}} // {{eval}}
+var_dump($first->lte($second));
+var_dump($first->lessThanOrEqualTo($second));
+var_dump($first <= $second);
 
 ```
 
@@ -70,15 +70,15 @@ Those methods use natural comparisons offered by PHP `$date1 == $date2` so all o
 To determine if the current instance is between two other instances you can use the aptly named `between()` method (or `isBetween()` alias). The third parameter indicates if an equal to comparison should be done. The default is true which determines if its between or equal to the boundaries.
 
 ```php
-{{::lint($first = Carbon::create(2012, 9, 5, 1);)}}
-{{::lint($second = Carbon::create(2012, 9, 5, 5);)}}
-{{::exec(var_dump(Carbon::create(2012, 9, 5, 3)->between($first, $second));/*pad(75)*/)}} // {{eval}}
-{{::exec(var_dump(Carbon::create(2012, 9, 5, 5)->between($first, $second));/*pad(75)*/)}} // {{eval}}
-{{::exec(var_dump(Carbon::create(2012, 9, 5, 5)->between($first, $second, false));/*pad(75)*/)}} // {{eval}}
-{{::exec(var_dump(Carbon::create(2012, 9, 5, 5)->isBetween($first, $second, false));/*pad(75)*/)}} // {{eval}}
+$first = Carbon::create(2012, 9, 5, 1);
+$second = Carbon::create(2012, 9, 5, 5);
+var_dump(Carbon::create(2012, 9, 5, 3)->between($first, $second));
+var_dump(Carbon::create(2012, 9, 5, 5)->between($first, $second));
+var_dump(Carbon::create(2012, 9, 5, 5)->between($first, $second, false));
+var_dump(Carbon::create(2012, 9, 5, 5)->isBetween($first, $second, false));
 // Rather than passing false as a third argument, you can use betweenIncluded and betweenExcluded
-{{::exec(var_dump(Carbon::create(2012, 9, 5, 5)->betweenIncluded($first, $second));/*pad(75)*/)}} // {{eval}}
-{{::exec(var_dump(Carbon::create(2012, 9, 5, 5)->betweenExcluded($first, $second));/*pad(75)*/)}} // {{eval}}
+var_dump(Carbon::create(2012, 9, 5, 5)->betweenIncluded($first, $second));
+var_dump(Carbon::create(2012, 9, 5, 5)->betweenExcluded($first, $second));
 // All those methods are also available on CarbonInterval
 
 ```
@@ -86,50 +86,50 @@ To determine if the current instance is between two other instances you can use 
 Woah! Did you forget min() and max() ? Nope. That is covered as well by the suitably named `min()` and `max()` methods or `minimum()` and `maximum()` aliases. As usual the default parameter is now if null is specified.
 
 ```php
-{{::lint($dt1 = Carbon::createMidnightDate(2012, 1, 1);)}}
-{{::lint($dt2 = Carbon::createMidnightDate(2014, 1, 30);)}}
-{{::exec(echo $dt1->min($dt2);/*pad(50)*/)}} // {{eval}}
-{{::exec(echo $dt1->minimum($dt2);/*pad(50)*/)}} // {{eval}}
+$dt1 = Carbon::createMidnightDate(2012, 1, 1);
+$dt2 = Carbon::createMidnightDate(2014, 1, 30);
+echo $dt1->min($dt2);
+echo $dt1->minimum($dt2);
 // Also works with string
-{{::exec(echo $dt1->minimum('2014-01-30');/*pad(50)*/)}} // {{eval}}
+echo $dt1->minimum('2014-01-30');
 
-{{::lint($dt1 = Carbon::createMidnightDate(2012, 1, 1);)}}
-{{::lint($dt2 = Carbon::createMidnightDate(2014, 1, 30);)}}
-{{::exec(echo $dt1->max($dt2);/*pad(50)*/)}} // {{eval}}
-{{::exec(echo $dt1->maximum($dt2);/*pad(50)*/)}} // {{eval}}
+$dt1 = Carbon::createMidnightDate(2012, 1, 1);
+$dt2 = Carbon::createMidnightDate(2014, 1, 30);
+echo $dt1->max($dt2);
+echo $dt1->maximum($dt2);
 
 // now is the default param
-{{::lint($dt1 = Carbon::createMidnightDate(2000, 1, 1);)}}
-{{::exec(echo $dt1->max();/*pad(50)*/)}} // {{eval}}
-{{::exec(echo $dt1->maximum();/*pad(50)*/)}} // {{eval}}
+$dt1 = Carbon::createMidnightDate(2000, 1, 1);
+echo $dt1->max();
+echo $dt1->maximum();
 
 // Remember min and max PHP native function work fine with dates too:
-{{::exec(echo max(Carbon::create('2002-03-15'), Carbon::create('2003-01-07'), Carbon::create('2002-08-25'));/*pad(50)*/)}} // {{eval}}
-{{::exec(echo min(Carbon::create('2002-03-15'), Carbon::create('2003-01-07'), Carbon::create('2002-08-25'));/*pad(50)*/)}} // {{eval}}
+echo max(Carbon::create('2002-03-15'), Carbon::create('2003-01-07'), Carbon::create('2002-08-25'));
+echo min(Carbon::create('2002-03-15'), Carbon::create('2003-01-07'), Carbon::create('2002-08-25'));
 // This way you can pass as many dates as you want and get no ambiguities about parameters order
 
-{{::lint(
+
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
 $dt3 = Carbon::createMidnightDate(2010, 4, 16);
-)}}
+
 
 // returns the closest of two date (no matter before or after)
-{{::exec(echo $dt1->closest($dt2, $dt3);/*pad(50)*/)}} // {{eval}}
-{{::exec(echo $dt2->closest($dt1, $dt3);/*pad(50)*/)}} // {{eval}}
-{{::exec(echo $dt3->closest($dt2, $dt1);/*pad(50)*/)}} // {{eval}}
+echo $dt1->closest($dt2, $dt3);
+echo $dt2->closest($dt1, $dt3);
+echo $dt3->closest($dt2, $dt1);
 
 // returns the farthest of two date (no matter before or after)
-{{::exec(echo $dt1->farthest($dt2, $dt3);/*pad(50)*/)}} // {{eval}}
-{{::exec(echo $dt2->farthest($dt1, $dt3);/*pad(50)*/)}} // {{eval}}
-{{::exec(echo $dt3->farthest($dt2, $dt1);/*pad(50)*/)}} // {{eval}}
+echo $dt1->farthest($dt2, $dt3);
+echo $dt2->farthest($dt1, $dt3);
+echo $dt3->farthest($dt2, $dt1);
 
 ```
 
 To handle the most used cases there are some simple helper functions that hopefully are obvious from their names. For the methods that compare to `now()` (ex. isToday()) in some manner, the `now()` is created in the same timezone as the instance.
 
 ```php
-{{::lint(
+
 $dt = Carbon::now();
 $dt2 = Carbon::createFromDate(1987, 4, 23);
 
@@ -200,14 +200,14 @@ $dt->isStartOfDay(); // check if hour is 00:00:00
 $dt->isMidnight(); // check if hour is 00:00:00 (isStartOfDay alias)
 $dt->isEndOfDay(); // check if hour is 23:59:59
 $dt->isMidday(); // check if hour is 12:00:00 (or other midday hour set with Carbon::setMidDayAt())
-)}}
-{{::lint($born = Carbon::createFromDate(1987, 4, 23);)}}
-{{::lint($noCake = Carbon::createFromDate(2014, 9, 26);)}}
-{{::lint($yesCake = Carbon::createFromDate(2014, 4, 23);)}}
-{{::lint($overTheHill = Carbon::now()->subYears(50);)}}
-{{::exec(var_dump($born->isBirthday($noCake));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($born->isBirthday($yesCake));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($overTheHill->isBirthday());/*pad(50)*/)}} // {{eval}} -> default compare it to today!
+
+$born = Carbon::createFromDate(1987, 4, 23);
+$noCake = Carbon::createFromDate(2014, 9, 26);
+$yesCake = Carbon::createFromDate(2014, 4, 23);
+$overTheHill = Carbon::now()->subYears(50);
+var_dump($born->isBirthday($noCake));
+var_dump($born->isBirthday($yesCake));
+var_dump($overTheHill->isBirthday()); // default compare it to today!
 
 // isStartOfX, isEndOfX, isCurrentX, isSameX, isNextX and isLastX are available for each unit
 

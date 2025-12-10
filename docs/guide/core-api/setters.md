@@ -7,7 +7,7 @@ order: 2
 The following setters are implemented via PHP's `__set()` method. Its good to take note here that none of the setters, with the obvious exception of explicitly setting the timezone, will change the timezone of the instance. Specifically, setting the timestamp will not set the corresponding timezone to UTC.
 
 ```php
-{{::lint(
+
 $dt = Carbon::now();
 
 $dt->year = 1975;
@@ -37,25 +37,25 @@ $dt->tz = 'Europe/London';
 
 // verbose way:
 $dt->setYear(2001);
-)}}
-{{::exec(echo $dt->year;/*pad(20)*/)}} // {{eval}}
+
+echo $dt->year;
 echo "\n";
 
-{{::lint(
+
 // set/get method:
 $dt->year(2002);
-)}}
-{{::exec(echo $dt->year();/*pad(20)*/)}} // {{eval}}
+
+echo $dt->year();
 echo "\n";
 
-{{::lint(
+
 // dynamic way:
 $dt->set('year', 2003);
-)}}
-{{::exec(echo $dt->get('year');/*pad(20)*/)}} // {{eval}}
+
+echo $dt->get('year');
 echo "\n";
 
 // these methods exist for every units even for calculated properties such as:
-{{::exec(echo $dt->dayOfYear(35)->format('Y-m-d');/*pad(20)*/)}} // {{eval}}
+echo $dt->dayOfYear(35)->format('Y-m-d');
 
 ```

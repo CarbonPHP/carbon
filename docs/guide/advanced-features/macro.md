@@ -5,26 +5,26 @@ You may be familiar with the macro concept if you are used to working with Larav
 Call the `Carbon::macro()` method with the name of your macro as the first argument and a closure as the second argument. This will make the closure action available on all Carbon instances.
 
 ```php
-{{::lint(
+
 Carbon::macro('diffFromYear', static function ($year, $absolute = false, $short = false, $parts = 1) {
 	return self::this()->diffForHumans(Carbon::create($year, 1, 1, 0, 0, 0), $absolute, $short, $parts);
 });
-)}}
+
 
 // Can be called on Carbon instances:
 //    self::context() = current instance ($this) or null when called statically
 //    self::this() = current instance ($this) or Carbon::now() when called statically
-{{::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019);/*pad(78)*/)}} // {{eval}}
+echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019);
 echo "\n";
-{{::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true);/*pad(78)*/)}} // {{eval}}
+echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true);
 echo "\n";
-{{::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true, true);/*pad(78)*/)}} // {{eval}}
+echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true, true);
 echo "\n";
-{{::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true, true, 5);/*pad(78)*/)}} // {{eval}}
+echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true, true, 5);
 
 // Can also be called statically, in this case self::this() = Carbon::now()
 echo "\n";
-{{::exec(echo Carbon::diffFromYear(2017);/*pad(78)*/)}} // {{eval}}
+echo Carbon::diffFromYear(2017);
 
 ```
 
@@ -37,7 +37,7 @@ The sad part is IDE will not natively your macro method (no auto-completion for 
 Macros are the perfect tool to output dates with some settings or user preferences.
 
 ```php
-{{::lint(
+
 // Let assume you get user settings from the browser or preferences stored in a database
 $userTimezone = 'Europe/Paris';
 $userLanguage = 'fr_FR';
@@ -50,21 +50,21 @@ Carbon::macro('formatForUser', static function () use ($userTimezone, $userLangu
 
 // Then let assume you store all your dates/times in UTC (because you definitely should)
 $dateString = '2010-01-23 10:00:00'; // Get this from your database or any input
-)}}
+
 
 // Then now you can easily display any date in a page/e-mail using those user settings and the chosen format
-{{::exec(echo Carbon::parse($dateString, 'UTC')->formatForUser();/*pad(58)*/)}} // {{eval}}
+echo Carbon::parse($dateString, 'UTC')->formatForUser();
 echo "\n";
-{{::exec(echo Carbon::tomorrow()->formatForUser();/*pad(58)*/)}} // {{eval}}
+echo Carbon::tomorrow()->formatForUser();
 echo "\n";
-{{::exec(echo Carbon::now()->subDays(3)->formatForUser();/*pad(58)*/)}} // {{eval}}
+echo Carbon::now()->subDays(3)->formatForUser();
 
 ```
 
 Macros can also be grouped in classes and be applied with `mixin()`
 
 ```php
-{{::lint(
+
 class BeerDayCarbonMixin
 {
 	public function nextBeerDay()
@@ -85,18 +85,18 @@ class BeerDayCarbonMixin
 Carbon::mixin(new BeerDayCarbonMixin());
 
 $date = Carbon::parse('First saturday of December 2018');
-)}}
 
-{{::exec(echo $date->previousBeerDay();/*pad(78)*/)}} // {{eval}}
+
+echo $date->previousBeerDay();
 echo "\n";
-{{::exec(echo $date->nextBeerDay();/*pad(78)*/)}} // {{eval}}
+echo $date->nextBeerDay();
 
 ```
 
 Since Carbon 2.23.0, it's also possible to shorten the mixin syntax using traits:
 
 ```php
-{{::lint(
+
 trait BeerDayCarbonTrait
 {
 	public function nextBeerDay()
@@ -113,28 +113,28 @@ trait BeerDayCarbonTrait
 Carbon::mixin(BeerDayCarbonTrait::class);
 
 $date = Carbon::parse('First saturday of December 2018');
-)}}
 
-{{::exec(echo $date->previousBeerDay();/*pad(78)*/)}} // {{eval}}
+
+echo $date->previousBeerDay();
 echo "\n";
-{{::exec(echo $date->nextBeerDay();/*pad(78)*/)}} // {{eval}}
+echo $date->nextBeerDay();
 
 ```
 
 You can check if a macro (mixin included) is available with `hasMacro()` and retrieve the macro closure with `getMacro()`
 
 ```php
-{{::exec(var_dump(Carbon::hasMacro('previousBeerDay'));/*pad(78)*/)}} // {{eval}}
-{{::exec(var_dump(Carbon::hasMacro('diffFromYear'));/*pad(78)*/)}} // {{eval}}
+var_dump(Carbon::hasMacro('previousBeerDay'));
+var_dump(Carbon::hasMacro('diffFromYear'));
 echo "\n";
-{{::exec(var_dump(Carbon::hasMacro('dontKnowWhat'));/*pad(78)*/)}} // {{eval}}
+var_dump(Carbon::hasMacro('dontKnowWhat'));
 
 ```
 
 A macro starting with `get` followed by an uppercase letter will automatically provide a dynamic getter whilst a macro starting with `set` and followed by an uppercase letter will provide a dynamic setter:
 
 ```php
-{{::lint(// Let's say a school year starts 5 months before the start of the year, so the school year of 2018 actually begins in August 2017 and ends in July 2018,
+// Let's say a school year starts 5 months before the start of the year, so the school year of 2018 actually begins in August 2017 and ends in July 2018,
 // Then you can create get/set method this way:
 Carbon::macro('setSchoolYear', static function ($schoolYear) {
 	$date = self::this();
@@ -158,22 +158,22 @@ Carbon::macro('getSchoolYear', static function () {
 // the getter and setter methods for the ->schoolYear property.
 
 $date = Carbon::parse('2016-06-01');
-)}}
 
-{{::exec(var_dump($date->schoolYear);/*pad(46)*/)}} // {{eval}}
-{{::lint($date->addMonths(3);)}}
-{{::exec(var_dump($date->schoolYear);/*pad(46)*/)}} // {{eval}}
-{{::lint($date->schoolYear++;)}}
-{{::exec(var_dump($date->format('Y-m-d'));/*pad(46)*/)}} // {{eval}}
-{{::lint($date->schoolYear = 2020;)}}
-{{::exec(var_dump($date->format('Y-m-d'));/*pad(46)*/)}} // {{eval}}
+
+var_dump($date->schoolYear);
+$date->addMonths(3);
+var_dump($date->schoolYear);
+$date->schoolYear++;
+var_dump($date->format('Y-m-d'));
+$date->schoolYear = 2020;
+var_dump($date->format('Y-m-d'));
 
 ```
 
 You can also intercept any other call with generic macro:
 
 ```php
-{{::lint(
+
 Carbon::genericMacro(static function ($method) {
 	// As an example we will convert firstMondayOfDecember into first Monday Of December to get strings that
 	// DateTime can parse.
@@ -197,37 +197,37 @@ Carbon::genericMacro(static function ($method) {
 // They can be added via "genericMacros" setting and this setting has precedence over statically declared generic macros.
 
 $date = Carbon::parse('2016-06-01');
-)}}
 
-{{::exec(echo $date->nextSunday();/*pad(42)*/)}} // {{eval}}
+
+echo $date->nextSunday();
 echo "\n";
-{{::exec(echo $date->lastMondayOfPreviousMonth();/*pad(42)*/)}} // {{eval}}
-{{::lint(Carbon::resetMacros();)}} // resetMacros remove all macros and generic macro declared statically
+echo $date->lastMondayOfPreviousMonth();
+Carbon::resetMacros(); // resetMacros remove all macros and generic macro declared statically
 
 ```
 
 And guess what? all macro methods are also available on [`CarbonInterval`](#api-interval) and [`CarbonPeriod`](#api-period) classes.
 
 ```php
-{{::lint(
+
 CarbonInterval::macro('twice', static function () {
 	return self::this()->times(2);
 });
-)}}
-{{::exec(echo CarbonInterval::day()->twice()->forHumans();/*pad(42)*/)}} // {{eval}}
-{{::lint($interval = CarbonInterval::hours(2)->addMinutes(15)->twice();)}}
-{{::exec(echo $interval->forHumans(['short' => true]);/*pad(42)*/)}} // {{eval}}
+
+echo CarbonInterval::day()->twice()->forHumans();
+$interval = CarbonInterval::hours(2)->addMinutes(15)->twice();
+echo $interval->forHumans(['short' => true]);
 
 ```
 
 ```php
-{{::lint(
+
 CarbonPeriod::macro('countWeekdays', static function () {
 	return self::this()->filter('isWeekday')->count();
 });
-)}}
-{{::exec(echo CarbonPeriod::create('2017-11-01', '2017-11-30')->countWeekdays();/*pad(72)*/)}} // {{eval}}
-{{::exec(echo CarbonPeriod::create('2017-12-01', '2017-12-31')->countWeekdays();/*pad(72)*/)}} // {{eval}}
+
+echo CarbonPeriod::create('2017-11-01', '2017-11-30')->countWeekdays();
+echo CarbonPeriod::create('2017-12-01', '2017-12-31')->countWeekdays();
 
 ```
 
@@ -270,7 +270,7 @@ Check [Carbonite](https://github.com/kylekatarnls/carbonite) for more advanced C
 **🙌 More macros and mixins below shared by users**
 
 ```php
-{{::lint(
+
 class CurrentDaysCarbonMixin
 {
 	/**
@@ -320,40 +320,40 @@ Carbon::mixin(new CurrentDaysCarbonMixin());
 function dumpDateList($dates) {
 	echo substr(implode(', ', $dates), 0, 100).'...';
 }
-)}}
 
-{{::exec(dumpDateList(Carbon::getCurrentWeekDays());/*pad(65)*/)}} // {{eval}}
-{{::exec(dumpDateList(Carbon::getCurrentMonthDays());/*pad(65)*/)}} // {{eval}}
-{{::exec(dumpDateList(Carbon::now()->subMonth()->getCurrentWeekDays());/*pad(65)*/)}} // {{eval}}
-{{::exec(dumpDateList(Carbon::now()->subMonth()->getCurrentMonthDays());/*pad(65)*/)}} // {{eval}}
+
+dumpDateList(Carbon::getCurrentWeekDays());
+dumpDateList(Carbon::getCurrentMonthDays());
+dumpDateList(Carbon::now()->subMonth()->getCurrentWeekDays());
+dumpDateList(Carbon::now()->subMonth()->getCurrentMonthDays());
 
 ```
 
 _Credit: [meteguerlek](https://github.com/meteguerlek) ([#1191](https://github.com/briannesbitt/Carbon/pull/1191))._
 
 ```php
-{{::lint(
+
 Carbon::macro('toAtomStringWithNoTimezone', static function () {
 	return self::this()->format('Y-m-d\TH:i:s');
 });
-)}}
-{{::exec(echo Carbon::parse('2021-06-16 20:08:34')->toAtomStringWithNoTimezone();)}} // {{eval}}
+
+echo Carbon::parse('2021-06-16 20:08:34')->toAtomStringWithNoTimezone();
 
 ```
 
 _Credit: [afrojuju1](https://github.com/afrojuju1) ([#1063](https://github.com/briannesbitt/Carbon/pull/1063))._
 
 ```php
-{{::lint(
+
 Carbon::macro('easterDate', static function ($year) {
 	return Carbon::createMidnightDate($year, 3, 21)->addDays(easter_days($year));
 });
-)}}
-{{::exec(echo Carbon::easterDate(2015)->format('d/m');)}} // {{eval}}
-{{::exec(echo Carbon::easterDate(2016)->format('d/m');)}} // {{eval}}
-{{::exec(echo Carbon::easterDate(2017)->format('d/m');)}} // {{eval}}
-{{::exec(echo Carbon::easterDate(2018)->format('d/m');)}} // {{eval}}
-{{::exec(echo Carbon::easterDate(2019)->format('d/m');)}} // {{eval}}
+
+echo Carbon::easterDate(2015)->format('d/m');
+echo Carbon::easterDate(2016)->format('d/m');
+echo Carbon::easterDate(2017)->format('d/m');
+echo Carbon::easterDate(2018)->format('d/m');
+echo Carbon::easterDate(2019)->format('d/m');
 
 ```
 
@@ -362,14 +362,14 @@ _Credit: [andreisena](https://github.com/andreisena), [36864](https://github.com
 Check [cmixin/business-day](https://github.com/kylekatarnls/business-day) for a more complete holidays handler.
 
 ```php
-{{::lint(
+
 Carbon::macro('datePeriod', static function ($startDate, $endDate) {
 	return new \DatePeriod($startDate, new \DateInterval('P1D'), $endDate);
 });
-)}}
-{{::exec(foreach (Carbon::datePeriod(Carbon::createMidnightDate(2019, 3, 28), Carbon::createMidnightDate(2019, 4, 3)) as $date) {
+
+foreach (Carbon::datePeriod(Carbon::createMidnightDate(2019, 3, 28), Carbon::createMidnightDate(2019, 4, 3)) as $date) {
 	echo $date->format('Y-m-d') . "\n";
-})}}
+}
 /*
 {{eval}}*/
 
@@ -378,7 +378,7 @@ Carbon::macro('datePeriod', static function ($startDate, $endDate) {
 _Credit: [reinink](https://github.com/reinink) ([#132](https://github.com/briannesbitt/Carbon/pull/132))._
 
 ```php
-{{::lint(
+
 Carbon::macro('formatBuddhist', static function (string $format): string {
 	$self = self::this();
 
@@ -405,16 +405,16 @@ Carbon::macro('formatBuddhist', static function (string $format): string {
 		'[{3}]' => str_pad($buddhistYear % 100, 2, '0', STR_PAD_LEFT),
 	]);
 });
-)}}
-{{::exec(echo Carbon::parse('2024-02-29 10.55.32')->formatBuddhist('Y-m-d H:i:s');)}} // {{eval}}
-{{::exec(echo Carbon::parse('2024-02-29 10.55.32')->formatBuddhist('d/m/y');)}}       // {{eval}}
+
+echo Carbon::parse('2024-02-29 10.55.32')->formatBuddhist('Y-m-d H:i:s');
+echo Carbon::parse('2024-02-29 10.55.32')->formatBuddhist('d/m/y');
 
 ```
 
 _From on original idea of: [mean-cj](https://github.com/mean-cj) ([#2954](https://github.com/briannesbitt/Carbon/issues/2954))._
 
 ```php
-{{::lint(
+
 class UserTimezoneCarbonMixin
 {
 	public $userTimeZone;
@@ -461,14 +461,14 @@ class UserTimezoneCarbonMixin
 Carbon::mixin(new UserTimezoneCarbonMixin());
 
 Carbon::setUserTimezone('Europe/Berlin');
-)}}
-{{::exec(echo Carbon::createFromTime(12, 0, 0, 'UTC')->tzFormat('H:i');)}} // {{eval}}
-{{::exec(echo Carbon::createFromTime(15, 0, 0, 'UTC')->tzFormat('H:i');)}} // {{eval}}
-{{::lint(
+
+echo Carbon::createFromTime(12, 0, 0, 'UTC')->tzFormat('H:i');
+echo Carbon::createFromTime(15, 0, 0, 'UTC')->tzFormat('H:i');
+
 Carbon::setUserTimezone('America/Toronto');
-)}}
-{{::exec(echo Carbon::createFromTime(12, 0, 0, 'UTC')->tzFormat('H:i');)}} // {{eval}}
-{{::exec(echo Carbon::createFromTime(15, 0, 0, 'UTC')->tzFormat('H:i');)}} // {{eval}}
+
+echo Carbon::createFromTime(12, 0, 0, 'UTC')->tzFormat('H:i');
+echo Carbon::createFromTime(15, 0, 0, 'UTC')->tzFormat('H:i');
 
 ```
 
@@ -477,7 +477,7 @@ _Credit: [thiagocordeiro](https://github.com/thiagocordeiro) ([#927](https://git
 Whilst using a macro is the recommended way to add new methods or behaviour to Carbon, you can go further and extend the class itself which allows some alternative ways to override the primary methods; parse, format and createFromFormat.
 
 ```php
-{{::lint(
+
 class MyDateClass extends Carbon
 {
 	protected static $formatFunction = 'translatedFormat';
@@ -494,24 +494,24 @@ class MyDateClass extends Carbon
 
 $date = MyDateClass::parse('20 12 2001')->locale('de');
 
-)}}
-{{::exec(echo $date->format('jS F y');/*pad(40)*/)}} // {{eval}}
+
+echo $date->format('jS F y');
 echo "\n";
 
-{{::lint($date = MyDateClass::createFromFormat('j F Y', 'pt', '20 fevereiro 2001')->locale('pt');)}}
+$date = MyDateClass::createFromFormat('j F Y', 'pt', '20 fevereiro 2001')->locale('pt');
 
-{{::exec(echo $date->format('d/m/Y');/*pad(40)*/)}} // {{eval}}
+echo $date->format('d/m/Y');
 echo "\n";
 
 // Note than you can still access native methods using rawParse, rawFormat and rawCreateFromFormat:
-{{::lint($date = MyDateClass::rawCreateFromFormat('j F Y', '20 February 2001', 'UTC')->locale('pt');)}}
+$date = MyDateClass::rawCreateFromFormat('j F Y', '20 February 2001', 'UTC')->locale('pt');
 
-{{::exec(echo $date->rawFormat('jS F y');/*pad(40)*/)}} // {{eval}}
+echo $date->rawFormat('jS F y');
 echo "\n";
 
-{{::lint($date = MyDateClass::rawParse('2001-02-01', 'UTC')->locale('pt');)}}
+$date = MyDateClass::rawParse('2001-02-01', 'UTC')->locale('pt');
 
-{{::exec(echo $date->format('jS F y');/*pad(40)*/)}} // {{eval}}
+echo $date->format('jS F y');
 echo "\n";
 
 ```
@@ -519,7 +519,7 @@ echo "\n";
 The following macro allow you to choose a timezone using only the city name (omitting continent). Perfect to make your unit tests more fluent:
 
 ```php
-{{::lint(Carbon::macro('goTo', function (string $city) {
+Carbon::macro('goTo', function (string $city) {
 	static $cities = null;
 
 	if ($cities === null) {
@@ -540,10 +540,10 @@ The following macro allow you to choose a timezone using only the city name (omi
 	}
 
 	return $this->tz($cities[$city]);
-});)}}
+});
 
-{{::exec(echo Carbon::now()->goTo('Chicago')->tzName;/*pad(40)*/)}} // {{eval}}
+echo Carbon::now()->goTo('Chicago')->tzName;
 echo "\n";
-{{::exec(echo Carbon::now()->goTo('Buenos Aires')->tzName;/*pad(40)*/)}} // {{eval}}
+echo Carbon::now()->goTo('Buenos Aires')->tzName;
 
 ```

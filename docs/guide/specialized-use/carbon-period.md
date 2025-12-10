@@ -3,7 +3,7 @@
 CarbonPeriod is a human-friendly version of the [DatePeriod](https://www.php.net/manual/en/class.dateperiod.php) with many shortcuts.
 
 ```php
-{{::lint(
+
 // Create a new instance:
 $period = new CarbonPeriod('2018-04-21', '3 days', '2018-04-27');
 // Use static constructor:
@@ -46,7 +46,6 @@ CarbonPeriod::create('now', '1 day', 3); // now, now + 1 day, now + 2 day
 CarbonPeriod::create('now', '2 days', INF); // infinite iteration
 CarbonPeriod::create('now', '2 days', INF)->calculateEnd()->isEndOfTime(); // true
 CarbonPeriod::create('now', CarbonInterval::days(-2), INF)->calculateEnd()->isStartOfTime(); // true
-)}}
 
 ```
 
@@ -64,22 +63,19 @@ Default constructor and `create()` methods are very forgiving in terms of argume
 CarbonPeriod implements the [Iterator](https://www.php.net/manual/en/class.iterator.php) interface. It means that it can be passed directly to a `foreach` loop:
 
 ```php
-{{::lint(
+
 $period = CarbonPeriod::create('2018-04-21', '3 days', '2018-04-27');
-)}}
-{{::exec(
+
 foreach ($period as $key => $date) {
     if ($key) {
         echo ', ';
     }
     echo $date->format('m-d');
 }
-)}}
-// {{eval}}
+
 echo "\n";
 
 // Here is what happens under the hood:
-{{::exec(
 $period->rewind(); // restart the iteration
 while ($period->valid()) { // check if current item is valid
     if ($period->key()) { // echo comma if current key is greater than 0
@@ -88,15 +84,13 @@ while ($period->valid()) { // check if current item is valid
     echo $period->current()->format('m-d'); // echo current date
     $period->next(); // move to the next item
 }
-)}}
-// {{eval}}
 
 ```
 
 Parameters can be modified during the iteration:
 
 ```php
-{{::lint(
+
 $period = CarbonPeriod::create('2018-04-29', 7);
 $dates = [];
 foreach ($period as $key => $date) {
@@ -105,9 +99,9 @@ foreach ($period as $key => $date) {
     }
     $dates[] = $date->format('m-d');
 }
-)}}
 
-{{::exec(echo implode(', ', $dates);)}} // {{eval}}
+
+echo implode(', ', $dates);
 
 ```
 
@@ -116,7 +110,7 @@ Just as DatePeriod, the CarbonPeriod supports [ISO 8601 time interval specificat
 Note that the native DatePeriod treats recurrences as a number of times to repeat the interval. Thus it will give one less result when the start date is excluded. Introduction of custom filters in CarbonPeriod made it even more difficult to know the number of results. For that reason we changed the implementation slightly, and recurrences are treated as an overall limit for number of returned dates.
 
 ```php
-{{::lint(
+
 // Possible options are: CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE
 // Default value is 0 which will have the same effect as when no options are given.
 $period = CarbonPeriod::createFromIso('R4/2012-07-01T00:00:00Z/P7D', CarbonPeriod::EXCLUDE_START_DATE);
@@ -124,73 +118,71 @@ $dates = [];
 foreach ($period as $date) {
     $dates[] = $date->format('m-d');
 }
-)}}
 
-{{::exec(echo implode(', ', $dates);)}} // {{eval}}
+
+echo implode(', ', $dates);
 
 ```
 
 You can retrieve data from the period with variety of getters:
 
 ```php
-{{::lint(
+
 $period = CarbonPeriod::create('2010-05-06', '2010-05-25', CarbonPeriod::EXCLUDE_START_DATE);
 
 $exclude = $period->getOptions() & CarbonPeriod::EXCLUDE_START_DATE;
-)}}
 
-{{::exec(echo $period->getStartDate();/*pad(40)*/)}} // {{eval}}
+
+echo $period->getStartDate();
 echo "\n";
-{{::exec(echo $period->getEndDate();/*pad(40)*/)}} // {{eval}}
+echo $period->getEndDate();
 // Note than ->getEndDate() will return null when the end is not fixed.
 // For example CarbonPeriod::since('2018-04-21')->times(3) use repetition, so we don't know the end before iteration.
 // Then you can use ->calculateEnd() instead that will use getEndDate() if available and else will execute a complete
 // iteration to calculate the end date.
 echo "\n";
-{{::exec(echo $period->getDateInterval();/*pad(40)*/)}} // {{eval}}
+echo $period->getDateInterval();
 echo "\n";
-{{::exec(echo $exclude ? 'exclude' : 'include';/*pad(40)*/)}} // {{eval}}
-echo "\n";
-
-{{::exec(var_dump($period->isStartIncluded());/*pad(40)*/)}} // {{eval}}
-echo "\n";
-{{::exec(var_dump($period->isEndIncluded());/*pad(40)*/)}} // {{eval}}
-echo "\n";
-{{::exec(var_dump($period->isStartExcluded());/*pad(40)*/)}} // {{eval}}
-echo "\n";
-{{::exec(var_dump($period->isEndExcluded());/*pad(40)*/)}} // {{eval}}
+echo $exclude ? 'exclude' : 'include';
 echo "\n";
 
-{{::exec(echo $period->getIncludedStartDate();/*pad(40)*/)}} // {{eval}}
+var_dump($period->isStartIncluded());
+echo "\n";
+var_dump($period->isEndIncluded());
+echo "\n";
+var_dump($period->isStartExcluded());
+echo "\n";
+var_dump($period->isEndExcluded());
+echo "\n";
+
+echo $period->getIncludedStartDate();
 // If start is included getIncludedStartDate() = getStartDate()
 // If start is excluded getIncludedStartDate() = getStartDate() + 1 interval
 echo "\n";
-{{::exec(echo $period->getIncludedEndDate();/*pad(40)*/)}} // {{eval}}
+echo $period->getIncludedEndDate();
 // If end is included getIncludedEndDate() = getEndDate()
 // If end is excluded getIncludedEndDate() = getEndDate() - 1 interval
 // If end is null getIncludedEndDate() = calculateEnd(), it means the period is actually iterated to get the last date
 echo "\n";
 
-{{::exec(echo $period->toString();/*pad(40)*/)}} // {{eval}}
+echo $period->toString();
 echo "\n";
-{{::exec(echo $period; /*implicit toString*//*pad(40)*/)}} // {{eval}}
+echo $period; /*implicit toString*/
 
 ```
 
 Additional getters let you access the results as an array:
 
 ```php
-{{::lint(
 $period = CarbonPeriod::create('2010-05-11', '2010-05-13');
-)}}
 
-{{::exec(echo $period->count();/*pad(40)*/)}} // {{eval}}, equivalent to count($period)
+echo $period->count(); // equivalent to count($period)
 echo "\n";
-{{::exec(echo implode(', ', $period->toArray());/*pad(40)*/)}} // {{eval}}
+echo implode(', ', $period->toArray());
 echo "\n";
-{{::exec(echo $period->first();/*pad(40)*/)}} // {{eval}}
+echo $period->first();
 echo "\n";
-{{::exec(echo $period->last();/*pad(40)*/)}} // {{eval}}
+echo $period->last();
 
 ```
 
@@ -199,143 +191,142 @@ Note that if you intend to work using the above functions it's a good idea to st
 To change the parameters you can use setter methods:
 
 ```php
-{{::lint(
-$period = CarbonPeriod::create('2010-05-01', '2010-05-14', CarbonPeriod::EXCLUDE_END_DATE);
-)}}
 
-{{::lint($period->setStartDate('2010-05-11');)}}
-{{::exec(echo implode(', ', $period->toArray());/*pad(40)*/)}} // {{eval}}
+$period = CarbonPeriod::create('2010-05-01', '2010-05-14', CarbonPeriod::EXCLUDE_END_DATE);
+
+
+$period->setStartDate('2010-05-11');
+echo implode(', ', $period->toArray());
 echo "\n";
 
 // Second argument can be optionally used to exclude the date from the results.
-{{::lint($period->setStartDate('2010-05-11', false);)}}
-{{::lint($period->setEndDate('2010-05-14', true);)}}
-{{::exec(echo implode(', ', $period->toArray());/*pad(40)*/)}} // {{eval}}
+$period->setStartDate('2010-05-11', false);
+$period->setEndDate('2010-05-14', true);
+echo implode(', ', $period->toArray());
 echo "\n";
 
-{{::lint($period->setRecurrences(2);)}}
-{{::exec(echo implode(', ', $period->toArray());/*pad(40)*/)}} // {{eval}}
+$period->setRecurrences(2);
+echo implode(', ', $period->toArray());
 echo "\n";
 
-{{::lint($period->setDateInterval('PT12H');)}}
-{{::exec(echo implode(', ', $period->toArray());/*pad(40)*/)}} // {{eval}}
+$period->setDateInterval('PT12H');
+echo implode(', ', $period->toArray());
 
 // This can also be set to 12 hours in all the following ways:
-{{::lint($period->setDateInterval('12h');)}}
-{{::lint($period->setDateInterval('12 hours');)}}
-{{::lint($period->setDateInterval(12, 'hours');)}}
-{{::lint($period->setDateInterval(12, \Carbon\Unit::Hour);)}}
+$period->setDateInterval('12h');
+$period->setDateInterval('12 hours');
+$period->setDateInterval(12, 'hours');
+$period->setDateInterval(12, \Carbon\Unit::Hour);
 
 // And reset to no explicit interval (will then use 1 day if iterated)
-{{::lint($period->resetDateInterval();)}}
+$period->resetDateInterval();
 
 ```
 
 You can change options using `setOptions()` to replace all options but you also can change them separately:
 
 ```php
-{{::lint(
+
 $period = CarbonPeriod::create('2010-05-06', '2010-05-25');
-)}}
 
-{{::exec(var_dump($period->isStartExcluded());/*pad(40)*/)}} // {{eval}}
-{{::exec(var_dump($period->isEndExcluded());/*pad(40)*/)}} // {{eval}}
+var_dump($period->isStartExcluded());
+var_dump($period->isEndExcluded());
 
-{{::lint($period->toggleOptions(CarbonPeriod::EXCLUDE_START_DATE, true);)}} // true, false or nothing to invert the option
-{{::exec(var_dump($period->isStartExcluded());/*pad(40)*/)}} // {{eval}}
-{{::exec(var_dump($period->isEndExcluded());/*pad(40)*/)}} // {{eval}} (unchanged)
+$period->toggleOptions(CarbonPeriod::EXCLUDE_START_DATE, true); // true, false or nothing to invert the option
+var_dump($period->isStartExcluded());
+var_dump($period->isEndExcluded()); // (unchanged)
 
-{{::lint($period->excludeEndDate();/*pad(40)*/)}} // specify false to include, true or omit to exclude
-{{::exec(var_dump($period->isStartExcluded());/*pad(40)*/)}} // {{eval}} (unchanged)
-{{::exec(var_dump($period->isEndExcluded());/*pad(40)*/)}} // {{eval}}
+$period->excludeEndDate(); // specify false to include, true or omit to exclude
+var_dump($period->isStartExcluded()); // (unchanged)
+var_dump($period->isEndExcluded());
 
-{{::lint($period->excludeStartDate(false);/*pad(40)*/)}} // specify false to include, true or omit to exclude
-{{::exec(var_dump($period->isStartExcluded());/*pad(40)*/)}} // {{eval}}
-{{::exec(var_dump($period->isEndExcluded());/*pad(40)*/)}} // {{eval}}
+$period->excludeStartDate(false); // specify false to include, true or omit to exclude
+var_dump($period->isStartExcluded());
+var_dump($period->isEndExcluded());
 
 ```
 
 You can check 2 periods overlap or not:
 
 ```php
-{{::lint(
+
 $period = CarbonPeriod::create('2010-05-06', '2010-05-25');
 $period2 = CarbonPeriod::create('2010-05-22', '2010-05-24');
-)}}
 
-{{::exec(var_dump($period->overlaps('2010-05-22', '2010-06-03'));/*pad(58)*/)}} // {{eval}}
-{{::exec(var_dump($period->overlaps($period2));/*pad(58)*/)}} // {{eval}}
 
-{{::lint(
+var_dump($period->overlaps('2010-05-22', '2010-06-03'));
+var_dump($period->overlaps($period2));
+
+
 $period = CarbonPeriod::create('2010-05-06 12:00', '2010-05-25');
 $start = Carbon::create('2010-05-06 05:00');
 $end = Carbon::create('2010-05-06 11:59');
-)}}
-{{::exec(var_dump($period->overlaps($start, $end));/*pad(58)*/)}} // {{eval}}
+
+var_dump($period->overlaps($start, $end));
 
 ```
 
 As mentioned earlier, per ISO 8601 specification, recurrences is a number of times the interval should be repeated. The native DatePeriod will thus vary the number of returned dates depending on the exclusion of the start date. Meanwhile, CarbonPeriod being more forgiving in terms of input and allowing custom filters, treats recurrences as an overall limit for number of returned dates:
 
 ```php
-{{::lint(
+
 $period = CarbonPeriod::createFromIso('R4/2012-07-01T00:00:00Z/P7D');
 $days = [];
 foreach ($period as $date) {
     $days[] = $date->format('d');
 }
-)}}
 
-{{::exec(echo $period->getRecurrences();/*pad(40)*/)}} // {{eval}}
-{{::exec(echo implode(', ', $days);/*pad(40)*/)}} // {{eval}}
 
-{{::lint(
+echo $period->getRecurrences();
+echo implode(', ', $days);
+
+
 $days = [];
 $period->setRecurrences(3)->excludeStartDate();
 foreach ($period as $date) {
     $days[] = $date->format('d');
 }
-)}}
 
-{{::exec(echo $period->getRecurrences();/*pad(40)*/)}} // {{eval}}
-{{::exec(echo implode(', ', $days);/*pad(40)*/)}} // {{eval}}
 
-{{::lint(
+echo $period->getRecurrences();
+echo implode(', ', $days);
+
+
 $days = [];
 $period = CarbonPeriod::recurrences(3)->sinceNow();
 foreach ($period as $date) {
     $days[] = $date->format('Y-m-d');
 }
-)}}
 
-{{::exec(echo implode(', ', $days);/*pad(40)*/)}} // {{eval}}
+
+echo implode(', ', $days);
 
 ```
 
 Dates returned by the DatePeriod can be easily filtered. Filters can be used for example to skip certain dates or iterate only over working days or weekends. A filter function should return `true` to accept a date, `false` to skip it but continue searching or `CarbonPeriod::END_ITERATION` to end the iteration.
 
 ```php
-{{::lint(
+
 $period = CarbonPeriod::between('2000-01-01', '2000-01-15');
 $weekendFilter = function ($date) {
     return $date->isWeekend();
 };
-$period->filter($weekendFilter);)}}
+$period->filter($weekendFilter);
 
-{{::lint(
+
 $days = [];
 foreach ($period as $date) {
     $days[] = $date->format('m-d');
 }
-)}}
-{{::exec(echo implode(', ', $days);/*pad(50)*/)}} // {{eval}}
+
+echo implode(', ', $days);
 
 ```
 
 You also can skip one or more value(s) inside the loop.
 
 ```php
-{{::lint(
+
 $period = CarbonPeriod::between('2000-01-01', '2000-01-10');
 $days = [];
 foreach ($period as $date) {
@@ -345,48 +336,46 @@ foreach ($period as $date) {
         $period->skip(3);
     }
 }
-)}}
-{{::exec(echo implode(', ', $days);/*pad(50)*/)}} // {{eval}}
+
+echo implode(', ', $days);
 
 ```
 
 `getFilters()` allow you to retrieve all the stored filters in a period. But be aware the recurrences limit and the end date will appear in the returned array as they are stored internally as filters.
 
 ```php
-{{::lint(
+
 $period = CarbonPeriod::end('2000-01-01')->recurrences(3);
-)}}
-{{::exec(var_export($period->getFilters());)}}
-/*
-{{eval}}
-*/
+
+var_export($period->getFilters());
+
 
 ```
 
 Filters are stored in a stack and can be managed using a special set of methods:
 
 ```php
-{{::lint(
+
 $period = CarbonPeriod::between('2000-01-01', '2000-01-15');
 $weekendFilter = function ($date) {
     return $date->isWeekend();
 };
-)}}
 
-{{::exec(var_dump($period->hasFilter($weekendFilter));/*pad(50)*/)}} // {{eval}}
-{{::lint($period->addFilter($weekendFilter);)}}
-{{::exec(var_dump($period->hasFilter($weekendFilter));/*pad(50)*/)}} // {{eval}}
-{{::lint($period->removeFilter($weekendFilter);)}}
-{{::exec(var_dump($period->hasFilter($weekendFilter));/*pad(50)*/)}} // {{eval}}
+
+var_dump($period->hasFilter($weekendFilter));
+$period->addFilter($weekendFilter);
+var_dump($period->hasFilter($weekendFilter));
+$period->removeFilter($weekendFilter);
+var_dump($period->hasFilter($weekendFilter));
 
 // To avoid storing filters as variables you can name your filters:
-{{::lint($period->prependFilter(function ($date) {
+$period->prependFilter(function ($date) {
     return $date->isWeekend();
-}, 'weekend');)}}
+}, 'weekend');
 
-{{::exec(var_dump($period->hasFilter('weekend'));/*pad(50)*/)}} // {{eval}}
-{{::lint($period->removeFilter('weekend');)}}
-{{::exec(var_dump($period->hasFilter('weekend'));/*pad(50)*/)}} // {{eval}}
+var_dump($period->hasFilter('weekend'));
+$period->removeFilter('weekend');
+var_dump($period->hasFilter('weekend'));
 
 ```
 
@@ -395,12 +384,12 @@ Order in which filters are added can have an impact on the performance and on th
 For example, when you add a custom filter that limits the number of attempted dates, the result will be different if you add it before or after the weekday filter.
 
 ```php
-{{::lint(
+
 // Note that you can pass a name of any Carbon method starting with "is", including macros
 $period = CarbonPeriod::between('2018-05-03', '2018-05-25')->filter('isWeekday');
-)}}
 
-{{::lint(
+
+
 $attempts = 0;
 $attemptsFilter = function () use (&$attempts) {
     return ++$attempts <= 5 ? true : CarbonPeriod::END_ITERATION;
@@ -411,10 +400,10 @@ $days = [];
 foreach ($period as $date) {
     $days[] = $date->format('m-d');
 }
-)}}
-{{::exec(echo implode(', ', $days);/*pad(50)*/)}} // {{eval}}
 
-{{::lint(
+echo implode(', ', $days);
+
+
 $attempts = 0;
 
 $period->removeFilter($attemptsFilter)->addFilter($attemptsFilter, 'attempts');
@@ -422,8 +411,8 @@ $days = [];
 foreach ($period as $date) {
     $days[] = $date->format('m-d');
 }
-)}}
-{{::exec(echo implode(', ', $days);/*pad(50)*/)}} // {{eval}}
+
+echo implode(', ', $days);
 
 ```
 
@@ -431,7 +420,7 @@ Note that the built-in recurrences filter doesn't work this way. It is instead b
 
 A number of aliases has been added to simplify building the CarbonPeriod:
 
-```php
+```php{no-render}
 // "start", "since", "sinceNow":
 CarbonPeriod::start('2017-03-10') == CarbonPeriod::create()->setStartDate('2017-03-10');
 // Same with optional boolean argument $inclusive to change the option about include/exclude start date:
@@ -467,39 +456,39 @@ CarbonPeriod::hours(5) == CarbonPeriod::create()->setDateInterval(CarbonInterval
 CarbonPeriod can be easily converted to a human-readable string and ISO 8601 specification:
 
 ```php
-{{::lint(
+
 $period = CarbonPeriod::create('2000-01-01 12:00', '3 days 12 hours', '2000-01-15 12:00');
-)}}
-{{::exec(echo $period->toString();/*pad(36)*/)}} // {{eval}}
+
+echo $period->toString();
 echo "\n";
-{{::exec(echo $period->toIso8601String();/*pad(36)*/)}} // {{eval}}
+echo $period->toIso8601String();
 
 ```
 
 Period use and return Carbon instance by default, but you can easily set/get the date class to use in order to get immutable dates for example or any class implementing CarbonInterface.
 
 ```php
-{{::lint(
+
 $period = new CarbonPeriod;
 $period->setDateClass(CarbonImmutable::class);
 $period->every('3 days 12 hours')->since('2000-01-01 12:00')->until('2000-01-15 12:00');
-)}}
 
-{{::exec(echo $period->getDateClass();/*pad(42)*/)}} // {{eval}}
+
+echo $period->getDateClass();
 echo "\n";
-{{::exec(echo $period->getStartDate();/*pad(42)*/)}} // {{eval}}
+echo $period->getStartDate();
 echo "\n";
-{{::exec(echo get_class($period->getStartDate());/*pad(42)*/)}} // {{eval}}
+echo get_class($period->getStartDate());
 
 ```
 
 CarbonPeriod has `forEach()` and `map()` helper methods:
 
 ```php
-{{::lint(
+
 $period = CarbonPeriod::create('2018-04-21', '3 days', '2018-04-27');
-)}}
-{{::exec(
+
+
 $dates = $period->map(function (Carbon $date) {
     return $date->format('m-d');
 });
@@ -508,17 +497,14 @@ $dates = $period->map(function (Carbon $date) {
 $array = iterator_to_array($dates); // $dates is a iterable \Generator
 var_dump($array);
 echo implode(', ', $array);
-)}}
-/*
-{{eval}}
-*/
+
 echo "\n";
 
 // Here is what happens under the hood:
-{{::exec(
+
 $period->forEach(function (Carbon $date) {
     echo $date->format('m-d')."\n";
-});)}}
+});
 /*
 {{eval}}*/
 
@@ -527,56 +513,56 @@ $period->forEach(function (Carbon $date) {
 As all other Carbon classes, `CarbonPeriod` has a `cast()` method to convert it:
 
 ```php
-{{::lint(
+
 $period = CarbonPeriod::create('2000-01-01 12:00', '3 days 12 hours', '2000-01-15 12:00');
 
 // It would also works if your class extends DatePeriod
 class MyPeriod extends CarbonPeriod {}
-)}}
 
-{{::exec(echo get_class($period->cast(MyPeriod::class));/*pad(42)*/)}} // {{eval}}
+
+echo get_class($period->cast(MyPeriod::class));
 
 // Shortcut to export as raw DatePeriod:
-{{::exec(echo get_class($period->toDatePeriod());/*pad(42)*/)}} // {{eval}}
+echo get_class($period->toDatePeriod());
 
 ```
 
 You can check if periods follow themselves. Period **A** follows period **B** if the first iteration date of **B** equals to the last iteration date of **A** + the interval of **A**. For example `[2019-02-01 => 2019-02-16]` follows `[2019-01-15 => 2019-01-31]` (assuming neither start nor end are excluded via option for those period and assuming those period as a (1 day)-interval.
 
 ```php
-{{::lint(
+
 $a = CarbonPeriod::create('2019-01-15', '2019-01-31');
 $b = CarbonPeriod::create('2019-02-01', '2019-02-16');
-)}}
 
-{{::exec(var_dump($b->follows($a));/*pad(40)*/)}} // {{eval}}
-{{::exec(var_dump($a->isFollowedBy($b));/*pad(40)*/)}} // {{eval}}
+
+var_dump($b->follows($a));
+var_dump($a->isFollowedBy($b));
 // ->isConsecutiveWith($period) is true if it either ->follows($period) or ->isFollowedBy($period)
-{{::exec(var_dump($b->isConsecutiveWith($a));/*pad(40)*/)}} // {{eval}}
-{{::exec(var_dump($a->isConsecutiveWith($b));/*pad(40)*/)}} // {{eval}}
+var_dump($b->isConsecutiveWith($a));
+var_dump($a->isConsecutiveWith($b));
 
 ```
 
 The `contains()` method allow you to check if a date is in the period range.
 
 ```php
-{{::lint(
-$period = CarbonPeriod::create('2019-01-15', '2019-01-31');
-)}}
 
-{{::exec(var_dump($period->contains('2019-01-22'));/*pad(50)*/)}} // {{eval}}
+$period = CarbonPeriod::create('2019-01-15', '2019-01-31');
+
+
+var_dump($period->contains('2019-01-22'));
 
 ```
 
 The comparison includes start and end unless you excluded them in the option and as for it concerns `contains()`, the exclusion only exclude the exact date, so:
 
 ```php
-{{::lint(
-$period = CarbonPeriod::create('2019-01-15', '2019-01-31', CarbonPeriod::EXCLUDE_END_DATE);
-)}}
 
-{{::exec(var_dump($period->contains('2019-01-31 00:00:00'));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($period->contains('2019-01-30 23:59:59'));/*pad(50)*/)}} // {{eval}}
+$period = CarbonPeriod::create('2019-01-15', '2019-01-31', CarbonPeriod::EXCLUDE_END_DATE);
+
+
+var_dump($period->contains('2019-01-31 00:00:00'));
+var_dump($period->contains('2019-01-30 23:59:59'));
 
 ```
 

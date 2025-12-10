@@ -7,7 +7,7 @@ order: 1
 The Carbon class is [inherited](https://www.php.net/manual/en/language.oop5.inheritance.php)
 from the PHP [DateTime](https://www.php.net/manual/en/class.datetime.php) class.
 
-```php
+```php {no-render}
 namespace Carbon;
 
 class Carbon extends \DateTime
@@ -19,7 +19,7 @@ class Carbon extends \DateTime
 You can see from the code snippet above that the Carbon class is declared in the Carbon namespace. You need to
 import the namespace to use Carbon without having to provide its fully qualified name each time.
 
-```php
+```php {no-render}
 use Carbon\Carbon;
 ```
 
@@ -35,29 +35,32 @@ instance, it modifies and returns the same instance, when you use it on CarbonIm
 it returns a new instance with the new value.
 
 ```php
-{{::lint($mutable = Carbon::now();)}}
-{{::lint($immutable = CarbonImmutable::now();)}}
-{{::lint($modifiedMutable = $mutable->add(1, 'day');)}}
-{{::lint($modifiedImmutable = CarbonImmutable::now()->add(1, 'day');)}}
+$mutable = Carbon::now();
+$immutable = CarbonImmutable::now();
+$modifiedMutable = $mutable->add(1, 'day');
+$modifiedImmutable = CarbonImmutable::now()->add(1, 'day');
 
-{{::exec(var_dump($modifiedMutable === $mutable);/*pad(52)*/)}} // {{eval}}
-{{::exec(var_dump($mutable->isoFormat('dddd D'));/*pad(52)*/)}} // {{eval}}
-{{::exec(var_dump($modifiedMutable->isoFormat('dddd D'));/*pad(52)*/)}} // {{eval}}
+var_dump($modifiedMutable === $mutable);
+var_dump($mutable->isoFormat('dddd D'));
+var_dump($modifiedMutable->isoFormat('dddd D'));
+
 // So it means $mutable and $modifiedMutable are the same object
 // both set to now + 1 day.
-{{::exec(var_dump($modifiedImmutable === $immutable);/*pad(52)*/)}} // {{eval}}
-{{::exec(var_dump($immutable->isoFormat('dddd D'));/*pad(52)*/)}} // {{eval}}
-{{::exec(var_dump($modifiedImmutable->isoFormat('dddd D'));/*pad(52)*/)}} // {{eval}}
+var_dump($modifiedImmutable === $immutable);
+var_dump($immutable->isoFormat('dddd D'));
+var_dump($modifiedImmutable->isoFormat('dddd D'));
+
 // While $immutable is still set to now and cannot be changed and
 // $modifiedImmutable is a new instance created from $immutable
 // set to now + 1 day.
 
-{{::lint($mutable = CarbonImmutable::now()->toMutable();)}}
-{{::exec(var_dump($mutable->isMutable());/*pad(52)*/)}} // {{eval}}
-{{::exec(var_dump($mutable->isImmutable());/*pad(52)*/)}} // {{eval}}
-{{::lint($immutable = Carbon::now()->toImmutable();)}}
-{{::exec(var_dump($immutable->isMutable());/*pad(52)*/)}} // {{eval}}
-{{::exec(var_dump($immutable->isImmutable());/*pad(52)*/)}} // {{eval}}
+$mutable = CarbonImmutable::now()->toMutable();
+var_dump($mutable->isMutable());
+var_dump($mutable->isImmutable());
+
+$immutable = Carbon::now()->toImmutable();
+var_dump($immutable->isMutable());
+var_dump($immutable->isImmutable());
 ```
 
 The library also provides CarbonInterface interface extends [DateTimeInterface](https://www.php.net/manual/en/class.datetimeinterface.php) and [JsonSerializable](https://www.php.net/manual/en/class.jsonserializable.php),
@@ -74,13 +77,13 @@ base functionality such as
 Now, let's see how cool this documentation page is. Click on the code below:
 
 ```php
-{{::lint($dtToronto = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Toronto');)}}
-{{::lint($dtVancouver = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Vancouver');)}}
+$dtToronto = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Toronto');
+$dtVancouver = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Vancouver');
 // Try to replace the 4th number (hours) or the last argument (timezone) with
 // Europe/Paris for example and see the actual result on the right hand.
 // It's alive!
 
-{{::exec(echo $dtVancouver->diffInHours($dtToronto);)}} // {{eval}}
+echo $dtVancouver->diffInHours($dtToronto); // {{eval}}
 // Now, try to double-click on "diffInHours" or "create" to open
 // the References panel.
 // Once the references panel is open, you can use the search field to

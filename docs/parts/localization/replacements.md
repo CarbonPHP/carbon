@@ -1,6 +1,24 @@
-
-{{code::each(array\_filter(array\_keys(Carbon::getIsoUnits()), function ($code) { return !preg\_match('/^hmm/i', $code); }))}} {{::endEach}}
-
-| Code                  | Example                                 | Description                                     |
-| --------------------- | --------------------------------------- | ----------------------------------------------- |
-| {{eval(echo $code;)}} | {{eval(echo $date->isoFormat($code);)}} | {{eval(echo $date->describeIsoFormat($code);)}} |
+```blade
+<table class="info-table" id="iso-format-available-replacements">
+	<thead>
+	<tr>
+		<th>Code</th>
+		<th>Example</th>
+		<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	@set($date = Carbon::parse('2017-01-05 17:04:05.084512'))
+	@set($keys = array_filter(array_keys(Carbon::getIsoUnits()), function ($code) {
+		return !preg_match('/^hmm/i', $code);
+	}))
+	@foreach($keys as $code)
+		<tr>
+			<td>{{ $code}}</td>
+			<td>{{ $date->isoFormat($code)}}</td>
+			<td>{{ $date->describeIsoFormat($code)}}</td>
+		</tr>
+	@endforeach
+	</tbody>
+</table>
+```

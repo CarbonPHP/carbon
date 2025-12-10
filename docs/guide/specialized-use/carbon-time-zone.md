@@ -3,40 +3,40 @@
 Starting with Carbon 2, timezones are now handled with a dedicated class `CarbonTimeZone` extending [DateTimeZone](https://www.php.net/manual/en/class.datetimezone.php).
 
 ```php
-{{::lint(
+
 $tz = new CarbonTimeZone('Europe/Zurich'); // instance way
 $tz = CarbonTimeZone::create('Europe/Zurich'); // static way
-)}}
+
 
 // Get the original name of the timezone (can be region name or offset string):
-{{::exec(echo $tz->getName();/*pad(36)*/)}} // {{eval}}
+echo $tz->getName();
 echo "\n";
 // Casting a CarbonTimeZone to string will automatically call getName:
-{{::exec(echo $tz;/*pad(36)*/)}} // {{eval}}
+echo $tz;
 echo "\n";
-{{::exec(echo $tz->getAbbreviatedName();/*pad(36)*/)}} // {{eval}}
+echo $tz->getAbbreviatedName();
 echo "\n";
 // With DST on:
-{{::exec(echo $tz->getAbbreviatedName(true);/*pad(36)*/)}} // {{eval}}
+echo $tz->getAbbreviatedName(true);
 echo "\n";
 // Alias of getAbbreviatedName:
-{{::exec(echo $tz->getAbbr();/*pad(36)*/)}} // {{eval}}
+echo $tz->getAbbr();
 echo "\n";
-{{::exec(echo $tz->getAbbr(true);/*pad(36)*/)}} // {{eval}}
+echo $tz->getAbbr(true);
 echo "\n";
 // toRegionName returns the first matching region or false, if timezone was created with a region name,
 // it will simply return this initial value.
-{{::exec(echo $tz->toRegionName();/*pad(36)*/)}} // {{eval}}
+echo $tz->toRegionName();
 echo "\n";
 // toOffsetName will give the current offset string for this timezone:
-{{::exec(echo $tz->toOffsetName();/*pad(36)*/)}} // {{eval}}
+echo $tz->toOffsetName();
 echo "\n";
 // As with DST, this offset can change depending on the date, you may pass a date argument to specify it:
-{{::lint($winter = Carbon::parse('2018-01-01');)}}
-{{::exec(echo $tz->toOffsetName($winter);/*pad(36)*/)}} // {{eval}}
+$winter = Carbon::parse('2018-01-01');
+echo $tz->toOffsetName($winter);
 echo "\n";
-{{::lint($summer = Carbon::parse('2018-07-01');)}}
-{{::exec(echo $tz->toOffsetName($summer);/*pad(36)*/)}} // {{eval}}
+$summer = Carbon::parse('2018-07-01');
+echo $tz->toOffsetName($summer);
 
 ```
 
@@ -47,7 +47,7 @@ It explains why UTC is a reliable standard. And this best-practice is even more 
 While, region timezone ("Continent/City") can have DST and so have variable offset during the year, offset timezone have constant fixed offset:
 
 ```php
-{{::lint(
+
 $tz = CarbonTimeZone::create('+03:00'); // full string
 $tz = CarbonTimeZone::create(3); // or hour integer short way
 
@@ -57,68 +57,68 @@ $tz = CarbonTimeZone::createFromMinuteOffset(180); // the equivalent in minute u
 // Both above rely on the static minute-to-string offset converter also available as:
 $tzString = CarbonTimeZone::getOffsetNameFromMinuteOffset(180);
 $tz = CarbonTimeZone::create($tzString);
-)}}
 
-{{::exec(echo $tz->getName();/*pad(36)*/)}} // {{eval}}
+
+echo $tz->getName();
 echo "\n";
-{{::exec(echo $tz;/*pad(36)*/)}} // {{eval}}
+echo $tz;
 echo "\n";
 // toRegionName will try to guess what region it could be:
-{{::exec(echo $tz->toRegionName();/*pad(36)*/)}} // {{eval}}
+echo $tz->toRegionName();
 echo "\n";
 // to guess with DST off:
-{{::exec(echo $tz->toRegionName(null, 0);/*pad(36)*/)}} // {{eval}}
+echo $tz->toRegionName(null, 0);
 echo "\n";
 // toOffsetName will give the initial offset no matter the date:
-{{::exec(echo $tz->toOffsetName();/*pad(36)*/)}} // {{eval}}
+echo $tz->toOffsetName();
 echo "\n";
-{{::exec(echo $tz->toOffsetName($winter);/*pad(36)*/)}} // {{eval}}
+echo $tz->toOffsetName($winter);
 echo "\n";
-{{::exec(echo $tz->toOffsetName($summer);/*pad(36)*/)}} // {{eval}}
+echo $tz->toOffsetName($summer);
 
 ```
 
 You also can convert region timezones to offset timezones and reciprocally.
 
 ```php
-{{::lint(
-$tz = new CarbonTimeZone(7);
-)}}
 
-{{::exec(echo $tz;/*pad(36)*/)}} // {{eval}}
+$tz = new CarbonTimeZone(7);
+
+
+echo $tz;
 echo "\n";
-{{::lint($tz = $tz->toRegionTimeZone();)}}
-{{::exec(echo $tz;/*pad(36)*/)}} // {{eval}}
+$tz = $tz->toRegionTimeZone();
+echo $tz;
 echo "\n";
-{{::lint($tz = $tz->toOffsetTimeZone();)}}
-{{::exec(echo $tz;/*pad(36)*/)}} // {{eval}}
+$tz = $tz->toOffsetTimeZone();
+echo $tz;
 
 ```
 
 You can create a `CarbonTimeZone` from mixed values using `instance()` method.
 
 ```php
-{{::lint(
-$tz = CarbonTimeZone::instance(new \DateTimeZone('Europe/Paris'));
-)}}
 
-{{::exec(echo $tz;/*pad(36)*/)}} // {{eval}}
+$tz = CarbonTimeZone::instance(new \DateTimeZone('Europe/Paris'));
+
+
+echo $tz;
 echo "\n";
 
 // Bad timezone will throw an exception
-{{::lint(
+
 try {
 	CarbonTimeZone::instance('Europe/Chicago');
 } catch (\InvalidArgumentException $exception) {
 	$error = $exception->getMessage();
 }
-)}}
-{{::exec(echo $error;/*pad(36)*/)}} // {{eval}}
+
+echo $error;
 
 // as some value cannot be dump as string in an error message or
 // have unclear dump, you may pass a second argument to display
 // instead in the errors
-{{::lint(
+
 try {
 	$continent = 'Europe';
 	$city = 'Chicago';
@@ -127,8 +127,8 @@ try {
 } catch (\InvalidArgumentException $exception) {
 	$error = $exception->getMessage();
 }
-)}}
-{{::exec(echo $error;/*pad(36)*/)}} // {{eval}}
+
+echo $error;
 
 ```
 

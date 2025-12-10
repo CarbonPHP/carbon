@@ -10,6 +10,10 @@
 		"psr/line-limit": {
 			"severity": "warning",
 			"code": 120
+		},
+		"psr/indent": {
+			"type": "tab",
+			"length": 1
 		}
 	}
 }

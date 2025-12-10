@@ -20,7 +20,6 @@ Carbon::macro('getAvailableMacroLocales', function() {
 		return array_keys($locales);
 	});
 
-
 Carbon::macro('describeIsoFormat', static function(string $code): string {
 		return array(
 			'D' => 'Day of month number (from 1 to 31)',
@@ -115,7 +114,7 @@ $uses = array(
 	'Carbon\CarbonInterface',
 	'Carbon\Language',
 	'Carbon\Factory',
-	'Carbon\CarbonTimeZone'
+	'Carbon\CarbonTimeZone',
 );
 
 if ($is_inline) {

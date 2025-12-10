@@ -1,5 +1,5 @@
 import { defineConfig } from 'vitepress';
-import type { UserConfig, MarkdownItAsync } from 'vitepress';
+import type { UserConfig } from 'vitepress';
 import { withSidebar } from 'vitepress-sidebar';
 import type { VitePressSidebarOptions } from 'vitepress-sidebar/types';
 import { compileCode } from './compile-php-plugin';
@@ -12,14 +12,17 @@ const vitePressOptions: UserConfig = {
 		// https://vitepress.dev/reference/default-theme-config
 		logo: '/logo.png',
 		siteTitle: '',
+		search: {
+			provider: 'local',
+		},
 		nav: [
 			{
-				text: 'Home',
-				link: '/',
+				text: 'Guide',
+				link: '/guide/getting-started/introduction',
 			},
 			{
-				text: 'Examples',
-				link: '/markdown-examples',
+				text: 'Reference',
+				link: '/reference',
 			},
 		],
 

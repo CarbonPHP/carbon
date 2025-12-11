@@ -9,9 +9,11 @@
 		"nesbot/carbon": "dev-master as 3.11.0",
 		"nikic/php-parser": "^5.7",
 		"eftec/bladeone": "^4.19",
-		"phpdocumentor/reflection-docblock": "^5.6"
+		"phpdocumentor/reflection-docblock": "^5.6",
+		"symfony/console": "^8.0"
 	},
 	"scripts": {
+		"changelog": "conventional-changelog  --history",
 		"check": "@php tools/check.php",
 		"generate": "@php tools/generate.php",
 		"history": "@php tools/api-history.php",
@@ -27,5 +29,9 @@
 	},
 	"config": {
 		"process-timeout": 0
-	}
+	},
+	"require-dev": {
+		"sebastianfeldmann/git": "^3.15"
+	},
+	"version": "0.0.1"
 }

@@ -1,28 +1,28 @@
 {
-	"name": "carbon",
-	"description": "",
-	"author": "",
-	"version": "1.0.0",
-	"packageManager": "pnpm@10.12.4",
-	"license": "ISC",
-	"scripts": {
-		"docs:build": "vitepress build docs",
-		"docs:dev": "vitepress dev docs",
-		"docs:preview": "vitepress preview docs",
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"dependencies": {
-		"turndown-plugin-gfm": "^1.0.2"
-	},
-	"devDependencies": {
-		"@kalimahapps/eslint-config": "^1.2.93",
-		"@types/node": "^24.10.2",
-		"eslint": "^9.39.1",
-		"markdown-it-async": "^2.2.0",
-		"turndown": "^7.2.2",
-		"vitepress": "2.0.0-alpha.15",
-		"vitepress-sidebar": "^1.33.1"
-	},
-	"keywords": [],
-	"main": "index.js"
+    "name": "carbon",
+    "description": "",
+    "author": "",
+    "version": "0.0.1",
+    "packageManager": "pnpm@10.12.4",
+    "license": "ISC",
+    "scripts": {
+        "docs:build": "vitepress build docs",
+        "docs:dev": "vitepress dev docs",
+        "docs:preview": "vitepress preview docs",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+        "turndown-plugin-gfm": "^1.0.2"
+    },
+    "devDependencies": {
+        "@kalimahapps/eslint-config": "^1.2.93",
+        "@types/node": "^24.10.2",
+        "eslint": "^9.39.1",
+        "markdown-it-async": "^2.2.0",
+        "turndown": "^7.2.2",
+        "vitepress": "2.0.0-alpha.15",
+        "vitepress-sidebar": "^1.33.1"
+    },
+    "keywords": [],
+    "main": "index.js"
 }

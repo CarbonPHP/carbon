@@ -24,6 +24,10 @@ const vitePressOptions: UserConfig = {
 				text: 'Reference',
 				link: '/reference',
 			},
+			{
+				text: 'Changelog',
+				link: '/changelog',
+			},
 		],
 
 		socialLinks: [

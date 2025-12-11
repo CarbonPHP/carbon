@@ -26,7 +26,7 @@ const { status } = defineProps({
 
 const data = ref();
 onMounted(async () => {
-	const response = await fetch('/backers.json').then((response) => {
+	const response = await fetch('backers.json').then((response) => {
 		return response.json();
 	});
 

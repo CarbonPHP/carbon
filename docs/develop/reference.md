@@ -43,7 +43,7 @@ Check if an attribute exists on the object
 
 
 ##### Parameters
-- $name `string` 
+- $name `string`
 returns `bool`
 #### Carbon::__serialize
 
@@ -57,8 +57,8 @@ Set a part of the Carbon object
 
 
 ##### Parameters
-- $name `string` 
-- $value `string|int|\DateTimeZone` 
+- $name `string`
+- $value `string|int|\DateTimeZone`
 returns `void`
 #### Carbon::__set_state
 
@@ -66,7 +66,7 @@ The __set_state handler.
 
 
 ##### Parameters
-- $dump `string|array` 
+- $dump `string|array`
 returns `static`
 #### Carbon::__toString
 
@@ -88,9 +88,9 @@ Add given units or interval to the current instance.
 
 
 ##### Parameters
-- $unit `\Unit|int|string|\DateInterval|\Closure|\CarbonConverterInterface` 
-- $value `\Unit|int|float|string` 
-- $overflow `bool|null` 
+- $unit `\Unit|int|string|\DateInterval|\Closure|\CarbonConverterInterface`
+- $value `\Unit|int|float|string`
+- $overflow `bool|null`
 returns `static`
 ##### Examples
 $date->add('hour', 3)
@@ -101,15 +101,15 @@ $date->add(CarbonInterval::days(4))
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 Prefer to use add addUTCUnit() which more accurately defines what it's doing.
 
 Add seconds to the instance using timestamp. Positive $value travels
 forward while negative $value travels into the past.
 :::
 ##### Parameters
-- $unit `string` 
-- $value `int|float|null` 
+- $unit `string`
+- $value `int|float|null`
 returns `static`
 #### Carbon::addUTCUnit
 
@@ -118,8 +118,8 @@ forward while negative $value travels into the past.
 
 
 ##### Parameters
-- $unit `string` 
-- $value `int|float|null` 
+- $unit `string`
+- $value `int|float|null`
 returns `static`
 #### Carbon::addUnit
 
@@ -173,7 +173,7 @@ Modify the current instance to the average of a given instance (default now) and
 
 
 ##### Parameters
-- $date `\Carbon\Carbon|\DateTimeInterface|null` 
+- $date `\Carbon\Carbon|\DateTimeInterface|null`
 returns `static`
 #### Carbon::avoidMutation
 
@@ -227,8 +227,8 @@ or a calendar date (e.g. "10/29/2017") otherwise.
 
 Language, date and time formats will change according to the current locale.
 ##### Parameters
-- $referenceTime `\Carbon|\DateTimeInterface|string|null` 
-- $formats `array` 
+- $referenceTime `\Carbon|\DateTimeInterface|string|null`
+- $formats `array`
 returns `string`
 #### Carbon::canBeCreatedFromFormat
 
@@ -248,7 +248,7 @@ if null given or parse the input if string given.
 
 
 ##### Parameters
-- $date `\Carbon|\Carbon\CarbonPeriod|\Carbon\CarbonInterval|\DateInterval|\DatePeriod|\DateTimeInterface|string|null` 
+- $date `\Carbon|\Carbon\CarbonPeriod|\Carbon\CarbonInterval|\DateInterval|\DatePeriod|\DateTimeInterface|string|null`
 returns `static`
 #### Carbon::cast
 
@@ -281,7 +281,7 @@ Similar to native modify() method of DateTime but can handle more grammars.
 
 
 ##### Parameters
-- $modifier `string` 
+- $modifier `string`
 returns `static`
 ##### Examples
 ```php
@@ -307,8 +307,8 @@ Get the closest date from the instance (second-precision).
 
 
 ##### Parameters
-- $date1 `\Carbon\Carbon|\DateTimeInterface|mixed` 
-- $date2 `\Carbon\Carbon|\DateTimeInterface|mixed` 
+- $date1 `\Carbon\Carbon|\DateTimeInterface|mixed`
+- $date2 `\Carbon\Carbon|\DateTimeInterface|mixed`
 returns `static`
 #### Carbon::copy
 
@@ -329,13 +329,13 @@ values for $minute and $second will be their now() values.
 If $hour is not null then the default values for $minute and $second
 will be 0.
 ##### Parameters
-- $year `\DateTimeInterface|string|int|null` 
-- $month `int|null` 
-- $day `int|null` 
-- $hour `int|null` 
-- $minute `int|null` 
-- $second `int|null` 
-- $timezone `\DateTimeZone|string|int|null` 
+- $year `\DateTimeInterface|string|int|null`
+- $month `int|null`
+- $day `int|null`
+- $hour `int|null`
+- $minute `int|null`
+- $second `int|null`
+- $timezone `\DateTimeZone|string|int|null`
 returns `static|null`
 #### Carbon::createFromDate
 
@@ -343,10 +343,10 @@ Create a Carbon instance from just a date. The time portion is set to now.
 
 
 ##### Parameters
-- $year `int|null` 
-- $month `int|null` 
-- $day `int|null` 
-- $timezone `\DateTimeZone|string|int|null` 
+- $year `int|null`
+- $month `int|null`
+- $day `int|null`
+- $timezone `\DateTimeZone|string|int|null`
 returns `static`
 #### Carbon::createFromFormat
 
@@ -355,8 +355,8 @@ Create a Carbon instance from a specific format.
 
 ##### Parameters
 - $format `string` Datetime format
-- $time `string` 
-- $timezone `\DateTimeZone|string|int|null` 
+- $time `string`
+- $timezone `\DateTimeZone|string|int|null`
 returns `static|null`
 #### Carbon::createFromIsoFormat
 
@@ -365,7 +365,7 @@ Create a Carbon instance from a specific ISO format (same replacements as ->isoF
 
 ##### Parameters
 - $format `string` Datetime format
-- $time `string` 
+- $time `string`
 - $timezone `\DateTimeZone|string|int|null` optional timezone
 - $locale `string|null` locale to be used for LTS, LT, LL, LLL, etc. macro-formats (en by fault, unneeded if no such macro-format in use)
 - $translator `\TranslatorInterface|null` optional custom translator to use for macro-formats
@@ -377,9 +377,9 @@ Create a Carbon instance from a specific format and a string in a given language
 
 ##### Parameters
 - $format `string` Datetime format
-- $locale `string` 
-- $time `string` 
-- $timezone `\DateTimeZone|string|int|null` 
+- $locale `string`
+- $time `string`
+- $timezone `\DateTimeZone|string|int|null`
 returns `static|null`
 #### Carbon::createFromLocaleIsoFormat
 
@@ -388,9 +388,9 @@ Create a Carbon instance from a specific ISO format and a string in a given lang
 
 ##### Parameters
 - $format `string` Datetime ISO format
-- $locale `string` 
-- $time `string` 
-- $timezone `\DateTimeZone|string|int|null` 
+- $locale `string`
+- $time `string`
+- $timezone `\DateTimeZone|string|int|null`
 returns `static|null`
 #### Carbon::createFromTime
 
@@ -398,10 +398,10 @@ Create a Carbon instance from just a time. The date portion is set to today.
 
 
 ##### Parameters
-- $hour `int|null` 
-- $minute `int|null` 
-- $second `int|null` 
-- $timezone `\DateTimeZone|string|int|null` 
+- $hour `int|null`
+- $minute `int|null`
+- $second `int|null`
+- $timezone `\DateTimeZone|string|int|null`
 returns `static`
 #### Carbon::createFromTimeString
 
@@ -424,7 +424,7 @@ Create a Carbon instance from a timestamp in milliseconds.
 
 Timestamp input can be given as int, float or a string containing one or more numbers.
 ##### Parameters
-- $timestamp `float|int|string` 
+- $timestamp `float|int|string`
 returns `static`
 #### Carbon::createFromTimestampUTC
 
@@ -437,10 +437,10 @@ Create a Carbon instance from just a date. The time portion is set to midnight.
 
 
 ##### Parameters
-- $year `int|null` 
-- $month `int|null` 
-- $day `int|null` 
-- $timezone `\DateTimeZone|string|int|null` 
+- $year `int|null`
+- $month `int|null`
+- $day `int|null`
+- $timezone `\DateTimeZone|string|int|null`
 returns `static`
 #### Carbon::createSafe
 
@@ -458,13 +458,13 @@ will be 0.
 If one of the set values is not valid, an InvalidDateException
 will be thrown.
 ##### Parameters
-- $year `int|null` 
-- $month `int|null` 
-- $day `int|null` 
-- $hour `int|null` 
-- $minute `int|null` 
-- $second `int|null` 
-- $timezone `\DateTimeZone|string|int|null` 
+- $year `int|null`
+- $month `int|null`
+- $day `int|null`
+- $hour `int|null`
+- $minute `int|null`
+- $second `int|null`
+- $timezone `\DateTimeZone|string|int|null`
 returns `static|null`
 #### Carbon::createStrict
 
@@ -472,13 +472,13 @@ Create a new Carbon instance from a specific date and time using strict validati
 
 
 ##### Parameters
-- $year `int|null` 
-- $month `int|null` 
-- $day `int|null` 
-- $hour `int|null` 
-- $minute `int|null` 
-- $second `int|null` 
-- $timezone `\DateTimeZone|string|int|null` 
+- $year `int|null`
+- $month `int|null`
+- $day `int|null`
+- $hour `int|null`
+- $minute `int|null`
+- $second `int|null`
+- $timezone `\DateTimeZone|string|int|null`
 returns `static`
 #### Carbon::dayOfYear
 
@@ -494,7 +494,7 @@ returns `static|int`
 
 
 ##### Parameters
-- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null` 
+- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null`
 - $absolute `bool` Get the absolute of the difference
 returns `\CarbonInterval`
 #### Carbon::diffAsCarbonInterval
@@ -504,7 +504,7 @@ Get the difference as a CarbonInterval instance.
 Return relative interval (negative if $absolute flag is not set to true and the given date is before
 current one).
 ##### Parameters
-- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null` 
+- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null`
 - $absolute `bool` Get the absolute of the difference
 returns `\CarbonInterval`
 #### Carbon::diffAsDateInterval
@@ -514,7 +514,7 @@ Get the difference as a DateInterval instance.
 Return relative interval (negative if $absolute flag is not set to true and the given date is before
 current one).
 ##### Parameters
-- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null` 
+- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null`
 - $absolute `bool` Get the absolute of the difference
 returns `\DateInterval`
 #### Carbon::diffFiltered
@@ -524,8 +524,8 @@ Get the difference by the given interval using a filter closure.
 
 ##### Parameters
 - $ci `\CarbonInterval` An interval to traverse by
-- $callback `\Closure` 
-- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null` 
+- $callback `\Closure`
+- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null`
 - $absolute `bool` Get the absolute of the difference
 returns `int`
 #### Carbon::diffForHumans
@@ -589,7 +589,7 @@ Get the difference in days.
 
 
 ##### Parameters
-- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null` 
+- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null`
 - $absolute `bool` Get the absolute of the difference
 - $utc `bool` Always convert dates to UTC before comparing (if not set, it will do it only if timezones are different)
 returns `float`
@@ -599,8 +599,8 @@ Get the difference in days using a filter closure.
 
 
 ##### Parameters
-- $callback `\Closure` 
-- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null` 
+- $callback `\Closure`
+- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null`
 - $absolute `bool` Get the absolute of the difference
 returns `int`
 #### Carbon::diffInHours
@@ -609,7 +609,7 @@ Get the difference in hours.
 
 
 ##### Parameters
-- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null` 
+- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null`
 - $absolute `bool` Get the absolute of the difference
 returns `float`
 #### Carbon::diffInHoursFiltered
@@ -618,8 +618,8 @@ Get the difference in hours using a filter closure.
 
 
 ##### Parameters
-- $callback `\Closure` 
-- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null` 
+- $callback `\Closure`
+- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null`
 - $absolute `bool` Get the absolute of the difference
 returns `int`
 #### Carbon::diffInMicroseconds
@@ -628,7 +628,7 @@ Get the difference in microseconds.
 
 
 ##### Parameters
-- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null` 
+- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null`
 - $absolute `bool` Get the absolute of the difference
 returns `float`
 #### Carbon::diffInMilliseconds
@@ -637,7 +637,7 @@ Get the difference in milliseconds.
 
 
 ##### Parameters
-- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null` 
+- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null`
 - $absolute `bool` Get the absolute of the difference
 returns `float`
 #### Carbon::diffInMinutes
@@ -646,7 +646,7 @@ Get the difference in minutes.
 
 
 ##### Parameters
-- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null` 
+- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null`
 - $absolute `bool` Get the absolute of the difference
 returns `float`
 #### Carbon::diffInMonths
@@ -655,7 +655,7 @@ Get the difference in months.
 
 
 ##### Parameters
-- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null` 
+- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null`
 - $absolute `bool` Get the absolute of the difference
 - $utc `bool` Always convert dates to UTC before comparing (if not set, it will do it only if timezones are different)
 returns `float`
@@ -665,7 +665,7 @@ Get the difference in quarters.
 
 
 ##### Parameters
-- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null` 
+- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null`
 - $absolute `bool` Get the absolute of the difference
 - $utc `bool` Always convert dates to UTC before comparing (if not set, it will do it only if timezones are different)
 returns `float`
@@ -675,7 +675,7 @@ Get the difference in seconds.
 
 
 ##### Parameters
-- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null` 
+- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null`
 - $absolute `bool` Get the absolute of the difference
 returns `float`
 #### Carbon::diffInUnit
@@ -689,7 +689,7 @@ returns `float`
 microsecond, millisecond, second, minute,
   hour, day, week, month, quarter, year,
   century, millennium
-- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null` 
+- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null`
 - $absolute `bool` Get the absolute of the difference
 - $utc `bool` Always convert dates to UTC before comparing (if not set, it will do it only if timezones are different)
 returns `float`
@@ -699,7 +699,7 @@ Get the difference in weekdays.
 
 
 ##### Parameters
-- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null` 
+- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null`
 - $absolute `bool` Get the absolute of the difference
 returns `int`
 #### Carbon::diffInWeekendDays
@@ -708,7 +708,7 @@ Get the difference in weekend days using a filter.
 
 
 ##### Parameters
-- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null` 
+- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null`
 - $absolute `bool` Get the absolute of the difference
 returns `int`
 #### Carbon::diffInWeeks
@@ -717,7 +717,7 @@ Get the difference in weeks.
 
 
 ##### Parameters
-- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null` 
+- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null`
 - $absolute `bool` Get the absolute of the difference
 - $utc `bool` Always convert dates to UTC before comparing (if not set, it will do it only if timezones are different)
 returns `float`
@@ -727,7 +727,7 @@ Get the difference in years
 
 
 ##### Parameters
-- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null` 
+- $date `\Carbon\CarbonInterface|\DateTimeInterface|string|null`
 - $absolute `bool` Get the absolute of the difference
 - $utc `bool` Always convert dates to UTC before comparing (if not set, it will do it only if timezones are different)
 returns `float`
@@ -736,7 +736,7 @@ returns `float`
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 To avoid conflict between different third-party libraries, static setters should not be used.
 You should rather use the ->settings() method.
 :::
@@ -745,7 +745,7 @@ You should rather use the ->settings() method.
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 To avoid conflict between different third-party libraries, static setters should not be used.
 You should rather use the ->settings() method.
 :::
@@ -914,7 +914,7 @@ then return the result of the closure (or null if the closure was void).
 
 ##### Parameters
 - $locale `string` locale ex. en
-- $func `callable` 
+- $func `callable`
 returns `mixed`
 #### Carbon::farthest
 
@@ -922,8 +922,8 @@ Get the farthest date from the instance (second-precision).
 
 
 ##### Parameters
-- $date1 `\Carbon\Carbon|\DateTimeInterface|mixed` 
-- $date2 `\Carbon\Carbon|\DateTimeInterface|mixed` 
+- $date1 `\Carbon\Carbon|\DateTimeInterface|mixed`
+- $date2 `\Carbon\Carbon|\DateTimeInterface|mixed`
 returns `static`
 #### Carbon::firstOfMonth
 
@@ -934,7 +934,7 @@ to indicate the desired dayOfWeek, ex. static::MONDAY.
 
 
 ##### Parameters
-- $dayOfWeek `int|null` 
+- $dayOfWeek `int|null`
 returns `static`
 #### Carbon::firstOfQuarter
 
@@ -1054,7 +1054,7 @@ Create an instance from a serialized string.
 If $value is not from a trusted source, consider using the allowed_classes option to limit
 the types of objects that can be built, for instance:
 ##### Parameters
-- $value `\Stringable|string` 
+- $value `\Stringable|string`
 - $options `array` example: ['allowed_classes' => [CarbonImmutable::class]]
 returns `static`
 ##### Examples
@@ -1067,7 +1067,7 @@ Register a custom macro.
 
 
 ##### Parameters
-- $macro `callable` 
+- $macro `callable`
 - $priority `int` marco with higher priority is tried first
 returns `void`
 #### Carbon::get
@@ -1204,7 +1204,7 @@ Returns a timestamp rounded with the given precision (6 by default).
 
 
 ##### Parameters
-- $precision `int` 
+- $precision `int`
 returns `float`
 ##### Examples
 getPreciseTimestamp()   1532087464437474 (microsecond maximum precision)
@@ -1392,8 +1392,8 @@ Checks if the (date)time string is in a given format.
 
 
 ##### Parameters
-- $date `string` 
-- $format `string` 
+- $date `string`
+- $format `string`
 returns `bool`
 ##### Examples
 ```php
@@ -1416,7 +1416,7 @@ Checks if macro is registered globally.
 
 
 ##### Parameters
-- $name `string` 
+- $name `string`
 returns `bool`
 #### Carbon::hasRelativeKeywords
 
@@ -1528,7 +1528,7 @@ Checks if this day is a specific day of the week.
 
 
 ##### Parameters
-- $dayOfWeek `int|string` 
+- $dayOfWeek `int|string`
 returns `bool`
 ##### Examples
 ```php
@@ -1729,7 +1729,7 @@ Returns true if a property can be changed via setter.
 
 
 ##### Parameters
-- $unit `string` 
+- $unit `string`
 returns `bool`
 #### Carbon::isMutable
 
@@ -1995,9 +1995,9 @@ given.
 
 
 ##### Parameters
-- $week `int|null` 
-- $dayOfWeek `int|null` 
-- $dayOfYear `int|null` 
+- $week `int|null`
+- $dayOfWeek `int|null`
+- $dayOfYear `int|null`
 returns `int|static`
 #### Carbon::isoWeekYear
 
@@ -2043,7 +2043,7 @@ to indicate the desired dayOfWeek, ex. static::MONDAY.
 
 
 ##### Parameters
-- $dayOfWeek `int|null` 
+- $dayOfWeek `int|null`
 returns `static`
 #### Carbon::lastOfQuarter
 
@@ -2095,8 +2095,8 @@ Get/set the locale for the current instance.
 
 
 ##### Parameters
-- $locale `string|null` 
-- $fallbackLocales `string` 
+- $locale `string|null`
+- $fallbackLocales `string`
 returns `$this|string`
 #### Carbon::localeHasDiffOneDayWords
 
@@ -2183,7 +2183,7 @@ Make a Carbon instance from given variable if possible.
 Always return a new instance. Parse only strings and only these likely to be dates (skip intervals
 and recurrences). Throw an exception for invalid format, but otherwise return null.
 ##### Parameters
-- $var `mixed` 
+- $var `mixed`
 returns `static|null`
 #### Carbon::max
 
@@ -2191,7 +2191,7 @@ Get the maximum instance between a given instance (default now) and the current 
 
 
 ##### Parameters
-- $date `\Carbon\Carbon|\DateTimeInterface|mixed` 
+- $date `\Carbon\Carbon|\DateTimeInterface|mixed`
 returns `static`
 #### Carbon::maximum
 
@@ -2199,7 +2199,7 @@ Get the maximum instance between a given instance (default now) and the current 
 
 
 ##### Parameters
-- $date `\Carbon\Carbon|\DateTimeInterface|mixed` 
+- $date `\Carbon\Carbon|\DateTimeInterface|mixed`
 returns `static`
 #### Carbon::meridiem
 
@@ -2220,7 +2220,7 @@ Get the minimum instance between a given instance (default now) and the current 
 
 
 ##### Parameters
-- $date `\Carbon\Carbon|\DateTimeInterface|mixed` 
+- $date `\Carbon\Carbon|\DateTimeInterface|mixed`
 returns `static`
 #### Carbon::minimum
 
@@ -2228,7 +2228,7 @@ Get the minimum instance between a given instance (default now) and the current 
 
 
 ##### Parameters
-- $date `\Carbon\Carbon|\DateTimeInterface|mixed` 
+- $date `\Carbon\Carbon|\DateTimeInterface|mixed`
 returns `static`
 #### Carbon::mixin
 
@@ -2282,7 +2282,7 @@ to indicate the desired dayOfWeek, ex. static::MONDAY.
 
 
 ##### Parameters
-- $modifier `string|int|null` 
+- $modifier `string|int|null`
 returns `static`
 #### Carbon::nextWeekday
 
@@ -2326,8 +2326,8 @@ of the current month, then return false and no modifications are made.
 
 Use the supplied constants to indicate the desired dayOfWeek, ex. static::MONDAY.
 ##### Parameters
-- $nth `int` 
-- $dayOfWeek `int` 
+- $nth `int`
+- $dayOfWeek `int`
 returns `mixed`
 #### Carbon::nthOfQuarter
 
@@ -2337,8 +2337,8 @@ of the current quarter, then return false and no modifications are made.
 
 Use the supplied constants to indicate the desired dayOfWeek, ex. static::MONDAY.
 ##### Parameters
-- $nth `int` 
-- $dayOfWeek `int` 
+- $nth `int`
+- $dayOfWeek `int`
 returns `mixed`
 #### Carbon::nthOfYear
 
@@ -2348,8 +2348,8 @@ of the current year, then return false and no modifications are made.
 
 Use the supplied constants to indicate the desired dayOfWeek, ex. static::MONDAY.
 ##### Parameters
-- $nth `int` 
-- $dayOfWeek `int` 
+- $nth `int`
+- $dayOfWeek `int`
 returns `mixed`
 #### Carbon::ordinal
 
@@ -2389,7 +2389,7 @@ to indicate the desired dayOfWeek, ex. static::MONDAY.
 
 
 ##### Parameters
-- $modifier `string|int|null` 
+- $modifier `string|int|null`
 returns `static`
 #### Carbon::previousWeekday
 
@@ -2418,7 +2418,7 @@ Call native PHP DateTime/DateTimeImmutable add() method.
 
 
 ##### Parameters
-- $interval `\DateInterval` 
+- $interval `\DateInterval`
 returns `static`
 #### Carbon::rawCreateFromFormat
 
@@ -2427,8 +2427,8 @@ Create a Carbon instance from a specific format.
 
 ##### Parameters
 - $format `string` Datetime format
-- $time `string` 
-- $timezone `\DateTimeZone|string|int|null` 
+- $time `string`
+- $timezone `\DateTimeZone|string|int|null`
 returns `static|null`
 #### Carbon::rawFormat
 
@@ -2457,7 +2457,7 @@ Remove all macros and generic macros.
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 To avoid conflict between different third-party libraries, static setters should not be used.
 You should rather use the ->settings() method.
 Or you can use method variants: addMonthsWithOverflow/addMonthsNoOverflow, same variants
@@ -2475,7 +2475,7 @@ returns `void`
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 To avoid conflict between different third-party libraries, static setters should not be used.
 You should rather use the ->settings() method.
 Or you can use method variants: addYearsWithOverflow/addYearsNoOverflow, same variants
@@ -2521,7 +2521,7 @@ Return a serialized string of the instance.
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 To avoid conflict between different third-party libraries, static setters should not be used.
             You should rather transform Carbon object before the serialization.
 
@@ -2572,13 +2572,13 @@ Set the fallback locale.
 
 
 ##### Parameters
-- $locale `string` 
+- $locale `string`
 #### Carbon::setHumanDiffOptions
 
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 To avoid conflict between different third-party libraries, static setters should not be used.
 You should rather use the ->settings() method.
 :::
@@ -2604,7 +2604,7 @@ Pass 'auto' as locale to use the closest language to the current LC_TIME locale.
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 To avoid conflict between different third-party libraries, static setters should not be used.
             You should rather consider mid-day is always 12pm, then if you need to test if it's an other
             hour, test it explicitly:
@@ -2688,7 +2688,7 @@ Set the instance's timezone from a string or object.
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 To avoid conflict between different third-party libraries, static setters should not be used.
             You should rather let Carbon object being cast to string with DEFAULT_TO_STRING_FORMAT, and
             use other method or custom format passed to format() method if you need to dump another string
@@ -2697,7 +2697,7 @@ To avoid conflict between different third-party libraries, static setters should
 Set the default format used when type juggling a Carbon instance to a string.
 :::
 ##### Parameters
-- $format `string|\Closure|null` 
+- $format `string|\Closure|null`
 returns `void`
 #### Carbon::setTranslator
 
@@ -2705,7 +2705,7 @@ Set the default translator instance to use.
 
 
 ##### Parameters
-- $translator `\TranslatorInterface` 
+- $translator `\TranslatorInterface`
 returns `void`
 #### Carbon::setUnit
 
@@ -2729,7 +2729,7 @@ Set any unit to a new value without overflowing current other unit given.
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 To avoid conflict between different third-party libraries, static setters should not be used.
             You should rather consider week-end is always saturday and sunday, and if you have some custom
             week-end days to handle, give to those days an other name and create a macro for them:
@@ -2767,7 +2767,7 @@ Set specific options.
 - macros: array|null
 - genericMacros: array|null
 ##### Parameters
-- $settings `array` 
+- $settings `array`
 returns `$this|static`
 #### Carbon::shiftTimezone
 
@@ -2937,9 +2937,9 @@ Subtract given units or interval to the current instance.
 
 
 ##### Parameters
-- $unit `\Unit|int|string|\DateInterval|\Closure|\CarbonConverterInterface` 
-- $value `\Unit|int|float|string` 
-- $overflow `bool|null` 
+- $unit `\Unit|int|string|\DateInterval|\Closure|\CarbonConverterInterface`
+- $value `\Unit|int|float|string`
+- $overflow `bool|null`
 returns `static`
 ##### Examples
 $date->sub('hour', 3)
@@ -2950,15 +2950,15 @@ $date->sub(CarbonInterval::days(4))
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 Prefer to use add subUTCUnit() which more accurately defines what it's doing.
 
 Subtract seconds to the instance using timestamp. Positive $value travels
 into the past while negative $value travels forward.
 :::
 ##### Parameters
-- $unit `string` 
-- $value `int` 
+- $unit `string`
+- $value `int`
 returns `static`
 #### Carbon::subUTCUnit
 
@@ -2967,8 +2967,8 @@ into the past while negative $value travels forward.
 
 
 ##### Parameters
-- $unit `string` 
-- $value `int` 
+- $unit `string`
+- $value `int`
 returns `static`
 #### Carbon::subUnit
 
@@ -2990,9 +2990,9 @@ Subtract given units or interval to the current instance.
 
 
 ##### Parameters
-- $unit `\Unit|int|string|\DateInterval` 
-- $value `\Unit|int|float|string` 
-- $overflow `bool|null` 
+- $unit `\Unit|int|string|\DateInterval`
+- $value `\Unit|int|float|string`
+- $overflow `bool|null`
 returns `static`
 #### Carbon::timespan
 
@@ -3401,7 +3401,7 @@ Returns the alternative number for a given integer if available in the current l
 
 
 ##### Parameters
-- $number `int` 
+- $number `int`
 returns `string`
 #### Carbon::translateTimeString
 
@@ -3501,39 +3501,39 @@ returns `string`
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 To avoid conflict between different third-party libraries, static setters should not be used.
 You should rather use the ->settings() method.
 Or you can use method variants: addMonthsWithOverflow/addMonthsNoOverflow, same variants
 are available for quarters, years, decade, centuries, millennia (singular and plural forms).
 :::
 ##### Parameters
-- $monthsOverflow `bool` 
+- $monthsOverflow `bool`
 returns `void`
 #### Carbon::useStrictMode
 
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 To avoid conflict between different third-party libraries, static setters should not be used.
 You should rather use the ->settings() method.
 :::
 ##### Parameters
-- $strictModeEnabled `bool` 
+- $strictModeEnabled `bool`
 #### Carbon::useYearsOverflow
 
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 To avoid conflict between different third-party libraries, static setters should not be used.
 You should rather use the ->settings() method.
 Or you can use method variants: addYearsWithOverflow/addYearsNoOverflow, same variants
 are available for quarters, years, decade, centuries, millennia (singular and plural forms).
 :::
 ##### Parameters
-- $yearsOverflow `bool` 
+- $yearsOverflow `bool`
 returns `void`
 #### Carbon::utc
 
@@ -3559,9 +3559,9 @@ given (Sunday / Jan 6).
 
 
 ##### Parameters
-- $week `int|null` 
-- $dayOfWeek `int|null` 
-- $dayOfYear `int|null` 
+- $week `int|null`
+- $dayOfWeek `int|null`
+- $dayOfYear `int|null`
 returns `int|static`
 #### Carbon::weekYear
 
@@ -3603,7 +3603,7 @@ clearing the test instance.
 /!\ Use this method for unit tests only.
 ##### Parameters
 - $testNow `\DateTimeInterface|\Closure|static|string|false|null` real or mock Carbon instance
-- $callback `callable` 
+- $callback `callable`
 returns `\T`
 #### Carbon::yesterday
 
@@ -3636,14 +3636,14 @@ Create a new CarbonInterval instance.
 
 
 ##### Parameters
-- $years `\Closure|\DateInterval|string|int|null` 
-- $months `int|float|null` 
-- $weeks `int|float|null` 
-- $days `int|float|null` 
-- $hours `int|float|null` 
-- $minutes `int|float|null` 
-- $seconds `int|float|null` 
-- $microseconds `int|float|null` 
+- $years `\Closure|\DateInterval|string|int|null`
+- $months `int|float|null`
+- $weeks `int|float|null`
+- $days `int|float|null`
+- $hours `int|float|null`
+- $minutes `int|float|null`
+- $seconds `int|float|null`
+- $microseconds `int|float|null`
 #### CarbonInterval::__debugInfo
 
 Show truthy properties on var_dump().
@@ -3660,8 +3660,8 @@ Set a part of the CarbonInterval object.
 
 
 ##### Parameters
-- $name `string` 
-- $value `int` 
+- $name `string`
+- $value `int`
 #### CarbonInterval::__set_state
 
 Evaluate the PHP generated by var_export() and recreate the exported CarbonInterval instance.
@@ -3698,8 +3698,8 @@ Add the passed interval to the current instance.
 
 
 ##### Parameters
-- $unit `string|\DateInterval` 
-- $value `int|float` 
+- $unit `string|\DateInterval`
+- $value `int|float`
 returns `$this`
 #### CarbonInterval::baseMixin
 
@@ -3735,8 +3735,8 @@ The third argument allow you to specify if bounds are included or not (true by d
 but for when you including/excluding bounds may produce different results in your application,
 we recommend to use the explicit methods ->betweenIncluded() or ->betweenExcluded() instead.
 ##### Parameters
-- $interval1 `\CarbonInterval|\DateInterval|mixed` 
-- $interval2 `\CarbonInterval|\DateInterval|mixed` 
+- $interval1 `\CarbonInterval|\DateInterval|mixed`
+- $interval2 `\CarbonInterval|\DateInterval|mixed`
 - $equal `bool` Indicates if an equal to comparison should be done
 returns `bool`
 ##### Examples
@@ -3752,8 +3752,8 @@ Determines if the instance is between two others, bounds excluded.
 
 
 ##### Parameters
-- $interval1 `\CarbonInterval|\DateInterval|mixed` 
-- $interval2 `\CarbonInterval|\DateInterval|mixed` 
+- $interval1 `\CarbonInterval|\DateInterval|mixed`
+- $interval2 `\CarbonInterval|\DateInterval|mixed`
 returns `bool`
 ##### Examples
 ```php
@@ -3767,8 +3767,8 @@ Determines if the instance is between two others, bounds excluded.
 
 
 ##### Parameters
-- $interval1 `\CarbonInterval|\DateInterval|mixed` 
-- $interval2 `\CarbonInterval|\DateInterval|mixed` 
+- $interval1 `\CarbonInterval|\DateInterval|mixed`
+- $interval2 `\CarbonInterval|\DateInterval|mixed`
 returns `bool`
 ##### Examples
 ```php
@@ -3800,8 +3800,8 @@ Ceil the current instance at the given unit with given precision if specified.
 
 
 ##### Parameters
-- $unit `string` 
-- $precision `float|int|string|\DateInterval|null` 
+- $unit `string`
+- $precision `float|int|string|\DateInterval|null`
 returns `$this`
 #### CarbonInterval::clone
 
@@ -3815,7 +3815,7 @@ Comparing with passed interval.
 
 
 ##### Parameters
-- $interval `\DateInterval` 
+- $interval `\DateInterval`
 returns `int 0, 1 or -1`
 #### CarbonInterval::compareDateIntervals
 
@@ -3823,8 +3823,8 @@ Comparing 2 date intervals.
 
 
 ##### Parameters
-- $first `\DateInterval` 
-- $second `\DateInterval` 
+- $first `\DateInterval`
+- $second `\DateInterval`
 returns `int 0, 1 or -1`
 #### CarbonInterval::convertDate
 
@@ -3832,8 +3832,8 @@ Take a date and apply either the step if set, or the current interval else.
 
 The interval/step is applied negatively (typically subtraction instead of addition) if $negated is true.
 ##### Parameters
-- $dateTime `\DateTimeInterface` 
-- $negated `bool` 
+- $dateTime `\DateTimeInterface`
+- $negated `bool`
 returns `\CarbonInterface`
 #### CarbonInterval::copy
 
@@ -3849,14 +3849,14 @@ This is an alias for the constructor that allows better fluent
 syntax as it allows you to do CarbonInterval::create(1)->fn() rather than
 (new CarbonInterval(1))->fn().
 ##### Parameters
-- $years `int` 
-- $months `int` 
-- $weeks `int` 
-- $days `int` 
-- $hours `int` 
-- $minutes `int` 
-- $seconds `int` 
-- $microseconds `int` 
+- $years `int`
+- $months `int`
+- $weeks `int`
+- $days `int`
+- $hours `int`
+- $minutes `int`
+- $seconds `int`
+- $microseconds `int`
 returns `static`
 #### CarbonInterval::createFromDateString
 
@@ -3864,7 +3864,7 @@ Sets up a DateInterval from the relative parts of the string.
 
 
 ##### Parameters
-- $datetime `string` 
+- $datetime `string`
 returns `static`
 #### CarbonInterval::createFromFormat
 
@@ -3885,15 +3885,15 @@ Create an interval from the difference between 2 dates.
 
 
 ##### Parameters
-- $start `\Carbon\Carbon|\DateTimeInterface|mixed` 
-- $end `\Carbon\Carbon|\DateTimeInterface|mixed` 
+- $start `\Carbon\Carbon|\DateTimeInterface|mixed`
+- $end `\Carbon\Carbon|\DateTimeInterface|mixed`
 returns `static`
 #### CarbonInterval::disableHumanDiffOption
 
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 To avoid conflict between different third-party libraries, static setters should not be used.
 You should rather use the ->settings() method.
 :::
@@ -3903,7 +3903,7 @@ Divide and cascade current instance by a given divider.
 
 
 ##### Parameters
-- $divider `float|int` 
+- $divider `float|int`
 returns `$this`
 #### CarbonInterval::enableFloatSetters
 
@@ -3918,7 +3918,7 @@ adopt the new behavior.
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 To avoid conflict between different third-party libraries, static setters should not be used.
 You should rather use the ->settings() method.
 :::
@@ -3934,7 +3934,7 @@ Determines if the instance is equal to another
 
 
 ##### Parameters
-- $interval `\CarbonInterval|\DateInterval|mixed` 
+- $interval `\CarbonInterval|\DateInterval|mixed`
 returns `bool`
 #### CarbonInterval::equalTo
 
@@ -3942,7 +3942,7 @@ Determines if the instance is equal to another
 
 
 ##### Parameters
-- $interval `\CarbonInterval|\DateInterval|mixed` 
+- $interval `\CarbonInterval|\DateInterval|mixed`
 returns `bool`
 #### CarbonInterval::executeWithLocale
 
@@ -3952,7 +3952,7 @@ then return the result of the closure (or null if the closure was void).
 
 ##### Parameters
 - $locale `string` locale ex. en
-- $func `callable` 
+- $func `callable`
 returns `mixed`
 #### CarbonInterval::floor
 
@@ -3966,8 +3966,8 @@ Truncate the current instance at the given unit with given precision if specifie
 
 
 ##### Parameters
-- $unit `string` 
-- $precision `float|int|string|\DateInterval|null` 
+- $unit `string`
+- $precision `float|int|string|\DateInterval|null`
 returns `$this`
 #### CarbonInterval::forHumans
 
@@ -4042,7 +4042,7 @@ Special cases:
  - Fractions are allowed for weeks, days, hours and minutes and will be converted
    and rounded to the next smaller value (caution: 0.5w = 4d)
 ##### Parameters
-- $intervalDefinition `string` 
+- $intervalDefinition `string`
 returns `static`
 #### CarbonInterval::get
 
@@ -4073,7 +4073,7 @@ Get the interval_spec string of a date interval.
 
 
 ##### Parameters
-- $interval `\DateInterval` 
+- $interval `\DateInterval`
 returns `string`
 #### CarbonInterval::getDaysPerWeek
 
@@ -4087,8 +4087,8 @@ Returns the factor for a given source-to-target couple.
 
 
 ##### Parameters
-- $source `string` 
-- $target `string` 
+- $source `string`
+- $target `string`
 returns `int|float|null`
 #### CarbonInterval::getFactorWithDefault
 
@@ -4097,8 +4097,8 @@ else try to find the appropriate constant as the factor, such as Carbon::DAYS_PE
 
 
 ##### Parameters
-- $source `string` 
-- $target `string` 
+- $source `string`
+- $target `string`
 returns `int|float|null`
 #### CarbonInterval::getFallbackLocale
 
@@ -4208,7 +4208,7 @@ Determines if the instance is greater (longer) than another
 
 
 ##### Parameters
-- $interval `\CarbonInterval|\DateInterval|mixed` 
+- $interval `\CarbonInterval|\DateInterval|mixed`
 returns `bool`
 #### CarbonInterval::greaterThanOrEqualTo
 
@@ -4216,7 +4216,7 @@ Determines if the instance is greater (longer) than or equal to another
 
 
 ##### Parameters
-- $interval `\CarbonInterval|\DateInterval|mixed` 
+- $interval `\CarbonInterval|\DateInterval|mixed`
 returns `bool`
 #### CarbonInterval::gt
 
@@ -4224,7 +4224,7 @@ Determines if the instance is greater (longer) than another
 
 
 ##### Parameters
-- $interval `\CarbonInterval|\DateInterval|mixed` 
+- $interval `\CarbonInterval|\DateInterval|mixed`
 returns `bool`
 #### CarbonInterval::gte
 
@@ -4232,7 +4232,7 @@ Determines if the instance is greater (longer) than or equal to another
 
 
 ##### Parameters
-- $interval `\CarbonInterval|\DateInterval|mixed` 
+- $interval `\CarbonInterval|\DateInterval|mixed`
 returns `bool`
 #### CarbonInterval::hasLocalTranslator
 
@@ -4245,7 +4245,7 @@ Check if macro is registered.
 
 
 ##### Parameters
-- $name `string` 
+- $name `string`
 returns `bool`
 #### CarbonInterval::instance
 
@@ -4255,7 +4255,7 @@ set the $days field.
 
 
 ##### Parameters
-- $interval `\DateInterval` 
+- $interval `\DateInterval`
 - $skipCopy `bool`
 
 set to true to return the passed object
@@ -4279,8 +4279,8 @@ Determines if the instance is between two others
 
 
 ##### Parameters
-- $interval1 `\CarbonInterval|\DateInterval|mixed` 
-- $interval2 `\CarbonInterval|\DateInterval|mixed` 
+- $interval1 `\CarbonInterval|\DateInterval|mixed`
+- $interval2 `\CarbonInterval|\DateInterval|mixed`
 - $equal `bool` Indicates if an equal to comparison should be done
 returns `bool`
 ##### Examples
@@ -4308,7 +4308,7 @@ Determines if the instance is less (shorter) than another
 
 
 ##### Parameters
-- $interval `\CarbonInterval|\DateInterval|mixed` 
+- $interval `\CarbonInterval|\DateInterval|mixed`
 returns `bool`
 #### CarbonInterval::lessThanOrEqualTo
 
@@ -4316,7 +4316,7 @@ Determines if the instance is less (shorter) than or equal to another
 
 
 ##### Parameters
-- $interval `\CarbonInterval|\DateInterval|mixed` 
+- $interval `\CarbonInterval|\DateInterval|mixed`
 returns `bool`
 #### CarbonInterval::locale
 
@@ -4324,8 +4324,8 @@ Get/set the locale for the current instance.
 
 
 ##### Parameters
-- $locale `string|null` 
-- $fallbackLocales `string` 
+- $locale `string|null`
+- $fallbackLocales `string`
 returns `$this|string`
 #### CarbonInterval::localeHasDiffOneDayWords
 
@@ -4373,7 +4373,7 @@ Determines if the instance is less (shorter) than another
 
 
 ##### Parameters
-- $interval `\CarbonInterval|\DateInterval|mixed` 
+- $interval `\CarbonInterval|\DateInterval|mixed`
 returns `bool`
 #### CarbonInterval::lte
 
@@ -4381,7 +4381,7 @@ Determines if the instance is less (shorter) than or equal to another
 
 
 ##### Parameters
-- $interval `\CarbonInterval|\DateInterval|mixed` 
+- $interval `\CarbonInterval|\DateInterval|mixed`
 returns `bool`
 #### CarbonInterval::macro
 
@@ -4416,14 +4416,14 @@ Add given parameters to the current interval.
 
 
 ##### Parameters
-- $years `int` 
-- $months `int` 
-- $weeks `int|float` 
-- $days `int|float` 
-- $hours `int|float` 
-- $minutes `int|float` 
-- $seconds `int|float` 
-- $microseconds `int|float` 
+- $years `int`
+- $months `int`
+- $weeks `int|float`
+- $days `int|float`
+- $hours `int|float`
+- $minutes `int|float`
+- $seconds `int|float`
+- $microseconds `int|float`
 returns `$this`
 #### CarbonInterval::mixin
 
@@ -4431,7 +4431,7 @@ Register macros from a mixin object.
 
 
 ##### Parameters
-- $mixin `object|string` 
+- $mixin `object|string`
 returns `void`
 ##### Examples
 ```php
@@ -4462,7 +4462,7 @@ Multiply and cascade current instance by a given factor.
 
 
 ##### Parameters
-- $factor `float|int` 
+- $factor `float|int`
 returns `$this`
 #### CarbonInterval::ne
 
@@ -4470,7 +4470,7 @@ Determines if the instance is not equal to another
 
 
 ##### Parameters
-- $interval `\CarbonInterval|\DateInterval|mixed` 
+- $interval `\CarbonInterval|\DateInterval|mixed`
 returns `bool`
 #### CarbonInterval::notEqualTo
 
@@ -4478,7 +4478,7 @@ Determines if the instance is not equal to another
 
 
 ##### Parameters
-- $interval `\CarbonInterval|\DateInterval|mixed` 
+- $interval `\CarbonInterval|\DateInterval|mixed`
 returns `bool`
 #### CarbonInterval::optimize
 
@@ -4507,21 +4507,21 @@ Add given parameters to the current interval.
 
 
 ##### Parameters
-- $years `int` 
-- $months `int` 
-- $weeks `int|float` 
-- $days `int|float` 
-- $hours `int|float` 
-- $minutes `int|float` 
-- $seconds `int|float` 
-- $microseconds `int|float` 
+- $years `int`
+- $months `int`
+- $weeks `int|float`
+- $days `int|float`
+- $hours `int|float`
+- $minutes `int|float`
+- $seconds `int|float`
+- $microseconds `int|float`
 returns `$this`
 #### CarbonInterval::resetMonthsOverflow
 
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 To avoid conflict between different third-party libraries, static setters should not be used.
 You should rather use the ->settings() method.
 Or you can use method variants: addMonthsWithOverflow/addMonthsNoOverflow, same variants
@@ -4539,7 +4539,7 @@ returns `void`
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 To avoid conflict between different third-party libraries, static setters should not be used.
 You should rather use the ->settings() method.
 Or you can use method variants: addYearsWithOverflow/addYearsNoOverflow, same variants
@@ -4552,8 +4552,8 @@ Round the current instance second with given precision if specified.
 
 
 ##### Parameters
-- $precision `float|int|string|\DateInterval|null` 
-- $function `string` 
+- $precision `float|int|string|\DateInterval|null`
+- $function `string`
 returns `$this`
 #### CarbonInterval::roundUnit
 
@@ -4566,8 +4566,8 @@ Set a part of the CarbonInterval object.
 
 
 ##### Parameters
-- $name `\Unit|string|array` 
-- $value `int` 
+- $name `\Unit|string|array`
+- $value `int`
 returns `$this`
 #### CarbonInterval::setCascadeFactors
 
@@ -4575,20 +4575,20 @@ Set default cascading factors for ->cascade() method.
 
 
 ##### Parameters
-- $cascadeFactors `array` 
+- $cascadeFactors `array`
 #### CarbonInterval::setFallbackLocale
 
 Set the fallback locale.
 
 
 ##### Parameters
-- $locale `string` 
+- $locale `string`
 #### CarbonInterval::setHumanDiffOptions
 
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 To avoid conflict between different third-party libraries, static setters should not be used.
 You should rather use the ->settings() method.
 :::
@@ -4610,7 +4610,7 @@ Set a step to apply instead of a fixed interval to get the new date.
 
 Or pass null to switch to fixed interval.
 ##### Parameters
-- $step `\Closure|null` 
+- $step `\Closure|null`
 #### CarbonInterval::setTimezone
 
 Set the instance's timezone from a string or object.
@@ -4621,7 +4621,7 @@ Set the instance's timezone from a string or object.
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 To avoid conflict between different third-party libraries, static setters should not be used.
             You should rather let Carbon object being cast to string with DEFAULT_TO_STRING_FORMAT, and
             use other method or custom format passed to format() method if you need to dump another string
@@ -4630,7 +4630,7 @@ To avoid conflict between different third-party libraries, static setters should
 Set the default format used when type juggling a Carbon instance to a string.
 :::
 ##### Parameters
-- $format `string|\Closure|null` 
+- $format `string|\Closure|null`
 returns `void`
 #### CarbonInterval::setTranslator
 
@@ -4638,7 +4638,7 @@ Set the default translator instance to use.
 
 
 ##### Parameters
-- $translator `\TranslatorInterface` 
+- $translator `\TranslatorInterface`
 returns `void`
 #### CarbonInterval::settings
 
@@ -4655,7 +4655,7 @@ Set specific options.
 - macros: array|null
 - genericMacros: array|null
 ##### Parameters
-- $settings `array` 
+- $settings `array`
 returns `$this|static`
 #### CarbonInterval::shares
 
@@ -4667,7 +4667,7 @@ Use shares() when you want a fast and approximated calculation that does not cas
 
 For a precise and cascaded calculation,
 ##### Parameters
-- $divider `float|int` 
+- $divider `float|int`
 returns `$this`
 #### CarbonInterval::shiftTimezone
 
@@ -4713,8 +4713,8 @@ Subtract the passed interval to the current instance.
 
 
 ##### Parameters
-- $unit `string|\DateInterval` 
-- $value `int|float` 
+- $unit `string|\DateInterval`
+- $value `int|float`
 returns `$this`
 #### CarbonInterval::subtract
 
@@ -4722,8 +4722,8 @@ Subtract the passed interval to the current instance.
 
 
 ##### Parameters
-- $unit `string|\DateInterval` 
-- $value `int|float` 
+- $unit `string|\DateInterval`
+- $value `int|float`
 returns `$this`
 #### CarbonInterval::times
 
@@ -4735,7 +4735,7 @@ Use times() when you want a fast and approximated calculation that does not casc
 
 For a precise and cascaded calculation,
 ##### Parameters
-- $factor `float|int` 
+- $factor `float|int`
 returns `$this`
 #### CarbonInterval::toArray
 
@@ -4767,7 +4767,7 @@ Get amount of given unit equivalent to the interval.
 
 
 ##### Parameters
-- $unit `string` 
+- $unit `string`
 returns `float`
 #### CarbonInterval::translate
 
@@ -4787,7 +4787,7 @@ Returns the alternative number for a given integer if available in the current l
 
 
 ##### Parameters
-- $number `int` 
+- $number `int`
 returns `string`
 #### CarbonInterval::translateTimeString
 
@@ -4833,39 +4833,39 @@ returns `string`
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 To avoid conflict between different third-party libraries, static setters should not be used.
 You should rather use the ->settings() method.
 Or you can use method variants: addMonthsWithOverflow/addMonthsNoOverflow, same variants
 are available for quarters, years, decade, centuries, millennia (singular and plural forms).
 :::
 ##### Parameters
-- $monthsOverflow `bool` 
+- $monthsOverflow `bool`
 returns `void`
 #### CarbonInterval::useStrictMode
 
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 To avoid conflict between different third-party libraries, static setters should not be used.
 You should rather use the ->settings() method.
 :::
 ##### Parameters
-- $strictModeEnabled `bool` 
+- $strictModeEnabled `bool`
 #### CarbonInterval::useYearsOverflow
 
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 To avoid conflict between different third-party libraries, static setters should not be used.
 You should rather use the ->settings() method.
 Or you can use method variants: addYearsWithOverflow/addYearsNoOverflow, same variants
 are available for quarters, years, decade, centuries, millennia (singular and plural forms).
 :::
 ##### Parameters
-- $yearsOverflow `bool` 
+- $yearsOverflow `bool`
 returns `void`
 #### CarbonInterval::weeksAndDays
 
@@ -4902,7 +4902,7 @@ Get a property allowing both `DatePeriod` snakeCase and camelCase names.
 
 
 ##### Parameters
-- $name `string` 
+- $name `string`
 returns `bool|\CarbonInterface|\CarbonInterval|int|null`
 #### CarbonPeriod::__isset
 
@@ -4910,7 +4910,7 @@ Check if an attribute exists on the object
 
 
 ##### Parameters
-- $name `string` 
+- $name `string`
 returns `bool`
 #### CarbonPeriod::__toString
 
@@ -5025,7 +5025,7 @@ Return the current date.
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 To avoid conflict between different third-party libraries, static setters should not be used.
 You should rather use the ->settings() method.
 :::
@@ -5034,7 +5034,7 @@ You should rather use the ->settings() method.
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 To avoid conflict between different third-party libraries, static setters should not be used.
 You should rather use the ->settings() method.
 :::
@@ -5091,7 +5091,7 @@ then return the result of the closure (or null if the closure was void).
 
 ##### Parameters
 - $locale `string` locale ex. en
-- $func `callable` 
+- $func `callable`
 returns `mixed`
 #### CarbonPeriod::first
 
@@ -5131,7 +5131,7 @@ Get a property allowing both `DatePeriod` snakeCase and camelCase names.
 
 
 ##### Parameters
-- $name `string` 
+- $name `string`
 returns `bool|\CarbonInterface|\CarbonInterval|int|null`
 #### CarbonPeriod::getAvailableLocales
 
@@ -5355,8 +5355,8 @@ Get/set the locale for the current instance.
 
 
 ##### Parameters
-- $locale `string|null` 
-- $fallbackLocales `string` 
+- $locale `string|null`
+- $fallbackLocales `string`
 returns `$this|string`
 #### CarbonPeriod::localeHasDiffOneDayWords
 
@@ -5478,8 +5478,8 @@ or the period between 2 dates (if 2 parameters passed).
 
 
 ##### Parameters
-- $rangeOrRangeStart `\CarbonPeriod|\DateTimeInterface|\Carbon|\CarbonImmutable|string` 
-- $rangeEnd `\DateTimeInterface|\Carbon|\CarbonImmutable|string|null` 
+- $rangeOrRangeStart `\CarbonPeriod|\DateTimeInterface|\Carbon|\CarbonImmutable|string`
+- $rangeEnd `\DateTimeInterface|\Carbon|\CarbonImmutable|string|null`
 returns `bool`
 #### CarbonPeriod::prependFilter
 
@@ -5507,7 +5507,7 @@ Reset filters stack.
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 To avoid conflict between different third-party libraries, static setters should not be used.
 You should rather use the ->settings() method.
 Or you can use method variants: addMonthsWithOverflow/addMonthsNoOverflow, same variants
@@ -5525,7 +5525,7 @@ returns `void`
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 To avoid conflict between different third-party libraries, static setters should not be used.
 You should rather use the ->settings() method.
 Or you can use method variants: addYearsWithOverflow/addYearsNoOverflow, same variants
@@ -5553,7 +5553,7 @@ Set the iteration item class.
 
 
 ##### Parameters
-- $dateClass `string` 
+- $dateClass `string`
 returns `static`
 #### CarbonPeriod::setDateInterval
 
@@ -5561,7 +5561,7 @@ Change the period date interval.
 
 
 ##### Parameters
-- $interval `\DateInterval|\Unit|string|int` 
+- $interval `\DateInterval|\Unit|string|int`
 - $unit `\Unit|string` the unit of $interval if it's a number
 returns `static`
 #### CarbonPeriod::setDates
@@ -5570,8 +5570,8 @@ Set start and end date.
 
 
 ##### Parameters
-- $start `\DateTime|\DateTimeInterface|string` 
-- $end `\DateTime|\DateTimeInterface|string|null` 
+- $start `\DateTime|\DateTimeInterface|string`
+- $end `\DateTime|\DateTimeInterface|string|null`
 returns `static`
 #### CarbonPeriod::setEndDate
 
@@ -5579,8 +5579,8 @@ Change the period end date.
 
 
 ##### Parameters
-- $date `\DateTime|\DateTimeInterface|string|null` 
-- $inclusive `bool|null` 
+- $date `\DateTime|\DateTimeInterface|string|null`
+- $inclusive `bool|null`
 returns `static`
 #### CarbonPeriod::setFallbackLocale
 
@@ -5588,7 +5588,7 @@ Set the fallback locale.
 
 
 ##### Parameters
-- $locale `string` 
+- $locale `string`
 #### CarbonPeriod::setFilters
 
 Set filters stack.
@@ -5599,7 +5599,7 @@ Set filters stack.
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 To avoid conflict between different third-party libraries, static setters should not be used.
 You should rather use the ->settings() method.
 :::
@@ -5621,7 +5621,7 @@ Change the period options.
 
 
 ##### Parameters
-- $options `int|null` 
+- $options `int|null`
 returns `static`
 #### CarbonPeriod::setRecurrences
 
@@ -5634,8 +5634,8 @@ Change the period start date.
 
 
 ##### Parameters
-- $date `\DateTime|\DateTimeInterface|string` 
-- $inclusive `bool|null` 
+- $date `\DateTime|\DateTimeInterface|string`
+- $inclusive `bool|null`
 returns `static`
 #### CarbonPeriod::setTimezone
 
@@ -5647,7 +5647,7 @@ Set the instance's timezone from a string or object and apply it to start/end.
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 To avoid conflict between different third-party libraries, static setters should not be used.
             You should rather let Carbon object being cast to string with DEFAULT_TO_STRING_FORMAT, and
             use other method or custom format passed to format() method if you need to dump another string
@@ -5656,7 +5656,7 @@ To avoid conflict between different third-party libraries, static setters should
 Set the default format used when type juggling a Carbon instance to a string.
 :::
 ##### Parameters
-- $format `string|\Closure|null` 
+- $format `string|\Closure|null`
 returns `void`
 #### CarbonPeriod::setTranslator
 
@@ -5664,7 +5664,7 @@ Set the default translator instance to use.
 
 
 ##### Parameters
-- $translator `\TranslatorInterface` 
+- $translator `\TranslatorInterface`
 returns `void`
 #### CarbonPeriod::settings
 
@@ -5681,7 +5681,7 @@ Set specific options.
 - macros: array|null
 - genericMacros: array|null
 ##### Parameters
-- $settings `array` 
+- $settings `array`
 returns `$this|static`
 #### CarbonPeriod::shiftTimezone
 
@@ -5769,8 +5769,8 @@ Toggle given options on or off.
 
 
 ##### Parameters
-- $options `int` 
-- $state `bool|null` 
+- $options `int`
+- $state `bool|null`
 returns `static`
 #### CarbonPeriod::translate
 
@@ -5790,7 +5790,7 @@ Returns the alternative number for a given integer if available in the current l
 
 
 ##### Parameters
-- $number `int` 
+- $number `int`
 returns `string`
 #### CarbonPeriod::translateTimeString
 
@@ -5836,39 +5836,39 @@ returns `string`
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 To avoid conflict between different third-party libraries, static setters should not be used.
 You should rather use the ->settings() method.
 Or you can use method variants: addMonthsWithOverflow/addMonthsNoOverflow, same variants
 are available for quarters, years, decade, centuries, millennia (singular and plural forms).
 :::
 ##### Parameters
-- $monthsOverflow `bool` 
+- $monthsOverflow `bool`
 returns `void`
 #### CarbonPeriod::useStrictMode
 
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 To avoid conflict between different third-party libraries, static setters should not be used.
 You should rather use the ->settings() method.
 :::
 ##### Parameters
-- $strictModeEnabled `bool` 
+- $strictModeEnabled `bool`
 #### CarbonPeriod::useYearsOverflow
 
 
 
 
-::: warning Deprectated 
+::: warning Deprectated
 To avoid conflict between different third-party libraries, static setters should not be used.
 You should rather use the ->settings() method.
 Or you can use method variants: addYearsWithOverflow/addYearsNoOverflow, same variants
 are available for quarters, years, decade, centuries, millennia (singular and plural forms).
 :::
 ##### Parameters
-- $yearsOverflow `bool` 
+- $yearsOverflow `bool`
 returns `void`
 #### CarbonPeriod::valid
 
@@ -5895,7 +5895,7 @@ Create a CarbonTimeZone from mixed input.
 
 
 ##### Parameters
-- $object `\DateTimeZone|string|int|null` 
+- $object `\DateTimeZone|string|int|null`
 returns `false|static`
 #### CarbonTimeZone::createFromHourOffset
 
@@ -5919,7 +5919,7 @@ returns `false|static`
 
 
 ##### Parameters
-- $dst `bool` 
+- $dst `bool`
 returns `string`
 #### CarbonTimeZone::getAbbreviatedName
 
@@ -5927,7 +5927,7 @@ Returns abbreviated name of the current timezone according to DST setting.
 
 
 ##### Parameters
-- $dst `bool` 
+- $dst `bool`
 returns `string`
 #### CarbonTimeZone::getOffsetNameFromMinuteOffset
 
@@ -6179,7 +6179,7 @@ Sets the fallback locales.
 
 
 ##### Parameters
-- $locales `string[]` 
+- $locales `string[]`
 #### Translator::setLocale
 
 Set the current translator locale and indicate if the source locale file exists
@@ -6193,8 +6193,8 @@ Set messages of a locale and take file first if present.
 
 
 ##### Parameters
-- $locale `string` 
-- $messages `array` 
+- $locale `string`
+- $messages `array`
 returns `$this`
 #### Translator::setTranslations
 
@@ -6202,5 +6202,5 @@ Set messages of the current locale and take file first if present.
 
 
 ##### Parameters
-- $messages `array` 
+- $messages `array`
 returns `$this`

@@ -311,7 +311,7 @@ echo $date1->calendar($date2, [
 [Click here](#supported-locales) to get an overview of the `echo count(Carbon::getAvailableMacroLocales());`{render} locales (and `echo count(Carbon::getAvailableLocales());`{render} regional variants) supported by the last Carbon version.
 
 
-If you can add missing translations or missing languages, [please go to translation tool](/contribute/translate/), your help is welcome.
+If you can add missing translations or missing languages, [please go to translation tool](/develop/contribution/translate), your help is welcome.
 
 Note that if you use Laravel, the locale will be automatically set according to current last `App:setLocale` execution. So `diffForHumans`, `isoFormat`, `translatedFormat` and localized properties such as `->dayName` or `->monthName` will be localized transparently.
 

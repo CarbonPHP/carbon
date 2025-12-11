@@ -25,9 +25,9 @@ use Carbon\Carbon;
 
 Examples in this documentation will assume you imported classes of the Carbon namespace this way.
 
-If you're using Laravel, you may check [our Laravel configuration and best-practices recommendations](/laravel).
+If you're using Laravel, you may check [our Laravel configuration and best-practices recommendations](/guide/getting-started/laravel).
 
-If you're using Symfony, you may check [our Symfony configuration and best-practices recommendations](/symfony).
+If you're using Symfony, you may check [our Symfony configuration and best-practices recommendations](/guide/getting-started/symfony).
 
 We also provide CarbonImmutable class extending [DateTimeImmutable](https://www.php.net/manual/en/class.datetimeimmutable.php).
 The same methods are available on both classes but when you use a modifier on a Carbon

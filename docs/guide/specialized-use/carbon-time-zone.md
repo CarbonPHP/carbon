@@ -72,8 +72,10 @@ echo "\n";
 // toOffsetName will give the initial offset no matter the date:
 echo $tz->toOffsetName();
 echo "\n";
+$winter = Carbon::parse('2018-01-01');
 echo $tz->toOffsetName($winter);
 echo "\n";
+$summer = Carbon::parse('2018-07-01');
 echo $tz->toOffsetName($summer);
 
 ```

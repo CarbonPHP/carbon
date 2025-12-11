@@ -3,7 +3,6 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 use Carbon\Carbon;
-use CzProject\GitPhp\Git;
 use SebastianFeldmann\Git\Log\Commit;
 use SebastianFeldmann\Git\Repository;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -120,7 +119,7 @@ function get_commites_markdown($commits)
 
 function write_markdown()
 {
-	$destination_file = __DIR__ . '/../docs/changelog.md';
+	$destination_file = __DIR__ . '/../docs/develop/changelog.md';
 	$git_repository = new Repository(__DIR__ . '/../');
 
 	$releases = get_releases();
@@ -129,7 +128,8 @@ function write_markdown()
 	$progress_bar = new ProgressBar($output, $releases_count - 1);
 	$progress_bar->setFormat('debug');
 	$progress_bar->start();
-	$markdown = "# Changelog\n";
+	$markdown = "<!-- This file is auto generated using tools/generate-changelog.php -->\n\n";
+	$markdown .= "# Changelog\n";
 
 	foreach ($releases as $major_version => $release_group) {
 		$markdown .= "\n## Version {$major_version}.x\n\n";

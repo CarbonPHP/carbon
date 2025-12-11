@@ -22,18 +22,22 @@ const vitePressOptions: UserConfig = {
 			},
 			{
 				text: 'Reference',
-				link: '/reference',
+				link: '/develop/reference',
 			},
 			{
 				text: 'Changelog',
-				link: '/changelog',
+				link: '/develop/changelog',
 			},
 		],
 
 		socialLinks: [
 			{
 				icon: 'github',
-				link: 'https://github.com/vuejs/vitepress',
+				link: 'https://github.com/CarbonPHP/carbon',
+			},
+			{
+				icon: 'twitter',
+				link: 'https://x.com/NesbittBrian',
 			},
 		],
 		outline: {
@@ -69,9 +73,10 @@ const sidebars: VitePressSidebarOptions[] = [
 	},
 	{
 		...vitePressSidebarOptions,
-		scanStartPath: 'reference',
-		basePath: '/reference/',
-		resolvePath: '/reference',
+		scanStartPath: 'develop',
+		basePath: '/develop/',
+		resolvePath: '/develop',
+		manualSortFileNameByPriority: ['contribution', 'reference.md', 'changelog.md'],
 	},
 ];
 

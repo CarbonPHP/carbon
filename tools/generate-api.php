@@ -3,8 +3,6 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 use Carbon\Carbon;
-use Carbon\CarbonImmutable;
-use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use Carbon\CarbonTimeZone;
@@ -16,7 +14,7 @@ use Cmixin\SeasonMixin;
 use phpDocumentor\Reflection\DocBlockFactory;
 use Symfony\Component\Translation\Translator as SymfonyTranslator;
 
-$destination_file = __DIR__ . '/../docs/reference.md';
+$destination_file = __DIR__ . '/../docs/develop/reference.md';
 trait MacroExposer
 {
 	public function getMacros()
@@ -120,8 +118,6 @@ foreach (get_classes() as $data) {
 			continue;
 		}
 		$docblock = $factory->create($doc_comment);
-
-		// print_r($docblock->getTags());
 		$docblocks[$name] = $docblock;
 	}
 }
@@ -179,8 +175,6 @@ foreach ($docblocks as $name => $docblock) {
 			$markdown .= "{$value}\n";
 		}
 	}
-	// $markdown .= '- **@' . $tag->getName() . '** ' . $tag . "\n";
-// }
 }
 
 file_put_contents($destination_file, $markdown);

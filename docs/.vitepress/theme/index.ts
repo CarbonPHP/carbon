@@ -3,7 +3,7 @@ import { h } from 'vue';
 import type { Theme } from 'vitepress';
 import DefaultTheme from 'vitepress/theme';
 import './style.css';
-import sponsors from './components/sponsors.vue';
+import Sponsors from './components/Sponsors.vue';
 export default {
 	extends: DefaultTheme,
 	Layout: () => {
@@ -12,6 +12,6 @@ export default {
 		});
 	},
 	enhanceApp({ app, router, siteData }) {
-		app.component('Sponsors', sponsors);
+		app.component('Sponsors', Sponsors);
 	},
 } satisfies Theme;

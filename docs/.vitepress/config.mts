@@ -8,6 +8,7 @@ import { compileCode } from './compile-php-plugin';
 const vitePressOptions: UserConfig = {
 	title: 'Carbon',
 	description: 'A simple PHP API extension for DateTime.',
+	base: '/carbon/',
 	themeConfig: {
 		// https://vitepress.dev/reference/default-theme-config
 		logo: '/logo.png',

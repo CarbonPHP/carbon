@@ -26,7 +26,7 @@ If you wish you can create the following `composer.json` file and run `composer 
 ```
 {
     "require": {
-        "nesbot/carbon": "^{{eval(echo MASTER_VERSION;)}}"
+        "nesbot/carbon": "^3.0"
     }
 }
 ```

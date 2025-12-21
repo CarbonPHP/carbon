@@ -15,6 +15,9 @@ importers:
       '@kalimahapps/eslint-config':
         specifier: ^1.2.93
         version: 1.2.93(eslint@9.39.1(jiti@2.6.1))
+      '@kalimahapps/eslint-plugin-tailwind':
+        specifier: ^1.1.0
+        version: 1.1.0
       '@tailwindcss/vite':
         specifier: ^4.1.18
         version: 4.1.18(vite@7.2.7(@types/node@24.10.2)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2))
@@ -325,6 +328,10 @@ packages:
     engines: {node: '>=14.16'}
     peerDependencies:
       eslint: '>= 9'
+
+  '@kalimahapps/eslint-plugin-tailwind@1.1.0':
+    resolution: {integrity: sha512-dA52xYEOQJ1Hxrl5Hqn50N9A8VRoO2jw3nvzVwq48+BdGWeYeOl6FaZPJEVEdn6ZEaytvm13yczMWhKAVfI1kw==}
+    engines: {node: '>=14.16'}
 
   '@mixmark-io/domino@2.2.0':
     resolution: {integrity: sha512-Y28PR25bHXUg88kCV7nivXrP2Nj2RueZ3/l/jdx6J9f8J4nsEGcgX0Qe6lt7Pa+J79+kPiJU3LguR6O/6zrLOw==}
@@ -1435,6 +1442,9 @@ packages:
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
 
+  lodash.orderby@4.6.0:
+    resolution: {integrity: sha512-T0rZxKmghOOf5YPnn8EY5iLYeWCpZq8G41FfqoVHH5QDTAFaghJRmAdLiadEDq+ztgM2q5PjA+Z1fOwGrLgmtg==}
+
   lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
 
@@ -2256,6 +2266,10 @@ snapshots:
     transitivePeerDependencies:
       - '@eslint/json'
       - supports-color
+
+  '@kalimahapps/eslint-plugin-tailwind@1.1.0':
+    dependencies:
+      lodash.orderby: 4.6.0
 
   '@mixmark-io/domino@2.2.0': {}
 
@@ -3340,6 +3354,8 @@ snapshots:
       p-locate: 5.0.0
 
   lodash.merge@4.6.2: {}
+
+  lodash.orderby@4.6.0: {}
 
   lodash@4.17.21: {}
 

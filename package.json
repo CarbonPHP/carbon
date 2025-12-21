@@ -16,9 +16,11 @@
 	},
 	"devDependencies": {
 		"@kalimahapps/eslint-config": "^1.2.93",
+		"@tailwindcss/vite": "^4.1.18",
 		"@types/node": "^24.10.2",
 		"eslint": "^9.39.1",
 		"markdown-it-async": "^2.2.0",
+		"tailwindcss": "^4.1.18",
 		"turndown": "^7.2.2",
 		"vitepress": "2.0.0-alpha.15",
 		"vitepress-sidebar": "^1.33.1",

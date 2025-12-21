@@ -3,6 +3,8 @@ import type { UserConfig } from 'vitepress';
 import { withSidebar } from 'vitepress-sidebar';
 import type { VitePressSidebarOptions } from 'vitepress-sidebar/types';
 import { compileCode } from './compile-php-plugin';
+import { fileURLToPath } from 'node:url';
+import tailwindcss from '@tailwindcss/vite';
 
 // https://vitepress.dev/reference/site-config
 const vitePressOptions: UserConfig = {
@@ -49,6 +51,14 @@ const vitePressOptions: UserConfig = {
 		config(md) {
 			md.use(compileCode);
 		},
+	},
+	 vite: {
+		resolve: {
+			alias: {
+				'@': fileURLToPath(new URL('.', import.meta.url)),
+			},
+		},
+		plugins: [tailwindcss()],
 	},
 };
 

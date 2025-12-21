@@ -1,5 +1,5 @@
 <?php
-/* taqwim-disable taqwim/max-lines,taqwim/method.complexity, taqwim/method.max-depth,taqwim/prefer-single-quotes,taqwim/no-nested-ternary*/
+/* taqwim-disable taqwim/max-lines,taqwim/method.complexity, taqwim/method.max-depth,taqwim/no-nested-ternary*/
 declare(strict_types=1);
 namespace Carbon\Doc\Sponsors;
 require __DIR__ . '/../vendor/autoload.php';

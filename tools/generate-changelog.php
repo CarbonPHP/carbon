@@ -1,5 +1,4 @@
 <?php
-/* taqwim-disable taqwim/prefer-single-quotes */
 require __DIR__ . '/../vendor/autoload.php';
 
 use Carbon\Carbon;

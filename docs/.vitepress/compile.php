@@ -14,7 +14,7 @@ Carbon::macro('getAvailableMacroLocales', function() {
 		$locales = array();
 
 		foreach (Carbon::getAvailableLocales() as $locale) {
-			$locales[explode('_', $locale) [0]] = 1;
+			$locales[explode('_', $locale)[0]] = 1;
 		}
 
 		return array_keys($locales);
@@ -233,7 +233,6 @@ foreach ($statements as &$stmt) {
 		// or after the line if multi line
 		$trimmed_output = trim($captured_output);
 
-		/* taqwim-disable-next-line taqwim/prefer-single-quotes */
 		if (strpos($trimmed_output, "\n") !== false) {
 			$comment = "\n/*\n{$trimmed_output}\n*/";
 		} else {

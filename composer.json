@@ -14,17 +14,11 @@
 	},
 	"scripts": {
 		"changelog": "conventional-changelog  --history",
-		"check": "@php tools/check.php",
-		"generate": "@php tools/generate.php",
-		"history": "@php tools/api-history.php",
-		"releases": "@php tools/cache-releases.php",
-		"release": [
-			"@releases",
-			"@php tools/release.php",
-			"composer update",
-			"@history",
-			"@generate",
-			"@check"
+		"backers": "@php tools/generate-backers.php",
+		"translations": "@php tools/generate-translations.php",
+		"build": [
+			"@translations",
+			"@backers"
 		]
 	},
 	"config": {

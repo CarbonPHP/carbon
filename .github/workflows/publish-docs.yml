@@ -45,7 +45,7 @@ jobs:
         run: composer update --prefer-dist --no-interaction --no-suggest
 
       - name: Run PHP generators
-        run: php tools/generate-translations.php
+        run: composer run build
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4

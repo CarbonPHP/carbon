@@ -1,17 +1,47 @@
 <template>
-	<div class="sponsors" :data-status="status">
-		<div v-for="sponsor in data" :key="sponsor.name">
-			<span v-if="sponsor.star" class="star">
+	<div
+		class="bg-zinc-100
+			dark:bg-zinc-600
+			flex
+			flex-wrap
+			gap-4
+			mt-4
+			p-4
+			sponsors"
+	>
+		<div v-for="sponsor in sortedData" :key="sponsor.name" :class="getClasses(status)">
+			<span
+				v-if="sponsor.star"
+				class="-translate-y-1/2
+					absolute
+					top-0
+					right-0
+					text-2xl
+					text-shadow-lg
+					text-yellow-500
+					translate-x-1/2"
+			>
 				★
 			</span>
-			<a :href="sponsor.website" target="_blank" rel="noopener">
-				<img :src="getImage(sponsor)" width="100">
+			<a
+				:href="sponsor.website"
+				target="_blank"
+				rel="noopener"
+				class="flex justify-center items-center size-full"
+				:class="status !== 'sponsor' && 'rounded-full overflow-hidden'"
+			>
+				<img
+					:src="getImage(sponsor)"
+					width="100"
+					class="h-full object-contain"
+				>
 			</a>
 		</div>
 	</div>
 </template>
 
 <script lang="ts" setup>
+import data from '@/public/data/backers.json';
 import type { PropType } from 'vue';
 import { onMounted, ref } from 'vue';
 const { status } = defineProps({
@@ -24,13 +54,9 @@ const { status } = defineProps({
 	},
 });
 
-const data = ref();
-onMounted(async () => {
-	const response = await fetch('backers.json').then((response) => {
-		return response.json();
-	});
-
-	data.value = response
+const sortedData = ref();
+onMounted(() => {
+	sortedData.value = data
 		.filter((sponsor: any) => {
 			return sponsor.status === status;
 		})
@@ -45,7 +71,6 @@ onMounted(async () => {
 });
 
 const getImage = (sponsor: any) => {
-	// $src = $member['image'] ?? (strtr($member['profile'], array('https://opencollective.com/' => 'https://images.opencollective.com/')) . '/avatar/256.png');
 	if (sponsor.image) {
 		return sponsor.image;
 	}
@@ -55,74 +80,21 @@ const getImage = (sponsor: any) => {
 		'https://images.opencollective.com/'
 	)}/avatar/256.png`;
 };
+
+const getClasses = (status: string) => {
+	const classes: string[] = ['relative'];
+	if (status === 'sponsor') {
+		classes.push('size-16', 'border-2', 'border-(--vp-c-divider)', 'rounded');
+		return classes;
+	}
+
+	if (status === 'backerPlus') {
+		classes.push('size-12');
+		return classes;
+	}
+
+	classes.push('size-8');
+
+	return classes;
+};
 </script>
-
-<style scoped>
-.sponsors {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 1rem;
-	margin-top: 2rem;
-background-color: #d1d1d1;
-	padding: 1rem;
-
-	img {
-		object-fit: contain;
-		max-height: 100%;
-	}
-
-	&[data-status="backerPlus"] > div {
-		width: 42px;
-		aspect-ratio: 1/1;
-
-		> a {
-			display: block;
-			border-radius: 50%;
-			overflow: hidden;
-			height: 100%;
-			width: 100%;
-		}
-	}
-
-	&[data-status="backer"] > div {
-		width: 32px;
-		aspect-ratio: 1/1;
-
-		> a {
-			display: block;
-			border-radius: 50%;
-			overflow: hidden;
-			height: 100%;
-			width: 100%;
-		}
-	}
-
-	&[data-status="sponsor"] > div {
-		border: 0.3em solid var(--vp-c-divider);
-		border-radius: 0.1rem;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 64px;
-		aspect-ratio: 1/1;
-		position: relative;
-
-		> a {
-			display: block;
-			height: 100%;
-			width: 100%;
-		}
-
-		.star {
-			position: absolute;
-			color: gold;
-			font-size: 1.5rem;
-			top: 0;
-			right: 0;
-			translate: 50% -50%;
-			/* shadow */
-			text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-		}
-	}
-}
-</style>

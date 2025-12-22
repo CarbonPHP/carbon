@@ -6,13 +6,17 @@
 			flex
 			gap-2
 			group
+			overflow-hidden
 			rounded
+			dark:hover:bg-zinc-800
 			hover:bg-zinc-100"
 	>
 		<div
 			class="bg-zinc-200
+				dark:bg-zinc-700
 				font-semibold
 				group-hover:bg-zinc-300
+				dark:group-hover:bg-zinc-600
 				p-2
 				shrink-0
 				truncate

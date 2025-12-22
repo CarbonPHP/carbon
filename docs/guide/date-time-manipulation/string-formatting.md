@@ -24,6 +24,7 @@ var_dump(Carbon::hasFormat('Thursday 25th December 1975 02:15:16 PM', 'l jS F Y 
 You can also set the default \_\_toString() format (which defaults to `Y-m-d H:i:s`) that's used when [type juggling](https://www.php.net/manual/en/language.types.type-juggling.php) occurs.
 
 ```php
+$dt = Carbon::create(1975, 12, 25, 14, 15, 16);
 echo $dt;
 echo "\n";
 
@@ -35,8 +36,6 @@ echo $dt;
 
 // As any setting, you can get the current value for a given date using:
 var_dump($dt->getSettings());
-/*
-{{eval}}*/
 
 ```
 

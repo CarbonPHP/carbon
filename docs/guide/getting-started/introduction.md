@@ -83,7 +83,7 @@ $dtVancouver = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Vancouver');
 // Europe/Paris for example and see the actual result on the right hand.
 // It's alive!
 
-echo $dtVancouver->diffInHours($dtToronto); // {{eval}}
+echo $dtVancouver->diffInHours($dtToronto);
 // Now, try to double-click on "diffInHours" or "create" to open
 // the References panel.
 // Once the references panel is open, you can use the search field to

@@ -21,12 +21,10 @@ We also recommend to always call `createFromTimestamp` with 2 parameters (i.e. e
 Yes, the most impactful change is in `diffIn*` methods. They were returning positive integer by default, they will now return float:
 
 ```php
-{{::lint(
 $after = Carbon::now()->addSeconds(2);
 $before = Carbon::now();
 
 var_dump($after->diffInSeconds($before));
-)}}
 ```
 
 This was: `int(1)` in Carbon 2
@@ -41,7 +39,7 @@ Strong typing added in many method parameters will disallow so usages that was n
 
 In Carbon v2 the following return arbitrary results (despite it emits `E_USER_DEPRECATED` notices):
 
-```php
+```php{no-render}
 var_dump($date->eq(false)); // false
 var_dump($date->gte(false)); // true
 var_dump($date->gt(false)); // true
@@ -65,19 +63,18 @@ In Carbon v3, PHPDoc is moving to real types so any of this will throw a `TypeEr
 Note that you can also create custom locales with a different start of week:
 
 ```php
-{{::lint(
 \Carbon\Translator::get('en_US@Cinema')->setTranslations([
 	'first_day_of_week' => Carbon::FRIDAY,
 ]);
 
 \Carbon\Translator::get('fr_FR@Cinema')->setTranslations([
 	'first_day_of_week' => Carbon::WEDNESDAY,
-]);)}}
+]);
 
-{{::exec(echo CarbonImmutable::now()->locale('fr_FR')->startOfWeek()->dayName;/*pad(76)*/)}} // {{eval}}
-{{::exec(echo CarbonImmutable::now()->locale('fr_FR@Cinema')->startOfWeek()->dayName;/*pad(76)*/)}} // {{eval}}
-{{::exec(echo CarbonImmutable::now()->locale('en_US')->startOfWeek()->dayName;/*pad(76)*/)}} // {{eval}}
-{{::exec(echo CarbonImmutable::now()->locale('en_US@Cinema')->startOfWeek()->dayName;/*pad(76)*/)}} // {{eval}}
+echo CarbonImmutable::now()->locale('fr_FR')->startOfWeek()->dayName;
+echo CarbonImmutable::now()->locale('fr_FR@Cinema')->startOfWeek()->dayName;
+echo CarbonImmutable::now()->locale('en_US')->startOfWeek()->dayName;
+echo CarbonImmutable::now()->locale('en_US@Cinema')->startOfWeek()->dayName;
 
 ```
 
@@ -110,40 +107,34 @@ If you plan to migrate from Carbon 1 to Carbon 2, please note the following brea
 *   Now you get microsecond precision everywhere, it also means 2 dates in the same second but not in the same microsecond are no longer equal.
 *   `$date->jsonSerialize()` and `json_encode($date)` no longer returns arrays but simple strings: `"2017-06-27T13:14:15.000000Z"`. This allows to create dates from it easier in JavaScript. You still can get the previous behavior using:
 
-    ```php
-    {{::lint(
-    Carbon::serializeUsing(function ($date) {
-        return [
-            'date' => $date->toDateTimeString(),
-        ] + (array) $date->tz;
-    });
-    )}}
-    ```
+```php
+Carbon::serializeUsing(function ($date) {
+    return [
+        'date' => $date->toDateTimeString(),
+    ] + (array) $date->tz;
+});
+```
 
 *   `$date->setToStringFormat()` with a closure no longer return a format but a final string. So you can return any string and the following in Carbon 1:
 
-    ```php
-    {{::lint(
-    Carbon::setToStringFormat(function ($date) {
-        return $date->year === 1976 ?
-            'jS \o\f F g:i:s a' :
-            'jS \o\f F, Y g:i:s a';
-    });
-    )}}
-    ```
+```php
+Carbon::setToStringFormat(function ($date) {
+    return $date->year === 1976 ?
+        'jS \o\f F g:i:s a' :
+        'jS \o\f F, Y g:i:s a';
+});
+```
 
-    would become in Carbon 2:
+would become in Carbon 2:
 
-    ```php
-    {{::lint(
-    Carbon::setToStringFormat(function ($date) {
-        return $date->formatLocalized($date->year === 1976 ?
-            'jS \o\f F g:i:s a' :
-            'jS \o\f F, Y g:i:s a'
-        );
-    });
-    )}}
-    ```
+```php
+Carbon::setToStringFormat(function ($date) {
+    return $date->formatLocalized($date->year === 1976 ?
+        'jS \o\f F g:i:s a' :
+        'jS \o\f F, Y g:i:s a'
+    );
+});
+```
 
 *   `setWeekStartsAt` and `setWeekEndsAt` no longer throw exceptions on values out of ranges, but they are also deprecated.
 *   `isSameMonth` and `isCurrentMonth` now returns `false` for same month in different year but you can pass `false` as a second parameter of `isSameMonth` or first parameter of `isCurrentMonth` to compare ignoring the year.

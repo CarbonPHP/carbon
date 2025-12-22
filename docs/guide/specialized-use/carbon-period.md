@@ -505,9 +505,6 @@ echo "\n";
 $period->forEach(function (Carbon $date) {
     echo $date->format('m-d')."\n";
 });
-/*
-{{eval}}*/
-
 ```
 
 As all other Carbon classes, `CarbonPeriod` has a `cast()` method to convert it:

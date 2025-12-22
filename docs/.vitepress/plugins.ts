@@ -21,6 +21,11 @@ const shouldRenderBlock = function(info: string): boolean {
 	return !/\{no-render\}/u.test(info);
 };
 
+const shouldDisplaySandbox = function(info: string): boolean {
+	// check againt {no-sandbox} flag
+	return !/\{no-sandbox\}/u.test(info);
+};
+
 const shouldRenderInline = function(attributes: Array<[string, string]>): boolean {
 	for (const [name, value] of attributes) {
 		if (name === 'render') {
@@ -62,7 +67,7 @@ const compileCode = (md: MarkdownItAsync) => {
 
 	const codeRender = md.renderer.rules.code_inline!;
 	md.renderer.rules.code_inline = (...codeInlineArguments) => {
-		const [tokens, index, options] = codeInlineArguments;
+		const [tokens, index] = codeInlineArguments;
 
 		const token = tokens[index];
 		if (!token.attrs || shouldRenderInline(token.attrs) === false) {
@@ -73,4 +78,25 @@ const compileCode = (md: MarkdownItAsync) => {
 	};
 };
 
-export { compileCode };
+const addSandboxButton = (md: MarkdownItAsync) => {
+	const fence = md.renderer.rules.fence!;
+	md.renderer.rules.fence = (...fenceArguments) => {
+		const [tokens, index] = fenceArguments;
+		const token = tokens[index];
+		const lang = extractLang(token.info);
+		const shouldSandbox = shouldDisplaySandbox(token.info);
+
+		if (lang !== 'php' || !shouldSandbox) {
+			return fence(...fenceArguments);
+		}
+
+		const parameters = `?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=${
+			encodeURIComponent(token.content)
+		}`;
+		const link = `https://play.phpsandbox.io/embed/nesbot/carbon${parameters}`;
+		const sandboxButton = `<a href="${link}" target="_blank" rel="noopener" class="sandbox-button"><i class="bi bi-box-arrow-up-right"></i></a>\n`;
+		return sandboxButton + fence(...fenceArguments);
+	};
+};
+
+export { compileCode, addSandboxButton };

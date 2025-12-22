@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress';
 import type { UserConfig } from 'vitepress';
 import { withSidebar } from 'vitepress-sidebar';
 import type { VitePressSidebarOptions } from 'vitepress-sidebar/types';
-import { compileCode } from './compile-php-plugin';
+import { compileCode, addSandboxButton } from './plugins';
 import { fileURLToPath } from 'node:url';
 import tailwindcss from '@tailwindcss/vite';
 
@@ -16,6 +16,12 @@ const vitePressOptions: UserConfig = {
 			'link', {
 				rel: 'icon',
 				href: '/favicon.ico',
+			},
+		],
+		[
+			'link', {
+				rel: 'stylesheet',
+				href: 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css',
 			},
 		],
 	],
@@ -44,7 +50,6 @@ const vitePressOptions: UserConfig = {
 				link: '/develop/changelog',
 			},
 		],
-
 		socialLinks: [
 			{
 				icon: 'github',
@@ -60,6 +65,9 @@ const vitePressOptions: UserConfig = {
 		},
 	},
 	markdown: {
+		preConfig(md) {
+			md.use(addSandboxButton);
+		},
 		config(md) {
 			md.use(compileCode);
 		},

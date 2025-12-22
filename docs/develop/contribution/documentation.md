@@ -51,3 +51,25 @@ if you want to avoid rendering output, you can use `{no-render}` after the openi
 $mutable = Carbon::now();
 $modifiedMutable = $mutable->add(1, 'day');
 ```
+
+#### Sandbox
+Sandbox link is also automatically generated for code blocks. It allows users to open the code example in an online PHP sandbox environment to test and modify it. If you want to avoid displaying the sandbox link, you can use `{no-sandbox}` after the opening php tag like `php{no-sandbox}`
+
+```php{no-sandbox}
+$mutable = Carbon::now();
+$modifiedMutable = $mutable->add(1, 'day');
+var_dump($modifiedMutable === $mutable);
+```
+
+You can combine both `{no-render}` and `{no-sandbox}` if needed, like `php{no-render}{no-sandbox}`
+
+
+### Icons
+Bootstrap icons are used in the documentation. You can find the list of available icons on the [Bootstrap Icons website](https://icons.getbootstrap.com/). To add an icon, use the following syntax:
+```html
+<i class="bi bi-icon-name"></i>
+```
+Replace `icon-name` with the desired icon's name from the Bootstrap Icons library. For example, to add a star icon, you would use:
+```html
+<i class="bi bi-star"></i>
+```

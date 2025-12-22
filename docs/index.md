@@ -31,7 +31,7 @@ features:
     details: Easily compare dates to check if one is before, after, or equal to another
 ---
 
-```php{no-render}
+```php{no-render}{no-sandbox}
 printf("Right now is %s", Carbon::now()->toDateTimeString());
 printf("Right now in Vancouver is %s", Carbon::now('America/Vancouver')); // automatically converted to string
 $tomorrow = Carbon::now()->addDay();

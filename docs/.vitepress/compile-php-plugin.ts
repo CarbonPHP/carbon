@@ -73,26 +73,4 @@ const compileCode = (md: MarkdownItAsync) => {
 	};
 };
 
-const compileContainer = (md: MarkdownItAsync) => {
-	const container = md.renderer.rules.container_render!;
-	md.renderer.rules.container_render = (...containerArguments) => {
-		const [tokens, index, options, environment, self] = containerArguments;
-		const token = tokens[index];
-
-		if (token.info.trim() === 'php-execute') {
-			if (token.nesting === 1) {
-				// opening tag
-				return '';
-			}
-
-			// closing tag
-			const content = token.children?.filter((t) => { return t.type === 'fence' && extractLang(t.info) === 'php'; }).map((t) => { return t.content; })
-				.join('\n') || '';
-			return render(content);
-		}
-
-		return container(...containerArguments);
-	};
-};
-
-export { compileCode, compileContainer };
+export { compileCode };

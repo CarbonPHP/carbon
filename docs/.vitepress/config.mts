@@ -28,6 +28,10 @@ const vitePressOptions: UserConfig = {
 				link: '/develop/reference',
 			},
 			{
+				text: 'Translations',
+				link: '/develop/translations/available-translations',
+			},
+			{
 				text: 'Changelog',
 				link: '/develop/changelog',
 			},
@@ -55,7 +59,7 @@ const vitePressOptions: UserConfig = {
 	 vite: {
 		resolve: {
 			alias: {
-				'@': fileURLToPath(new URL('.', import.meta.url)),
+				'@': fileURLToPath(new URL('../', import.meta.url)),
 			},
 		},
 		plugins: [tailwindcss()],
@@ -87,7 +91,7 @@ const sidebars: VitePressSidebarOptions[] = [
 		scanStartPath: 'develop',
 		basePath: '/develop/',
 		resolvePath: '/develop',
-		manualSortFileNameByPriority: ['contribution', 'reference.md', 'changelog.md'],
+		manualSortFileNameByPriority: ['contribution', 'translations', 'reference.md', 'changelog.md'],
 	},
 ];
 

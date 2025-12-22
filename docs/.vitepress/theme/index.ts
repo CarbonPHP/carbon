@@ -4,6 +4,8 @@ import type { Theme } from 'vitepress';
 import DefaultTheme from 'vitepress/theme';
 import './style.css';
 import Sponsors from './components/Sponsors.vue';
+import AllAvailableTranslations from './components/AllAvailableTranslations.vue';
+import UpsertLanguage from './components/UpsertLanguage.vue';
 export default {
 	extends: DefaultTheme,
 	Layout: () => {
@@ -13,5 +15,7 @@ export default {
 	},
 	enhanceApp({ app, router, siteData }) {
 		app.component('Sponsors', Sponsors);
+		app.component('AllAvailableTranslations', AllAvailableTranslations);
+		app.component('UpsertLanguage', UpsertLanguage);
 	},
 } satisfies Theme;

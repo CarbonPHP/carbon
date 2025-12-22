@@ -44,6 +44,8 @@
  * -------------------------------------------------------------------------- */
 
 @import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));
+
 
 :root {
   --vp-c-default-1: var(--vp-c-gray-1);

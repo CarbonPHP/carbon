@@ -6,7 +6,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use Carbon\CarbonImmutable;
 
-$destination_file = __DIR__ . '/../docs/public/backers.json';
+$destination_file = __DIR__ . '/../docs/public/data/backers.json';
 
 function get_custom_sponsor_override(): array
 {

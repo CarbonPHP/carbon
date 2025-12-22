@@ -44,21 +44,27 @@ jobs:
       - name: Install dependencies
         run: composer update --prefer-dist --no-interaction --no-suggest
 
-      - uses: pnpm/action-setup@v4 # Uncomment this block if you're using pnpm
-        # with:
-        #   version: 9 # Not needed if you've set "packageManager" in package.json
-      # - uses: oven-sh/setup-bun@v1 # Uncomment this if you're using Bun
+      - name: Run PHP generators
+        run: php tools/generate-translations.php
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
           node-version: 24
-          cache: pnpm # or pnpm / yarn
+          cache: pnpm
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
+
       - name: Install dependencies
-        run: pnpm install # or pnpm install / yarn install / bun install
+        run: pnpm install
+
       - name: Build with VitePress
-        run: pnpm docs:build # or pnpm docs:build / yarn docs:build / bun run docs:build
+        run: pnpm docs:build
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

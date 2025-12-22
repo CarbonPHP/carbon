@@ -28,5 +28,8 @@
 		"vue": "^3.5.25"
 	},
 	"keywords": [],
-	"main": "index.js"
+	"main": "index.js",
+	"engines": {
+		"node": ">=21.2.0"
+	}
 }

@@ -65,7 +65,7 @@ foreach (methods(true) as [$carbonObject, $className, $method, $parameters]) {
     $exclusion = $exclusion || in_array($methodFQCN, [
             Translator::class.'::getFromCatalogue',
         ], true);
-    $documented = $exclusion || preg_match("/(?:[>`]|::)$pattern(?!\w)| $pattern\(/", $documentation);
+    $documented = $exclusion || preg_match("/(?:[[>`]|::)$pattern(?!\w)| $pattern\(/", $documentation);
 
     if (!$documented) {
         $missingMethodsCount++;

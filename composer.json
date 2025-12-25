@@ -12,6 +12,9 @@
 		"phpdocumentor/reflection-docblock": "^5.6",
 		"symfony/console": "^8.0"
 	},
+	"require-dev": {
+		"sebastianfeldmann/git": "^3.15"
+	},
 	"scripts": {
 		"changelog": "conventional-changelog  --history",
 		"backers": "@php tools/generate-backers.php",
@@ -23,9 +26,5 @@
 	},
 	"config": {
 		"process-timeout": 0
-	},
-	"require-dev": {
-		"sebastianfeldmann/git": "^3.15"
-	},
-	"version": "0.0.1"
+	}
 }

@@ -97,70 +97,70 @@ function get_all_backers(): array
 	);
 
 	return array_map(static function(array $member) {
-			$created_at = CarbonImmutable::parse($member['createdAt']);
-			$last_transaction_at = CarbonImmutable::parse($member['lastTransactionAt']);
+        $created_at = CarbonImmutable::parse($member['createdAt']);
+        $last_transaction_at = CarbonImmutable::parse($member['lastTransactionAt']);
 
-			if ($created_at->format('d H:i:s.u') > $last_transaction_at->format('d H:i:s.u')) {
-				$created_at = $created_at
-					->setDay($last_transaction_at->day)
-					->modify($last_transaction_at->format('H:i:s.u'));
-			}
+        if ($created_at->format('d H:i:s.u') > $last_transaction_at->format('d H:i:s.u')) {
+            $created_at = $created_at
+                ->setDay($last_transaction_at->day)
+                ->modify($last_transaction_at->format('H:i:s.u'));
+        }
 
-			$is_yearly = str_contains(strtolower($member['tier'] ?? ''), 'yearly');
-			$monthly_contribution = (float) (
-				$is_yearly && $last_transaction_at > CarbonImmutable::parse('-1 year')
+        $is_yearly = str_contains(strtolower($member['tier'] ?? ''), 'yearly');
+        $monthly_contribution = (float) (
+            $is_yearly && $last_transaction_at > CarbonImmutable::parse('-1 year')
 
-				? ($member['lastTransactionAmount'] / 11.2) // 11.2 instead of 12 to include the discount for yearly subscription
-				: ($member['totalAmountDonated'] / ceil($created_at->floatDiffInMonths()))
-				);
+            ? ($member['lastTransactionAmount'] / 11.2) // 11.2 instead of 12 to include the discount for yearly subscription
+            : ($member['totalAmountDonated'] / ceil($created_at->floatDiffInMonths()))
+            );
 
-			if (!$is_yearly) {
-				if (
-					$last_transaction_at->isAfter('last month') &&
-					$member['lastTransactionAmount'] > $monthly_contribution
-				) {
-					$monthly_contribution = (float) $member['lastTransactionAmount'];
-				}
+        if (!$is_yearly) {
+            if (
+                $last_transaction_at->isAfter('last month') &&
+                $member['lastTransactionAmount'] > $monthly_contribution
+            ) {
+                $monthly_contribution = (float) $member['lastTransactionAmount'];
+            }
 
-				if ($last_transaction_at->isBefore('-75 days')) {
-					$days = min(120, $last_transaction_at->diffInDays('now') - 70);
-					$monthly_contribution *= 1 - $days / 240;
-				}
-			}
+            if ($last_transaction_at->isBefore('-75 days')) {
+                $days = min(120, $last_transaction_at->diffInDays('now') - 70);
+                $monthly_contribution *= 1 - $days / 240;
+            }
+        }
 
-			$yearly_contribution = (float) (
-				$is_yearly
-				? (12 * $monthly_contribution)
-				: ($member['totalAmountDonated'] / max(1, $created_at->floatDiffInYears()))
-				);
-			$status = null;
-			$rank = 0;
+        $yearly_contribution = (float) (
+            $is_yearly
+            ? (12 * $monthly_contribution)
+            : ($member['totalAmountDonated'] / max(1, $created_at->floatDiffInYears()))
+            );
+        $status = null;
+        $rank = 0;
 
-			if ($member['role'] === 'HOST') {
-				$status = 'host';
-				$rank = -1;
-			} elseif ($monthly_contribution > 29 || $yearly_contribution > 700) {
-				$status = 'sponsor';
-				$rank = 4;
-			} elseif ($monthly_contribution > 14.5 || $yearly_contribution > 500) {
-				$status = 'backerPlus';
-				$rank = 3;
-			} elseif ($monthly_contribution > 4.5 || $yearly_contribution > 80) {
-				$status = 'backer';
-				$rank = 2;
-			} elseif ($member['totalAmountDonated'] > 0) {
-				$status = 'helper';
-				$rank = 1;
-			}
+        if ($member['role'] === 'HOST') {
+            $status = 'host';
+            $rank = -1;
+        } elseif ($monthly_contribution > 29 || $yearly_contribution > 700) {
+            $status = 'sponsor';
+            $rank = 4;
+        } elseif ($monthly_contribution > 14.5 || $yearly_contribution > 500) {
+            $status = 'backerPlus';
+            $rank = 3;
+        } elseif ($monthly_contribution > 4.5 || $yearly_contribution > 80) {
+            $status = 'backer';
+            $rank = 2;
+        } elseif ($member['totalAmountDonated'] > 0) {
+            $status = 'helper';
+            $rank = 1;
+        }
 
-			return array_merge($member, array(
-					'star' => ($monthly_contribution > 98 || $yearly_contribution > 800),
-					'status' => $status,
-					'rank' => $rank,
-					'monthlyContribution' => $monthly_contribution,
-					'yearlyContribution' => $yearly_contribution,
-				));
-		}, $members);
+        return array_merge($member, array(
+                'star' => ($monthly_contribution > 98 || $yearly_contribution > 800),
+                'status' => $status,
+                'rank' => $rank,
+                'monthlyContribution' => $monthly_contribution,
+                'yearlyContribution' => $yearly_contribution,
+            ));
+    }, $members);
 }
 
 file_put_contents($destination_file, json_encode(get_all_backers(), JSON_UNESCAPED_SLASHES));
@@ -182,37 +182,37 @@ function get_open_collective(string $status): string
 			));
 
 		$content[$status] = implode('', array_map(static function(array $member) use ($status) {
-						$href = htmlspecialchars($member['website'] ?? $member['profile']);
-						$src = $member['image'] ?? (strtr($member['profile'], array('https://opencollective.com/' => 'https://images.opencollective.com/')) . '/avatar/256.png');
-						[$x, $y] = @getimagesize($src) ?: array(0, 0);
-						$valid_image = ($x && $y);
-						$src = $valid_image ? htmlspecialchars($src) : 'https://opencollective.com/static/images/default-guest-logo.svg';
-						$height = match ($status) {
-								'sponsor' => 64,
-								'backerPlus' => 42,
-								'backer' => 32,
-								default => 24,
-							};
-						$margin = match ($status) {
-								'sponsor' => 10,
-								'backerPlus' => 6,
-								'backer' => 5,
-								default => 3,
-							};
-						$width = $valid_image ? round($x * $height / $y) : $height;
+            $href = htmlspecialchars($member['website'] ?? $member['profile']);
+            $src = $member['image'] ?? (strtr($member['profile'], array('https://opencollective.com/' => 'https://images.opencollective.com/')) . '/avatar/256.png');
+            [$x, $y] = @getimagesize($src) ?: array(0, 0);
+            $valid_image = ($x && $y);
+            $src = $valid_image ? htmlspecialchars($src) : 'https://opencollective.com/static/images/default-guest-logo.svg';
+            $height = match ($status) {
+                    'sponsor' => 64,
+                    'backerPlus' => 42,
+                    'backer' => 32,
+                    default => 24,
+                };
+            $margin = match ($status) {
+                    'sponsor' => 10,
+                    'backerPlus' => 6,
+                    'backer' => 5,
+                    default => 3,
+                };
+            $width = $valid_image ? round($x * $height / $y) : $height;
 
-						if (!str_contains($href, 'utm_source') && !preg_match('/^https?:\/\/(?:www\.)?(?:onlinekasyno-polis\.pl|zonaminecraft\.net|slotozilla\.com)(\/.*)?$/', $href)) {
-							$href .= (!str_contains($href, '?') ? '?' : '&amp;') . 'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
-						}
+            if (!str_contains($href, 'utm_source') && !preg_match('/^https?:\/\/(?:www\.)?(?:onlinekasyno-polis\.pl|zonaminecraft\.net|slotozilla\.com)(\/.*)?$/', $href)) {
+                $href .= (!str_contains($href, '?') ? '?' : '&amp;') . 'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
+            }
 
-						$title = htmlspecialchars(($member['description'] ?? null) ?: $member['name']);
-						$alt = htmlspecialchars($member['name']);
+            $title = htmlspecialchars(($member['description'] ?? null) ?: $member['name']);
+            $alt = htmlspecialchars($member['name']);
 
-						return "\n" . '        <a style="position: relative; margin: ' . $margin . 'px; display: inline-block; border: ' . ($height / 8) . 'px solid ' . ($member['star'] ? '#7ac35f' : 'transparent') . ';' . ($status === 'sponsor' ? ' background: white;' : ' border-radius: 50%; overflow: hidden;') . '" title="' . $title . '" href="' . $href . '" target="_blank">' .
-						'<img alt="' . $alt . '" src="' . $src . '" width="' . min($width, 2 * $height) . '" height="' . $height . '">' .
-						($member['star'] ? '<span style="position: absolute; top: -15px; right: -15px; text-shadow: 0 0 3px black;">⭐</span>' : '') .
-						'</a>';
-					}, $list)) . "\n";
+            return "\n" . '        <a style="position: relative; margin: ' . $margin . 'px; display: inline-block; border: ' . ($height / 8) . 'px solid ' . ($member['star'] ? '#7ac35f' : 'transparent') . ';' . ($status === 'sponsor' ? ' background: white;' : ' border-radius: 50%; overflow: hidden;') . '" title="' . $title . '" href="' . $href . '" target="_blank">' .
+            '<img alt="' . $alt . '" src="' . $src . '" width="' . min($width, 2 * $height) . '" height="' . $height . '">' .
+            ($member['star'] ? '<span style="position: absolute; top: -15px; right: -15px; text-shadow: 0 0 3px black;">⭐</span>' : '') .
+            '</a>';
+        }, $list)) . "\n";
 	}
 
 	return $content[$status];

@@ -24,7 +24,7 @@
 				★
 			</span>
 			<a
-				:href="sponsor.website"
+				:href="getLink(sponsor)"
 				target="_blank"
 				rel="noopener"
 				class="flex justify-center items-center size-full"
@@ -57,25 +57,31 @@ const { status } = defineProps({
 const sortedData = ref();
 onMounted(() => {
 	sortedData.value = data
-		.filter((sponsor: any) => {
-			return sponsor.status === status;
-		})
+		.filter((sponsor: any) => sponsor.status === status)
 
 		// sort by star, rank, monthlyContribution then totalAmountDonated
-		.sort((a: any, b: any) => {
-			return (b.star - a.star) ||
-			(b.rank - a.rank) ||
-			(b.monthlyContribution - a.monthlyContribution) ||
-			(b.totalAmountDonated - a.totalAmountDonated);
-		});
+		.sort((a: any, b: any) => (b.star - a.star)
+        || (b.rank - a.rank)
+        || (b.monthlyContribution - a.monthlyContribution)
+        || (b.totalAmountDonated - a.totalAmountDonated));
 });
 
-const getImage = (sponsor: any) => {
-	if (sponsor.image) {
-		return sponsor.image;
-	}
+const getLink = (sponsor: any) => {
+  let href = sponsor.website || sponsor.profile;
 
-	return `${sponsor.profile.replace(
+  if ([
+    'onlinekasyno-polis.pl',
+    'zonaminecraft.net',
+    'slotozilla.com',
+  ].indexOf((new URL(href)).host.replace(/^www\./, '')) === -1) {
+    href += (href.indexOf('?') === -1 ? '?' : '&amp;') + 'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
+  }
+
+  return href;
+}
+
+const getImage = (sponsor: any) => {
+	return sponsor.image || `${sponsor.profile.replace(
 		'https://opencollective.com/',
 		'https://images.opencollective.com/'
 	)}/avatar/256.png`;

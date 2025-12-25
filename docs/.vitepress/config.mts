@@ -55,10 +55,6 @@ const vitePressOptions: UserConfig = {
 				icon: 'github',
 				link: 'https://github.com/CarbonPHP/carbon',
 			},
-			{
-				icon: 'twitter',
-				link: 'https://x.com/NesbittBrian',
-			},
 		],
 		outline: {
 			level: [2, 4],

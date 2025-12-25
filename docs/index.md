@@ -68,3 +68,9 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 Thank you to all our backers! 🙏 [Become a backer](https://opencollective.com/Carbon#backer)
 <Sponsors status="backerPlus"/>
 <Sponsors status="backer"/>
+
+### Authors
+
+Created by [Brian Nesbitt](https://x.com/NesbittBrian),
+maintained by [kylekatarnls](https://github.com/kylekatarnls),
+and improved by [hundreds of contributors](https://github.com/CarbonPHP/carbon/graphs/contributors) 👥👥

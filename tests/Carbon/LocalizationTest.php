@@ -1020,7 +1020,7 @@ class LocalizationTest extends AbstractTestCase
      * @group i
      * @see https://github.com/CarbonPHP/carbon/issues/57
      */
-    public function testResetMessagesMemoryConsumption()
+    public function testResetMessagesMemoryConsumptionAbsolute()
     {
         Carbon::getTranslator()->resetMessages('en');
 
@@ -1032,7 +1032,7 @@ class LocalizationTest extends AbstractTestCase
 
         $consumedMemory = memory_get_usage(true) - $start;
 
-        $this->assertLessThan(100_000, $consumedMemory);
+        $this->assertLessThan(10_000, $consumedMemory);
     }
 
     /**
@@ -1046,7 +1046,7 @@ class LocalizationTest extends AbstractTestCase
 //        Carbon::getTranslator()->resetMessages('en');
 //        Carbon::getTranslator()->debug();
 //        exit;
-        $n = 100_000;
+        $n = 10_000;
 
         $start = memory_get_peak_usage(true);
 

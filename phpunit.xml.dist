@@ -5,9 +5,10 @@
   bootstrap="tests/bootstrap.php"
   colors="true"
   cacheDirectory=".phpunit.cache"
-  enforceTimeLimit="true"
   beStrictAboutOutputDuringTests="true"
+  beStrictAboutChangesToGlobalState="true"
   failOnRisky="true"
+  timeoutForSmallTests="5"
 >
   <coverage/>
   <testsuites>

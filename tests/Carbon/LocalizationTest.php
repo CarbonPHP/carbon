@@ -1024,6 +1024,7 @@ class LocalizationTest extends AbstractTestCase
     {
         Carbon::getTranslator()->resetMessages('en');
 
+        $consumedMemory = memory_get_usage(true);
         $start = memory_get_usage(true);
 
         for ($i = 0; $i < 1000; $i++) {
@@ -1041,12 +1042,11 @@ class LocalizationTest extends AbstractTestCase
      */
     public function testResetMessagesMemoryConsumptionRelative()
     {
-//        Carbon::getTranslator()->resetMessages('en');
-//        Carbon::getTranslator()->debug();
-//        Carbon::getTranslator()->resetMessages('en');
-//        Carbon::getTranslator()->debug();
-//        exit;
-        $n = 10_000;
+        // Initialize all values so no new variable is created during test
+        $i = 0;
+        $consumedMemoryA = memory_get_peak_usage(true);
+        $consumedMemoryB = memory_get_peak_usage(true);
+        $n = 100_000;
 
         $start = memory_get_peak_usage(true);
 

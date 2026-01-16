@@ -1019,6 +1019,7 @@ class LocalizationTest extends AbstractTestCase
     /**
      * @group i
      * @see https://github.com/CarbonPHP/carbon/issues/57
+     * @large
      */
     public function testResetMessagesMemoryConsumptionAbsolute()
     {
@@ -1030,10 +1031,11 @@ class LocalizationTest extends AbstractTestCase
     /**
      * @group i
      * @see https://github.com/CarbonPHP/carbon/issues/57
+     * @large
      */
     public function testResetMessagesMemoryConsumptionRelative()
     {
-        $n = 100_000;
+        $n = 300_000;
 
         $consumedMemoryA = $this->measureResetMemory($n);
 

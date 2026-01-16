@@ -6,9 +6,8 @@
   colors="true"
   cacheDirectory=".phpunit.cache"
   enforceTimeLimit="true"
-  timeoutForLargeTests="10"
-  timeoutForMediumTests="5"
-  timeoutForSmallTests="1"
+  beStrictAboutOutputDuringTests="true"
+  failOnRisky="true"
 >
   <coverage/>
   <testsuites>

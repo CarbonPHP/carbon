@@ -1016,20 +1016,55 @@ class LocalizationTest extends AbstractTestCase
         );
     }
 
-    /** @see https://github.com/CarbonPHP/carbon/issues/57 */
+    /**
+     * @group i
+     * @see https://github.com/CarbonPHP/carbon/issues/57
+     */
     public function testResetMessagesMemoryConsumption()
     {
         Carbon::getTranslator()->resetMessages('en');
 
-        $start = memory_get_usage();
+        $start = memory_get_usage(true);
 
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 1000; $i++) {
             Carbon::getTranslator()->resetMessages('en');
         }
 
-        $consumedMemory = memory_get_usage() - $start;
+        $consumedMemory = memory_get_usage(true) - $start;
 
         $this->assertLessThan(100_000, $consumedMemory);
+    }
+
+    /**
+     * @group i
+     * @see https://github.com/CarbonPHP/carbon/issues/57
+     */
+    public function testResetMessagesMemoryConsumptionRelative()
+    {
+//        Carbon::getTranslator()->resetMessages('en');
+//        Carbon::getTranslator()->debug();
+//        Carbon::getTranslator()->resetMessages('en');
+//        Carbon::getTranslator()->debug();
+//        exit;
+        $n = 100_000;
+
+        $start = memory_get_peak_usage(true);
+
+        for ($i = 0; $i < $n; $i++) {
+            Carbon::getTranslator()->resetMessages('en');
+        }
+
+        $consumedMemoryA = memory_get_peak_usage(true) - $start;
+
+        $start = memory_get_peak_usage(true);
+
+        for ($i = 0; $i < $n * 2; $i++) {
+            Carbon::getTranslator()->resetMessages('en');
+        }
+
+        $consumedMemoryB = memory_get_peak_usage(true) - $start;
+
+        $this->assertGreaterThan(0.9, $consumedMemoryA / $consumedMemoryB);
     }
 
     #[TestWith(['мая', 'May'])]

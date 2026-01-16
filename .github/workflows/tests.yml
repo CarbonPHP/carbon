@@ -117,7 +117,7 @@ jobs:
 
       - name: Run test suite with coverage
         if: matrix.coverage
-        run: php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit --default-time-limit=3 ${{ matrix.os == 'ubuntu' && '--enforce-time-limit' || '' }} --coverage-clover=clover.xml --coverage-text
+        run: php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit --default-time-limit=3 ${{ matrix.os == 'ubuntu' && '--enforce-time-limit' || '' }} --group=i
         env:
           PHP_VERSION: ${{ matrix.php }}
 

@@ -1024,16 +1024,7 @@ class LocalizationTest extends AbstractTestCase
     {
         Carbon::getTranslator()->resetMessages('en');
 
-        $consumedMemory = memory_get_usage(true);
-        $start = memory_get_usage(true);
-
-        for ($i = 0; $i < 1000; $i++) {
-            Carbon::getTranslator()->resetMessages('en');
-        }
-
-        $consumedMemory = memory_get_usage(true) - $start;
-
-        $this->assertLessThan(10_000, $consumedMemory);
+        $this->assertLessThan(10_000, $this->measureResetMemory(1_000));
     }
 
     /**
@@ -1042,27 +1033,11 @@ class LocalizationTest extends AbstractTestCase
      */
     public function testResetMessagesMemoryConsumptionRelative()
     {
-        // Initialize all values so no new variable is created during test
-        $i = 0;
-        $consumedMemoryA = memory_get_peak_usage(true);
-        $consumedMemoryB = memory_get_peak_usage(true);
         $n = 100_000;
 
-        $start = memory_get_peak_usage(true);
+        $consumedMemoryA = $this->measureResetMemory($n);
 
-        for ($i = 0; $i < $n; $i++) {
-            Carbon::getTranslator()->resetMessages('en');
-        }
-
-        $consumedMemoryA = memory_get_peak_usage(true) - $start;
-
-        $start = memory_get_peak_usage(true);
-
-        for ($i = 0; $i < $n * 2; $i++) {
-            Carbon::getTranslator()->resetMessages('en');
-        }
-
-        $consumedMemoryB = memory_get_peak_usage(true) - $start;
+        $consumedMemoryB = $this->measureResetMemory($n * 2);
 
         $this->assertGreaterThan(0.9, $consumedMemoryA / $consumedMemoryB);
     }
@@ -1074,5 +1049,16 @@ class LocalizationTest extends AbstractTestCase
     public function testTranslateMonthsEitherStandaloneOrNot(string $ru, string $en)
     {
         $this->assertSame($en, Carbon::translateTimeString($ru, 'ru', 'en'));
+    }
+
+    private function measureResetMemory(int $loops): int
+    {
+        $start = memory_get_usage(true);
+
+        for ($i = 0; $i < $loops; $i++) {
+            Carbon::getTranslator()->resetMessages('en');
+        }
+
+        return memory_get_usage(true) - $start;
     }
 }

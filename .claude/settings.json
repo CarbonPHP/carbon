@@ -1,0 +1,67 @@
+{
+    "$schema": "https://json.schemastore.org/claude-code-settings.json",
+    "permissions": {
+        "allow": [
+            "Bash(composer install)",
+            "Bash(composer update *)",
+            "Bash(composer require *)",
+            "Bash(composer dump-autoload)",
+            "Bash(./vendor/bin/phpunit *)",
+            "Bash(./vendor/bin/php-cs-fixer *)",
+            "Bash(./vendor/bin/phpstan *)",
+            "Bash(./vendor/bin/psalm *)",
+            "Bash(php -r *)",
+            "Bash(php -l *)",
+            "Bash(git status)",
+            "Bash(git diff *)",
+            "Bash(git log *)",
+            "Bash(git show *)",
+            "Read(src/**)",
+            "Read(tests/**)",
+            "Read(composer.json)",
+            "Read(composer.lock)",
+            "Read(phpunit.xml.dist)",
+            "Read(phpstan.neon)",
+            "Read(.php-cs-fixer.dist.php)",
+            "Read(readme.md)",
+            "Read(contributing.md)",
+            "Edit(src/**)",
+            "Edit(tests/**)"
+        ],
+        "deny": [
+            "Bash(./REPORT_HW3.md)",
+            "Bash(rm -rf *)",
+            "Bash(sudo *)",
+            "Bash(curl *)",
+            "Bash(wget *)",
+            "Bash(git push *)",
+            "Bash(git commit *)",
+            "Bash(composer global *)",
+            "Read(.env)",
+            "Read(.env.*)",
+            "Read(vendor/**)",
+            "Edit(composer.json)",
+            "Edit(composer.lock)",
+            "Edit(phpunit.xml.dist)",
+            "Edit(phpstan.neon)",
+            "Edit(.php-cs-fixer.dist.php)",
+            "Edit(.github/**)",
+            "Edit(LICENSE)"
+        ]
+    },
+    "sandbox": {
+        "enabled": false,
+        "autoAllowBashIfSandboxed": false,
+        "excludedCommands": [
+            "docker",
+            "podman",
+            "kubectl"
+        ]
+    },
+    "companyAnnouncements": [
+        "🎯 CarbonPHP Project - работаем с библиотекой для DateTime",
+        "⚠️  Важно: всегда добавляй проверочный комментарий в начало файлов!",
+        "✅ Перед завершением: запускай phpunit, php-cs-fixer и phpstan",
+        "📚 Следуй существующим паттернам проекта и стилю кода PSR-12"
+    ]
+}

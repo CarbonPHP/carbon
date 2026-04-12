@@ -48,11 +48,12 @@ trait Test
      *
      * /!\ Use this method for unit tests only.
      *
-     * @param DateTimeInterface|Closure|static|string|false|null $testNow real or mock Carbon instance
+     * @param DateTimeInterface|Closure|static|string|false|null $testNow      real or mock Carbon instance
+     * @param bool                                               $keepOriginal Carbon instance is not copied if true
      */
-    public static function setTestNow(mixed $testNow = null): void
+    public static function setTestNow(mixed $testNow = null, bool $keepOriginal = false): void
     {
-        FactoryImmutable::getDefaultInstance()->setTestNow($testNow);
+        FactoryImmutable::getDefaultInstance()->setTestNow($testNow, $keepOriginal);
     }
 
     /**
@@ -72,11 +73,12 @@ trait Test
      *
      * /!\ Use this method for unit tests only.
      *
-     * @param DateTimeInterface|Closure|static|string|false|null $testNow real or mock Carbon instance
+     * @param DateTimeInterface|Closure|static|string|false|null $testNow      real or mock Carbon instance
+     * @param bool                                               $keepOriginal Carbon instance is not copied if true
      */
-    public static function setTestNowAndTimezone($testNow = null, $timezone = null): void
+    public static function setTestNowAndTimezone($testNow = null, $timezone = null, bool $keepOriginal = false): void
     {
-        FactoryImmutable::getDefaultInstance()->setTestNowAndTimezone($testNow, $timezone);
+        FactoryImmutable::getDefaultInstance()->setTestNowAndTimezone($testNow, $timezone, $keepOriginal);
     }
 
     /**

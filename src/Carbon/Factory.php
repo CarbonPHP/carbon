@@ -571,10 +571,15 @@ class Factory
      *
      * /!\ Use this method for unit tests only.
      *
-     * @param DateTimeInterface|Closure|static|string|false|null $testNow real or mock Carbon instance
+     * @param DateTimeInterface|Closure|static|string|false|null $testNow      real or mock Carbon instance
+     * @param bool                                               $keepOriginal Carbon instance is not copied if true
      */
-    public function setTestNow(mixed $testNow = null): void
+    public function setTestNow(mixed $testNow = null, bool $keepOriginal = false): void
     {
+        if ($keepOriginal) {
+            $testNow = static fn () => $testNow;
+        }
+
         $this->useTimezoneFromTestNow = false;
         $this->testNow = $testNow instanceof Closure
             ? $testNow
@@ -598,10 +603,14 @@ class Factory
      *
      * /!\ Use this method for unit tests only.
      *
-     * @param DateTimeInterface|Closure|static|string|false|null $testNow real or mock Carbon instance
+     * @param DateTimeInterface|Closure|static|string|false|null $testNow      real or mock Carbon instance
+     * @param bool                                               $keepOriginal Carbon instance is not copied if true
      */
-    public function setTestNowAndTimezone(mixed $testNow = null, $timezone = null): void
-    {
+    public function setTestNowAndTimezone(
+        mixed $testNow = null,
+        $timezone = null,
+        bool $keepOriginal = false,
+    ): void {
         if ($testNow) {
             $this->testDefaultTimezone ??= date_default_timezone_get();
         }
@@ -612,7 +621,7 @@ class Factory
             $this->setDefaultTimezone($testNow->getTimezone()->getName(), $testNow);
         }
 
-        $this->setTestNow($testNow);
+        $this->setTestNow($testNow, $keepOriginal);
         $this->useTimezoneFromTestNow = ($timezone === null && $testNow instanceof Closure);
 
         if (!$useDateInstanceTimezone) {

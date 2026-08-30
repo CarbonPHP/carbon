@@ -23,13 +23,13 @@ echo Carbon::fromSerialized(
 ```
 
 ::: warning
-⚠️ Warning! It's not safe to `unserialize()` a string coming from an untrusted source, the `Carbon` objects (`Carbon`,
+⚠️ It's not safe to `unserialize()` a string coming from an untrusted source, the `Carbon` objects (`Carbon`,
 `CarbonInterval`, `CarbonPeriod`, etc.) can be customized via their local settings in many ways (custom formats,
 custom filters on the periods), hence when building those objects from a serialized string, it can have any values
 (unvalidated) and even behavioral customizations.
 :::
 
-::: tip Info
+::: info Tips
 ℹ️ When exchanging data with a foreign system, always prefer agnostic format such as JSON that will not trigger
 any unexpected side effect when you unserialize it, then proceed to relevant validation before building PHP objects
 from this data.

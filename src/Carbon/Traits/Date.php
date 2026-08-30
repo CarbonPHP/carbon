@@ -1382,7 +1382,7 @@ trait Date
      */
     public function __set($name, $value)
     {
-        if ($this->constructedObjectId === spl_object_hash($this)) {
+        if ($this->constructedObjectId === spl_object_id($this)) {
             if ($this->isImmutable()) {
                 throw ImmutableException::fromClass(static::class);
             }

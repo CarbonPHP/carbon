@@ -166,7 +166,8 @@ function write_markdown()
         foreach ($release_group as $release) {
             $tag = $release['tag_name'];
             $date = Carbon::parse($release['created_at'])->format('j F Y');
-            $markdown .= "#### $tag ($date)\n{$release['body']}\n\n";
+            $body = trim(str_replace("## What's Changed", '', $release['body']));
+            $markdown .= "#### $tag ($date)\n$body\n\n";
             $progress_bar->advance();
         }
     }

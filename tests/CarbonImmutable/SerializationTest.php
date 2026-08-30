@@ -197,7 +197,7 @@ class SerializationTest extends AbstractTestCase
         @$date->timezone = $tz;
         @$date->dumpLocale = 'es';
 
-        @$date->constructedObjectId = spl_object_hash($this);
+        @$date->constructedObjectId = spl_object_id($this);
         $date->__construct('1990-01-17 10:28:07', $tz);
         $date->locale('es');
 

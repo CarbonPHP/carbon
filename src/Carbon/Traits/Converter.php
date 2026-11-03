@@ -446,11 +446,14 @@ trait Converter
             return null;
         }
 
-        $yearFormat = $this->year < 0 || $this->year > 9999 ? 'YYYYYY' : 'YYYY';
-        $timezoneFormat = $keepOffset ? 'Z' : '[Z]';
         $date = $keepOffset ? $this : $this->avoidMutation()->utc();
 
-        return $date->isoFormat("$yearFormat-MM-DD[T]HH:mm:ss.SSSSSS$timezoneFormat");
+        if ($this->year < 0 || $this->year > 9999) {
+            return $date->isoFormat('YYYYYY-MM-DD[T]HH:mm:ss.SSSSSS'.($keepOffset ? 'Z' : '[Z]'));
+        }
+
+        // Same output as isoFormat('YYYY-MM-DD[T]HH:mm:ss.SSSSSSZ'), without parsing the format on every call.
+        return $date->rawFormat($keepOffset ? 'Y-m-d\\TH:i:s.uP' : 'Y-m-d\\TH:i:s.u\\Z');
     }
 
     /**

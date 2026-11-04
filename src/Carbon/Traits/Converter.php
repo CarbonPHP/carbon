@@ -454,7 +454,8 @@ trait Converter
             return $date->isoFormat("YYYYYY-MM-DD[T]HH:mm:ss.SSSSSS$timezoneFormat");
         }
 
-        // Same output as isoFormat('YYYY-MM-DD[T]HH:mm:ss.SSSSSSZ'), without parsing the format on every call.
+        // For a 4-digit year, rawFormat() prints the same string as isoFormat("YYYY-MM-DD[T]HH:mm:ss.SSSSSS$timezoneFormat").
+        // It is faster because it does not parse the format on every call.
         return $date->rawFormat($keepOffset ? 'Y-m-d\TH:i:s.uP' : 'Y-m-d\TH:i:s.u\Z');
     }
 

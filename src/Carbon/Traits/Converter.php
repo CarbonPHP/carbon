@@ -454,7 +454,7 @@ trait Converter
         }
 
         // Same output as isoFormat('YYYY-MM-DD[T]HH:mm:ss.SSSSSSZ'), without parsing the format on every call.
-        return $date->rawFormat($keepOffset ? 'Y-m-d\\TH:i:s.uP' : 'Y-m-d\\TH:i:s.u\\Z');
+        return $date->rawFormat($keepOffset ? 'Y-m-d\TH:i:s.uP' : 'Y-m-d\TH:i:s.u\Z');
     }
 
     /**

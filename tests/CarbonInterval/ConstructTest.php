@@ -347,6 +347,16 @@ class ConstructTest extends AbstractTestCase
         $this->assertSame($expectedDiff, $ci->toDateInterval()->days);
     }
 
+    public function testInstanceWithDaysSharesTheTranslator()
+    {
+        Carbon::setLocale('uk');
+        $diff = Carbon::now()->diff(Carbon::now()->addWeeks(3));
+        $ci = CarbonInterval::instance($diff);
+
+        $this->assertSame($diff->getLocalTranslator(), $ci->getLocalTranslator());
+        $this->assertSame('3 тижні', $ci->forHumans());
+    }
+
     public function testInstanceWithoutDays()
     {
         $ci = CarbonInterval::fromString('1 day 3 hours');

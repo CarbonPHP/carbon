@@ -3386,10 +3386,18 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
     ): object {
         $serialization = self::buildSerializationString($interval, $className, $skip);
 
-        return match ($serialization) {
-            null => new $className(static::getDateIntervalSpec($interval, false, $skip)),
-            default => unserialize($serialization),
-        };
+        if ($serialization === null) {
+            return new $className(static::getDateIntervalSpec($interval, false, $skip));
+        }
+
+        $instance = unserialize($serialization);
+
+        // The translator is left out of the serialization (unserializing it would load its locale files again), so share it.
+        if ($interval instanceof self && $instance instanceof self) {
+            $instance->localTranslator = $interval->localTranslator;
+        }
+
+        return $instance;
     }
 
     /**
@@ -3434,6 +3442,9 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface, U
             unset($interval->localGenericMacros);
             unset($interval->localFormatFunction);
             unset($interval->localTranslator);
+        } elseif ($interval instanceof self && $interval->localTranslator !== null) {
+            $interval = clone $interval;
+            $interval->localTranslator = null;
         }
 
         $serialization = serialize($interval);

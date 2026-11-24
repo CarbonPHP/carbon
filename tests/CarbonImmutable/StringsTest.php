@@ -34,6 +34,42 @@ class StringsTest extends AbstractTestCase
         $this->assertSame(Carbon::now()->toDateTimeString(), ''.$d);
     }
 
+    public function testToISOStringWithCustomIsoFormatting()
+    {
+        $units = new class('1975-12-25 14:15:16') extends Carbon {
+            public static function getIsoUnits(): array
+            {
+                return ['DD' => static fn (CarbonInterface $date) => 'D'.$date->day] + parent::getIsoUnits();
+            }
+        };
+        $this->assertSame('1975-12-D25T19:15:16.000000Z', $units->toISOString());
+        $this->assertSame('1975-12-D25T14:15:16.000000-05:00', $units->toISOString(true));
+
+        $format = new class('1975-12-25 14:15:16') extends Carbon {
+            public function isoFormat(string $format, ?string $originalFormat = null): string
+            {
+                return '<'.parent::isoFormat($format, $originalFormat).'>';
+            }
+        };
+        $this->assertSame('<1975-12-25T19:15:16.000000Z>', $format->toISOString());
+
+        $padding = new class('1975-12-25 14:15:16.123456') extends Carbon {
+            public function getPaddedUnit($unit, $length = 2, $padString = '0', $padType = STR_PAD_LEFT): string
+            {
+                return '#'.parent::getPaddedUnit($unit, $length, $padString, $padType);
+            }
+        };
+        $this->assertSame('#1975-12-25T19:15:#16.#123456Z', $padding->toISOString());
+
+        $offset = new class('1975-12-25 14:15:16') extends Carbon {
+            public function getOffsetString(string $separator = ':'): string
+            {
+                return 'Z';
+            }
+        };
+        $this->assertSame('1975-12-25T14:15:16.000000Z', $offset->toISOString(true));
+    }
+
     public function testSetToStringFormatString()
     {
         Carbon::setToStringFormat('jS \o\f F, Y g:i:s a');

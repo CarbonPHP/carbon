@@ -24,6 +24,8 @@ use Closure;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
+use ReflectionClass;
+use ReflectionMethod;
 use Time\Duration;
 
 /**
@@ -446,11 +448,45 @@ trait Converter
             return null;
         }
 
-        $yearFormat = $this->year < 0 || $this->year > 9999 ? 'YYYYYY' : 'YYYY';
+        $year = $this->year;
         $timezoneFormat = $keepOffset ? 'Z' : '[Z]';
         $date = $keepOffset ? $this : $this->avoidMutation()->utc();
 
-        return $date->isoFormat("$yearFormat-MM-DD[T]HH:mm:ss.SSSSSS$timezoneFormat");
+        if ($year < 0 || $year > 9999) {
+            return $date->isoFormat("YYYYYY-MM-DD[T]HH:mm:ss.SSSSSS$timezoneFormat");
+        }
+
+        if (self::overridesIsoFormatting()) {
+            return $date->isoFormat("YYYY-MM-DD[T]HH:mm:ss.SSSSSS$timezoneFormat");
+        }
+
+        // For a 4-digit year, rawFormat() prints the same string as isoFormat("YYYY-MM-DD[T]HH:mm:ss.SSSSSS$timezoneFormat").
+        // It is faster because it does not parse the format on every call.
+        return $date->rawFormat($keepOffset ? 'Y-m-d\TH:i:s.uP' : 'Y-m-d\TH:i:s.u\Z');
+    }
+
+    /**
+     * Tells whether this class overrides isoFormat() or one of the methods it uses to build an ISO string.
+     * Such a class gets its ISO string from isoFormat(), so its own formatting still applies.
+     * The answer is cached per class, because reflection is too slow to run on every call.
+     */
+    private static function overridesIsoFormatting(): bool
+    {
+        static $overrides = [];
+
+        if (isset($overrides[static::class])) {
+            return $overrides[static::class];
+        }
+
+        $dateTraitFile = (new ReflectionClass(Date::class))->getFileName();
+
+        foreach (['isoFormat', 'getIsoUnits', 'getPaddedUnit', 'getOffsetString'] as $method) {
+            if ((new ReflectionMethod(static::class, $method))->getFileName() !== $dateTraitFile) {
+                return $overrides[static::class] = true;
+            }
+        }
+
+        return $overrides[static::class] = false;
     }
 
     /**
